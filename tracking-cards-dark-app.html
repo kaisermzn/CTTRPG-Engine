@@ -570,6 +570,10 @@ button, input, textarea, select { font: inherit; }
   gap: 6px;
 }
 
+.create-menu-section[hidden] {
+  display: none !important;
+}
+
 .create-menu-section + .create-menu-section {
   padding-top: 8px;
   border-top: 1px solid var(--line-soft);
@@ -590,8 +594,10 @@ button, input, textarea, select { font: inherit; }
 
 .tools-menu-panel {
   display: grid;
+  grid-template-rows: minmax(0, 1fr);
   gap: 12px;
   width: 420px;
+  height: calc(100vh - 28px);
   max-height: calc(100vh - 28px);
   padding: 74px 14px 14px;
   border-radius: 20px;
@@ -622,12 +628,15 @@ button, input, textarea, select { font: inherit; }
 
 .dice-tray {
   display: grid;
+  grid-template-rows: auto auto auto auto minmax(0, auto) minmax(0, 1fr) auto;
   gap: 12px;
   min-height: 0;
+  height: 100%;
 }
 
 .dice-modifier-list {
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 8px;
   min-height: 0;
 }
@@ -714,6 +723,19 @@ button, input, textarea, select { font: inherit; }
   color: #9fe0b6;
 }
 
+:root[data-theme="print"] .dice-total.is-consequence,
+:root[data-theme="print"] .dice-total.is-mixed,
+:root[data-theme="print"] .dice-total.is-success {
+  border-color: rgba(96, 96, 96, 0.42);
+  background: linear-gradient(180deg, rgba(118, 118, 118, 0.96), rgba(78, 78, 78, 0.98));
+}
+
+:root[data-theme="print"] .dice-total.is-consequence .dice-total-note,
+:root[data-theme="print"] .dice-total.is-mixed .dice-total-note,
+:root[data-theme="print"] .dice-total.is-success .dice-total-note {
+  color: rgba(245, 245, 245, 0.92);
+}
+
 .dice-roll-button {
   width: 100%;
   min-height: 48px;
@@ -728,6 +750,12 @@ button, input, textarea, select { font: inherit; }
 .dice-roll-button:hover {
   border-color: rgba(97, 194, 185, 0.42);
   color: #eef7f6;
+}
+
+:root[data-theme="print"] .dice-roll-button:hover,
+:root[data-theme="print"] .dice-secondary-button:hover {
+  border-color: rgba(96, 96, 96, 0.42);
+  color: #2c2c2c;
 }
 
 .dice-secondary-button {
@@ -778,6 +806,12 @@ button, input, textarea, select { font: inherit; }
   color: #9fe0b6;
 }
 
+:root[data-theme="print"] .dice-power-input.is-negative,
+:root[data-theme="print"] .dice-power-input.is-positive {
+  border-color: rgba(106, 106, 106, 0.42);
+  color: #3d3d3d;
+}
+
 .dice-modifier-list-label {
   display: block;
   margin-bottom: 2px;
@@ -789,9 +823,11 @@ button, input, textarea, select { font: inherit; }
 
 .dice-modifier-items {
   display: grid;
+  align-content: start;
+  grid-auto-rows: max-content;
   gap: 6px;
-  max-height: min(38vh, 320px);
   min-height: 0;
+  max-height: none;
   overflow-y: auto;
   padding-right: 4px;
 }
@@ -842,6 +878,11 @@ button, input, textarea, select { font: inherit; }
   border-color: rgba(68, 166, 112, 0.22);
 }
 
+:root[data-theme="print"] .dice-modifier-item.is-negative,
+:root[data-theme="print"] .dice-modifier-item.is-positive {
+  border-color: rgba(112, 112, 112, 0.22);
+}
+
 .dice-modifier-name {
   min-width: 0;
   font-size: 0.86rem;
@@ -855,6 +896,10 @@ button, input, textarea, select { font: inherit; }
   margin: 0;
   accent-color: #3ab7ae;
   cursor: pointer;
+}
+
+:root[data-theme="print"] .dice-modifier-toggle {
+  accent-color: #6a6a6a;
 }
 
 .dice-modifier-sign {
@@ -903,6 +948,11 @@ button, input, textarea, select { font: inherit; }
   background: rgba(190, 72, 72, 0.24);
 }
 
+:root[data-theme="print"] .dice-modifier-sign::before,
+:root[data-theme="print"] .dice-modifier-sign.is-negative::before {
+  background: rgba(118, 118, 118, 0.28);
+}
+
 .dice-modifier-sign.is-negative .dice-sign-negative,
 .dice-modifier-sign:not(.is-negative) .dice-sign-positive {
   color: var(--dice-sign-text-active);
@@ -931,6 +981,11 @@ button, input, textarea, select { font: inherit; }
 
 .dice-modifier-item.is-positive .dice-modifier-value {
   color: #9fe0b6;
+}
+
+:root[data-theme="print"] .dice-modifier-item.is-negative .dice-modifier-value,
+:root[data-theme="print"] .dice-modifier-item.is-positive .dice-modifier-value {
+  color: #e8e8e8;
 }
 
 .dice-modifier-item.is-disabled .dice-modifier-value {
@@ -1088,7 +1143,7 @@ button, input, textarea, select { font: inherit; }
 }
 
 .floating-tools-row.tools-open .board-controls-stack {
-  transform: translateX(-296px);
+  transform: translateX(-332px);
 }
 
 .eyebrow,
@@ -2685,7 +2740,7 @@ button.downcrawl-remoteness-option {
             <button class="create-menu-button" id="addPositiveTagButton" type="button">Etiqueta positiva</button>
             <button class="create-menu-button" id="addNegativeTagButton" type="button">Etiqueta negativa</button>
           </div>
-          <div class="create-menu-section">
+          <div class="create-menu-section" id="downcrawlCreateSection">
             <span class="create-menu-section-title">Downcrawl</span>
             <button class="create-menu-button" id="addFolkDeckButton" type="button">Baraja de Folk</button>
             <button class="create-menu-button" id="addVolumeDeckButton" type="button">Baraja de Volumenes</button>
@@ -3122,7 +3177,9 @@ function normalizeTheme(theme) {
 
 function sanitizeModules(modules) {
   return {
-    downcrawlEnabled: modules?.downcrawlEnabled !== false
+    downcrawlEnabled: typeof modules?.downcrawlEnabled === 'boolean'
+      ? modules.downcrawlEnabled
+      : true
   };
 }
 
@@ -3356,6 +3413,7 @@ const sidebar = document.getElementById('sidebar');
 const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 const createMenuButton = document.getElementById('createMenuButton');
 const createMenu = document.getElementById('createMenu');
+const downcrawlCreateSection = document.getElementById('downcrawlCreateSection');
 const floatingToolsRow = document.querySelector('.floating-tools-row');
 const addHeroButton = document.getElementById('addHeroButton');
 const addThemeButton = document.getElementById('addThemeButton');
@@ -5525,9 +5583,10 @@ function renderSidebar() {
 
 function renderCreateMenu() {
   state.modules = sanitizeModules(state.modules);
+  const downcrawlEnabled = state.modules.downcrawlEnabled && downcrawlModuleToggle.checked;
   createMenu.hidden = !state.createMenuOpen;
   createMenuButton.setAttribute('aria-expanded', String(state.createMenuOpen));
-  addFolkButton.closest('.create-menu-section').hidden = !state.modules.downcrawlEnabled;
+  downcrawlCreateSection.hidden = !downcrawlEnabled;
 }
 
 function renderToolsMenu() {
@@ -5778,7 +5837,7 @@ clearDiceModifiersButton.addEventListener('click', () => {
 
 createMenuButton.addEventListener('click', () => {
   state.createMenuOpen = !state.createMenuOpen;
-  renderCreateMenu();
+  render();
 });
 
 function finishNodeCreation(node) {
@@ -6044,7 +6103,6 @@ board.addEventListener('contextmenu', (event) => {
 });
 
 board.addEventListener('mousedown', (event) => {
-  if (state.toolsMenuOpen) return;
   if (event.button !== 2) return;
   event.preventDefault();
   panState = {
@@ -6057,14 +6115,12 @@ board.addEventListener('mousedown', (event) => {
 });
 
 boardInner.addEventListener('mousedown', (event) => {
-  if (state.toolsMenuOpen) return;
   if (event.button !== 0) return;
   if (event.target !== boardInner) return;
   beginSelectionBox(event.clientX, event.clientY, event.ctrlKey || event.metaKey || event.shiftKey);
 });
 
 boardInner.addEventListener('click', (event) => {
-  if (state.toolsMenuOpen) return;
   if (event.target !== boardInner) return;
   if (suppressBoardClick) {
     suppressBoardClick = false;
