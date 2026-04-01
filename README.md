@@ -1,8 +1,8 @@
-# Legend in the Mist App
+#  CTTRPG-Engine
 
-Static web prototype for a visual tabletop inspired by *Legend in the Mist*, with support for character sheets, theme cards, status cards, narrative tags, and experimental *Downcrawl* content on a freeform canvas.
+Card TableTop RPG Engine - Static web prototype for a visual tabletop inspired by *Legend in the Mist*, with support for character sheets, theme cards, status cards, narrative tags, and experimental *Downcrawl* content on a freeform canvas.
 
-Prototipo web estatico de una mesa visual inspirada en *Legend in the Mist*, con soporte para hojas de personaje, tarjetas de tema, tarjetas de estado, etiquetas narrativas y contenido experimental de *Downcrawl* sobre un lienzo libre.
+Card TableTop RPG Engine - Prototipo web estatico de una mesa visual inspirada en *Legend in the Mist*, con soporte para hojas de personaje, tarjetas de tema, tarjetas de estado, etiquetas narrativas y contenido experimental de *Downcrawl* sobre un lienzo libre.
 
 ## English
 
