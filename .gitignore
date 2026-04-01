@@ -1,0 +1,12 @@
+# Ignore everything by default
+*
+
+# Keep the gitignore itself versioned
+!.gitignore
+
+# Keep the main app HTML
+!tracking-cards-dark-app.html
+
+# Keep a future plain-text readme if added
+!readme.md
+!README.md
