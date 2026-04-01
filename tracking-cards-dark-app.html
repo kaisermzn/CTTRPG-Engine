@@ -247,6 +247,127 @@
   --shadow: 0 20px 50px rgba(93, 68, 40, 0.16);
 }
 
+:root[data-theme="print"] {
+  color-scheme: light;
+  --bg: #d7d7d7;
+  --bg-gradient-top: rgba(255, 255, 255, 0.08);
+  --bg-gradient-start: #f3f3f3;
+  --bg-gradient-end: #dcdcdc;
+  --panel: rgba(250, 250, 250, 0.96);
+  --panel-soft: rgba(240, 240, 240, 0.96);
+  --line: rgba(72, 72, 72, 0.24);
+  --line-soft: rgba(72, 72, 72, 0.16);
+  --text: #1c1c1c;
+  --muted: #5f5f5f;
+  --accent: #444444;
+  --accent-soft: rgba(68, 68, 68, 0.12);
+  --menu-surface: rgba(247, 247, 247, 0.94);
+  --selection-toolbar: rgba(235, 235, 235, 0.96);
+  --selection-toolbar-border: rgba(68, 68, 68, 0.18);
+  --danger-surface: rgba(231, 231, 231, 0.98);
+  --danger-border: rgba(110, 110, 110, 0.36);
+  --danger-text: #2c2c2c;
+  --danger-muted: rgba(44, 44, 44, 0.72);
+  --create-button-bg: rgba(82, 82, 82, 0.96);
+  --create-button-border: rgba(54, 54, 54, 0.28);
+  --panel-button-bg: rgba(243, 243, 243, 0.96);
+  --board-dot: rgba(118, 118, 118, 0.16);
+  --board-sheen-start: rgba(255, 255, 255, 0.16);
+  --board-sheen-end: rgba(255, 255, 255, 0.04);
+  --card-surface: linear-gradient(180deg, rgba(251, 251, 251, 0.99), rgba(228, 228, 228, 0.99));
+  --card-shell-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(236, 236, 236, 0.99));
+  --dice-surface: linear-gradient(180deg, rgba(247, 247, 247, 0.99), rgba(225, 225, 225, 0.99));
+  --dice-face-text: #353535;
+  --dice-total-text: #fbfbfb;
+  --dice-total-note-text: rgba(251, 251, 251, 0.92);
+  --dice-secondary-surface: rgba(236, 236, 236, 0.99);
+  --dice-secondary-text: #383838;
+  --dice-power-surface: rgba(240, 240, 240, 0.99);
+  --dice-power-text: #3d3d3d;
+  --dice-modifier-surface: rgba(66, 66, 66, 0.96);
+  --dice-modifier-border: rgba(103, 103, 103, 0.26);
+  --dice-modifier-text: #f5f5f5;
+  --dice-modifier-muted: #c2c2c2;
+  --dice-sign-surface: rgba(30, 30, 30, 0.94);
+  --dice-sign-border: rgba(86, 86, 86, 0.34);
+  --dice-sign-text-active: #f5f5f5;
+  --dice-sign-text-idle: #a6a6a6;
+  --dice-remove-surface: rgba(76, 76, 76, 0.94);
+  --dice-remove-border: rgba(122, 122, 122, 0.34);
+  --dice-remove-text: #f4f4f4;
+  --dice-scroll-track: rgba(216, 216, 216, 0.92);
+  --dice-scroll-thumb: rgba(131, 131, 131, 0.46);
+  --dice-scroll-thumb-hover: rgba(96, 96, 96, 0.58);
+  --hero-sheet-surface: linear-gradient(180deg, rgba(222, 222, 222, 0.7), rgba(206, 206, 206, 0.56));
+  --hero-sheet-border: rgba(107, 107, 107, 0.42);
+  --hero-inner-border: rgba(121, 121, 121, 0.38);
+  --hero-panel-surface: linear-gradient(180deg, rgba(252, 252, 252, 0.99), rgba(235, 235, 235, 0.99));
+  --hero-title-text: #383838;
+  --hero-small-label: rgba(72, 72, 72, 0.82);
+  --hero-field-bg: rgba(225, 225, 225, 0.98);
+  --hero-field-text: #202020;
+  --hero-label-bg: rgba(232, 232, 232, 0.98);
+  --hero-label-text: #454545;
+  --theme-surface: linear-gradient(180deg, rgba(252, 252, 252, 0.99), rgba(232, 232, 232, 0.99));
+  --theme-text: #202020;
+  --theme-note-bg: rgba(239, 239, 239, 0.99);
+  --theme-note-border: rgba(84, 84, 84, 0.3);
+  --check-empty-bg: rgba(255, 255, 255, 0.99);
+  --check-empty-border: rgba(158, 158, 158, 0.64);
+  --check-fill-bg: rgba(146, 146, 146, 0.98);
+  --check-fill-border: rgba(92, 92, 92, 0.9);
+  --check-fill-text: #fdfdfd;
+  --gold-tag-bg: rgba(224, 224, 224, 0.98);
+  --gold-tag-border: rgba(126, 126, 126, 0.72);
+  --gold-tag-text: #232323;
+  --weakness-bg: rgba(228, 228, 228, 0.98);
+  --weakness-border: rgba(108, 108, 108, 0.68);
+  --weakness-text: #2f2f2f;
+  --positive-tag-surface: linear-gradient(180deg, rgba(250, 250, 250, 0.99), rgba(233, 233, 233, 0.99));
+  --positive-tag-border: rgba(118, 118, 118, 0.68);
+  --positive-tag-text: #2c2c2c;
+  --negative-tag-surface: linear-gradient(180deg, rgba(236, 236, 236, 0.99), rgba(214, 214, 214, 0.99));
+  --negative-tag-border: rgba(124, 124, 124, 0.72);
+  --negative-tag-text: #2f2f2f;
+  --downcrawl-card-surface: linear-gradient(180deg, #8a8a8a, #656565);
+  --downcrawl-card-border: rgba(34, 34, 34, 0.14);
+  --downcrawl-card-text: #f7f7f7;
+  --downcrawl-card-muted: rgba(255, 255, 255, 0.88);
+  --downcrawl-card-fine: rgba(255, 255, 255, 0.7);
+  --downcrawl-card-field: rgba(255, 255, 255, 0.99);
+  --downcrawl-card-field-border: rgba(48, 48, 48, 0.16);
+  --downcrawl-card-field-text: #242424;
+  --downcrawl-card-line: rgba(255, 255, 255, 0.28);
+  --downcrawl-card-checkbox: rgba(255, 255, 255, 0.99);
+  --downcrawl-card-checkbox-border: rgba(40, 40, 40, 0.32);
+  --downcrawl-card-checkbox-filled: #2b2b2b;
+  --downcrawl-folk-surface: linear-gradient(180deg, rgba(242, 242, 242, 0.99), rgba(221, 221, 221, 0.99));
+  --downcrawl-folk-border: rgba(104, 104, 104, 0.44);
+  --downcrawl-folk-text: #232323;
+  --downcrawl-folk-muted: rgba(78, 78, 78, 0.72);
+  --downcrawl-folk-tag-bg: rgba(185, 185, 185, 0.26);
+  --downcrawl-folk-panel: rgba(232, 232, 232, 0.96);
+  --downcrawl-folk-panel-active: rgba(221, 221, 221, 0.98);
+  --downcrawl-folk-panel-active-border: rgba(102, 102, 102, 0.22);
+  --downcrawl-folk-accent: #494949;
+  --downcrawl-volume-surface: linear-gradient(180deg, rgba(246, 246, 246, 0.99), rgba(226, 226, 226, 0.99));
+  --downcrawl-volume-border: rgba(98, 98, 98, 0.44);
+  --downcrawl-volume-text: #262626;
+  --downcrawl-volume-muted: rgba(88, 88, 88, 0.72);
+  --downcrawl-volume-tag-bg: rgba(196, 196, 196, 0.24);
+  --downcrawl-volume-panel: rgba(235, 235, 235, 0.96);
+  --downcrawl-volume-panel-active: rgba(224, 224, 224, 0.98);
+  --downcrawl-volume-panel-active-border: rgba(102, 102, 102, 0.2);
+  --downcrawl-volume-accent: #474747;
+  --downcrawl-discard-border: rgba(106, 106, 106, 0.46);
+  --downcrawl-discard-text: #2f2f2f;
+  --downcrawl-discard-accent: #4a4a4a;
+  --downcrawl-story-border: rgba(92, 92, 92, 0.44);
+  --downcrawl-story-text: #242424;
+  --downcrawl-story-accent: #434343;
+  --shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+}
+
 
 .node.positive-tag-card,
 .node.negative-tag-card {
@@ -1039,58 +1160,35 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 0.14em;
 }
 
-.theme-switch {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: 62px;
-  height: 34px;
+.theme-select {
+  width: min(180px, 100%);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%),
+    var(--panel);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 14px) calc(50% - 2px),
+    0 0;
+  background-size: 6px 6px, 6px 6px, auto;
+  background-repeat: no-repeat;
+  color: var(--text);
+  padding: 10px 36px 10px 12px;
+  font: inherit;
+  appearance: none;
   cursor: pointer;
 }
 
-.theme-switch input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  margin: 0;
-}
-
-.theme-switch-track {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
-  transition: background 160ms ease, border-color 160ms ease;
-}
-
-.theme-switch-track::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(224, 230, 228, 0.98));
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.24);
-  transition: transform 160ms ease, background 160ms ease;
-}
-
-.theme-switch input:checked + .theme-switch-track {
-  background: var(--accent-soft);
-  border-color: rgba(58, 183, 174, 0.34);
-}
-
-.theme-switch input:checked + .theme-switch-track::after {
-  transform: translateX(28px);
-}
-
-.theme-switch input:focus-visible + .theme-switch-track {
-  outline: 2px solid rgba(58, 183, 174, 0.42);
+.theme-select:focus {
+  outline: 2px solid var(--accent-soft);
   outline-offset: 2px;
+}
+
+.theme-select option {
+  color: #1c1c1c;
+  background: #f5f5f5;
 }
 
 .modules-card {
@@ -1625,6 +1723,7 @@ button, input, textarea, select { font: inherit; }
   --theme-note-border: rgba(58, 183, 174, 0.42);
   --theme-select-border: rgba(214, 226, 228, 0.18);
   --theme-select-arrow: rgba(235, 248, 245, 0.88);
+  --theme-select-text: var(--theme-accent);
   background: var(--theme-surface);
   border-color: var(--theme-card-border);
   color: var(--theme-text);
@@ -1665,6 +1764,31 @@ button, input, textarea, select { font: inherit; }
   --theme-select-border: rgba(139, 91, 207, 0.34);
   --theme-select-arrow: rgba(122, 67, 191, 0.88);
 }
+:root[data-theme="print"] .theme-sheet {
+  --theme-accent: #3b3b3b;
+  --theme-accent-soft: rgba(59, 59, 59, 0.1);
+  --theme-card-border: rgba(72, 72, 72, 0.58);
+  --theme-note-border: rgba(88, 88, 88, 0.28);
+  --theme-select-border: rgba(92, 92, 92, 0.26);
+  --theme-select-arrow: rgba(68, 68, 68, 0.82);
+  --theme-select-text: #ffffff;
+}
+:root[data-theme="print"] .theme-sheet.theme-power-adventure {
+  --theme-accent: #303030;
+  --theme-accent-soft: rgba(48, 48, 48, 0.12);
+  --theme-card-border: rgba(68, 68, 68, 0.6);
+  --theme-note-border: rgba(94, 94, 94, 0.32);
+  --theme-select-border: rgba(88, 88, 88, 0.28);
+  --theme-select-arrow: rgba(56, 56, 56, 0.82);
+}
+:root[data-theme="print"] .theme-sheet.theme-power-grandeza {
+  --theme-accent: #4a4a4a;
+  --theme-accent-soft: rgba(74, 74, 74, 0.12);
+  --theme-card-border: rgba(92, 92, 92, 0.58);
+  --theme-note-border: rgba(108, 108, 108, 0.32);
+  --theme-select-border: rgba(98, 98, 98, 0.3);
+  --theme-select-arrow: rgba(74, 74, 74, 0.84);
+}
 .theme-sheet .theme-tag {
   background: var(--gold-tag-bg);
   border-left-color: var(--gold-tag-border);
@@ -1696,7 +1820,7 @@ button, input, textarea, select { font: inherit; }
   padding: 4px 28px 4px 8px;
   border: 1px solid var(--theme-select-border);
   background: rgba(6, 16, 16, 0.52);
-  color: var(--theme-accent);
+  color: var(--theme-select-text);
   font: inherit;
   font-weight: 700;
   text-transform: uppercase;
@@ -1719,7 +1843,7 @@ button, input, textarea, select { font: inherit; }
 }
 .theme-power-select option {
   background: #081010;
-  color: var(--theme-accent);
+  color: var(--theme-select-text);
 }
 .theme-tag-editor {
   background: var(--gold-tag-bg);
@@ -1795,6 +1919,13 @@ button, input, textarea, select { font: inherit; }
 }
 .tracking-card .section-tag {
   background: rgba(58, 183, 174, 0.14);
+}
+:root[data-theme="print"] .tracking-card {
+  border-color: rgba(124, 124, 124, 0.58);
+}
+:root[data-theme="print"] .tracking-card .section-tag {
+  background: rgba(142, 142, 142, 0.32);
+  color: #3a3a3a;
 }
 .tracking-card .line-item {
   background: var(--theme-note-bg);
@@ -2547,7 +2678,9 @@ button.downcrawl-remoteness-option {
         <div class="create-menu" id="createMenu" hidden>
           <div class="create-menu-section">
             <span class="create-menu-section-title">Legend in The Mist</span>
+            <button class="create-menu-button" id="addHeroButton" type="button">Tarjeta de heroe</button>
             <button class="create-menu-button" id="addThemeButton" type="button">Tarjeta de tema</button>
+            <button class="create-menu-button" id="addCommunityButton" type="button">Tarjeta de comunidad</button>
             <button class="create-menu-button" id="addTrackingButton" type="button">Tarjeta de estado</button>
             <button class="create-menu-button" id="addPositiveTagButton" type="button">Etiqueta positiva</button>
             <button class="create-menu-button" id="addNegativeTagButton" type="button">Etiqueta negativa</button>
@@ -2636,12 +2769,13 @@ button.downcrawl-remoteness-option {
         <div class="theme-toggle-row">
           <div class="theme-toggle-copy">
             <strong>Tema</strong>
-            <span>Cambia entre la mesa oscura y una variante clara.</span>
+            <span>Elige entre mesa oscura, clara o una variante en grises para imprimir capturas.</span>
           </div>
-          <label class="theme-switch" aria-label="Cambiar entre tema oscuro y claro">
-            <input id="themeToggle" type="checkbox" role="switch" aria-label="Cambiar tema">
-            <span class="theme-switch-track" aria-hidden="true"></span>
-          </label>
+          <select class="theme-select" id="themeSelect" aria-label="Seleccionar tema del tablero">
+            <option value="dark">Oscuro</option>
+            <option value="light">Claro</option>
+            <option value="print">Impresion</option>
+          </select>
         </div>
         <span class="theme-toggle-state" id="themeToggleState">Oscuro</span>
       </div>
@@ -2983,7 +3117,7 @@ function sanitizeDiceState(dice, nodes = []) {
 }
 
 function normalizeTheme(theme) {
-  return theme === 'light' ? 'light' : 'dark';
+  return ['dark', 'light', 'print'].includes(theme) ? theme : 'dark';
 }
 
 function sanitizeModules(modules) {
@@ -3223,7 +3357,9 @@ const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 const createMenuButton = document.getElementById('createMenuButton');
 const createMenu = document.getElementById('createMenu');
 const floatingToolsRow = document.querySelector('.floating-tools-row');
+const addHeroButton = document.getElementById('addHeroButton');
 const addThemeButton = document.getElementById('addThemeButton');
+const addCommunityButton = document.getElementById('addCommunityButton');
 const addTrackingButton = document.getElementById('addTrackingButton');
 const addFolkDeckButton = document.getElementById('addFolkDeckButton');
 const addVolumeDeckButton = document.getElementById('addVolumeDeckButton');
@@ -3238,7 +3374,7 @@ const centerBoardButton = document.getElementById('centerBoardButton');
 const exportBoardButton = document.getElementById('exportBoardButton');
 const importBoardButton = document.getElementById('importBoardButton');
 const importBoardInput = document.getElementById('importBoardInput');
-const themeToggle = document.getElementById('themeToggle');
+const themeSelect = document.getElementById('themeSelect');
 const themeToggleState = document.getElementById('themeToggleState');
 const downcrawlModuleToggle = document.getElementById('downcrawlModuleToggle');
 const floatingSelectionTools = document.getElementById('floatingSelectionTools');
@@ -3927,7 +4063,18 @@ function getThemePowerClass(value) {
 
 function getThemePowerOptionColor(value) {
   const power = normalizeThemePower(value);
-  const isLightTheme = document.documentElement.dataset.theme === 'light';
+  const activeTheme = document.documentElement.dataset.theme;
+  const isLightTheme = activeTheme === 'light';
+  const isPrintTheme = activeTheme === 'print';
+  if (isPrintTheme) {
+    if (power === 'aventura') {
+      return '#303030';
+    }
+    if (power === 'grandeza') {
+      return '#4a4a4a';
+    }
+    return '#3b3b3b';
+  }
   if (power === 'aventura') {
     return isLightTheme ? '#9f4d4d' : '#d57a7a';
   }
@@ -4413,6 +4560,7 @@ function renderHero(node, article) {
   article.append(shell);
 }
 function renderTheme(node, article) {
+  const cardLabel = node.subtitle || 'Tarjeta de tema';
   article.classList.add('theme-sheet', 'small-title', getThemePowerClass(node.themePower));
   if (isInlineEditingNode(node.id)) {
     article.classList.add('inline-editing');
@@ -4424,7 +4572,7 @@ function renderTheme(node, article) {
     article.append(header);
     const meta = document.createElement('div');
     meta.className = 'section';
-    meta.innerHTML = '<span class="section-tag">Tarjeta de tema</span>';
+    meta.innerHTML = `<span class="section-tag">${cardLabel}</span>`;
     const metaGrid = document.createElement('div');
     metaGrid.className = 'theme-meta-grid';
     const powerContent = createThemePowerSelector(node);
@@ -4477,7 +4625,7 @@ function renderTheme(node, article) {
   article.append(header);
   const meta = document.createElement('div');
   meta.className = 'section';
-  meta.innerHTML = '<span class="section-tag">Tarjeta de tema</span>';
+  meta.innerHTML = `<span class="section-tag">${cardLabel}</span>`;
   const metaGrid = document.createElement('div');
   metaGrid.className = 'theme-meta-grid';
   const typeValue = document.createElement('span');
@@ -5370,9 +5518,8 @@ function renderSidebar() {
   state.modules = sanitizeModules(state.modules);
   sidebar.classList.toggle('open', state.sidebarOpen);
   sidebarBackdrop.classList.toggle('open', state.sidebarOpen);
-  themeToggle.checked = state.theme === 'light';
-  themeToggle.setAttribute('aria-checked', String(themeToggle.checked));
-  themeToggleState.textContent = state.theme === 'light' ? 'Claro' : 'Oscuro';
+  themeSelect.value = normalizeTheme(state.theme);
+  themeToggleState.textContent = state.theme === 'light' ? 'Claro' : state.theme === 'print' ? 'Impresion' : 'Oscuro';
   downcrawlModuleToggle.checked = state.modules.downcrawlEnabled;
 }
 
@@ -5672,6 +5819,34 @@ addThemeButton.addEventListener('click', () => {
   finishNodeCreation(node);
 });
 
+addCommunityButton.addEventListener('click', () => {
+  const node = { id: crypto.randomUUID(), type: 'theme', title: 'Nueva comunidad', subtitle: 'Tarjeta de comunidad', body: 'rasgo principal\notro rasgo\ndebilidad: pendiente', x: BOARD_OFFSET_X + 260 + state.nodes.length * 18, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14, width: 250, height: 500, kind: 'Comunidad', themePower: 'origen', mission: 'Define aqui la mision de esta comunidad.' };
+  finishNodeCreation(node);
+});
+
+addHeroButton.addEventListener('click', () => {
+  const node = {
+    id: crypto.randomUUID(),
+    type: 'hero',
+    title: 'Nuevo heroe',
+    subtitle: 'Nombre del heroe',
+    body: 'objeto importante\ncompanero: pendiente\npromesa: pendiente',
+    x: BOARD_OFFSET_X + 120 + state.nodes.length * 16,
+    y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14,
+    width: NODE_MIN_DIMENSIONS.hero.width,
+    height: NODE_MIN_DIMENSIONS.hero.height,
+    tags: ['objeto importante'],
+    relations: ['pendiente'],
+    promises: 5,
+    promiseFilled: 0,
+    heroTagChecks: [false],
+    relationChecks: [false],
+    heroCardWidth: HERO_CARD_MIN_DIMENSIONS.width,
+    heroCardHeight: HERO_CARD_MIN_DIMENSIONS.height
+  };
+  finishNodeCreation(node);
+});
+
 addTrackingButton.addEventListener('click', () => {
   const node = { id: crypto.randomUUID(), type: 'tracking', title: 'Nueva tarjeta de estado', subtitle: 'Estado', body: 'nuevo estado', x: BOARD_OFFSET_X + 300 + state.nodes.length * 12, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 12, width: 224, height: 96, selectedChecks: [], progress: 0, totalChecks: 6 };
   finishNodeCreation(node);
@@ -5839,8 +6014,8 @@ importBoardButton.addEventListener('click', () => {
   importBoardInput.click();
 });
 
-themeToggle.addEventListener('change', () => {
-  state.theme = themeToggle.checked ? 'light' : 'dark';
+themeSelect.addEventListener('change', () => {
+  state.theme = normalizeTheme(themeSelect.value);
   render();
 });
 

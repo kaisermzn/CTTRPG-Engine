@@ -18,10 +18,11 @@ The main app lives in `tracking-cards-dark-app.html`.
 - Zoom range from `10%` to `200%`
 - Right-click panning inspired by whiteboard tools
 - Hidden scrollbars for a cleaner presentation
-- Light and dark theme toggle
+- Theme selector with dark, light, and print-friendly grayscale modes
 - Local persistence with `localStorage`
 - JSON export and import
 - Floating creation menu for board pieces
+- `Legend in the Mist` creation menu with hero, theme, community, status, and tag cards
 - `2d6` dice tray with result bands and persistent last roll
 - Roll modifiers collected from cards and tags on the board
 - Multiple card types for `Legend in the Mist`
@@ -43,6 +44,7 @@ The main app lives in `tracking-cards-dark-app.html`.
 2. Open `tracking-cards-dark-app.html` in your browser.
 3. Use the top-left menu for theme, modules, and JSON import/export.
 4. Use the floating `+` button to create cards, decks, and tags.
+   In `Legend in the Mist`, this includes hero, theme, community, status, and tag cards.
 5. Use the top-right controls for zoom, board centering, and the `2d6` dice tray.
 
 ### Technical Notes
@@ -71,10 +73,11 @@ La app principal esta en `tracking-cards-dark-app.html`.
 - Zoom entre `10%` y `200%`
 - Desplazamiento con boton derecho inspirado en herramientas tipo pizarra
 - Barras de scroll ocultas para una presentacion mas limpia
-- Cambio entre tema claro y oscuro
+- Selector de tema con modos oscuro, claro y escala de grises para impresion
 - Persistencia local mediante `localStorage`
 - Exportacion e importacion en JSON
 - Menu flotante para crear piezas del tablero
+- Menu `Legend in the Mist` con tarjeta de heroe, tarjeta de tema, tarjeta de comunidad, tarjeta de estado y etiquetas
 - Bandeja de dados `2d6` con rangos de resultado y ultima tirada persistente
 - Modificadores de tirada tomados de tarjetas y etiquetas del tablero
 - Varios tipos de tarjeta para `Legend in the Mist`
@@ -96,6 +99,7 @@ La app principal esta en `tracking-cards-dark-app.html`.
 2. Abre `tracking-cards-dark-app.html` en tu navegador.
 3. Usa el menu superior izquierdo para tema, modulos e importacion/exportacion JSON.
 4. Usa el boton flotante `+` para crear tarjetas, barajas y etiquetas.
+   En `Legend in the Mist`, incluye tarjeta de heroe, tema, comunidad, estado y etiquetas.
 5. Usa los controles superiores derechos para zoom, centrado del tablero y bandeja de dados `2d6`.
 
 ### Notas tecnicas
