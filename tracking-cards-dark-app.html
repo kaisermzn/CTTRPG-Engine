@@ -666,19 +666,8 @@ button, input, textarea, select { font: inherit; }
   display: grid;
   gap: 12px;
   min-height: 0;
-  height: 100%;
-}
-
-.dice-tray.is-legend {
-  grid-template-rows: auto auto auto auto auto auto minmax(0, 1fr) auto;
-}
-
-.dice-tray.is-downcrawl-basic {
-  grid-template-rows: auto auto auto auto auto auto auto auto minmax(0, 1fr) auto;
-}
-
-.dice-tray.is-downcrawl-advance {
-  grid-template-rows: auto auto auto auto auto auto auto auto auto minmax(0, 1fr) auto;
+  height: auto;
+  align-content: start;
 }
 
 .dice-system-box {
@@ -728,16 +717,37 @@ button, input, textarea, select { font: inherit; }
   color: var(--muted);
 }
 
+.dice-push-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.dice-push-actions[hidden] {
+  display: none;
+}
+
+.dice-push-summary {
+  margin: -2px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.dice-push-buttons {
+  display: grid;
+  gap: 8px;
+}
+
 .dice-modifier-list {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
   gap: 8px;
   min-height: 0;
 }
 
 .dice-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
   gap: 12px;
 }
 
@@ -753,10 +763,44 @@ button, input, textarea, select { font: inherit; }
 .die-face {
   min-height: 88px;
   display: grid;
-  place-items: center;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  color: var(--dice-face-text);
+}
+
+.die-face-value {
   font-size: 2.1rem;
   font-weight: 700;
-  color: var(--dice-face-text);
+  line-height: 1;
+}
+
+.die-face-note {
+  min-height: 0.8rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.die-face.is-discarded {
+  border-color: rgba(190, 72, 72, 0.36);
+  background: linear-gradient(180deg, rgba(49, 17, 17, 0.96), rgba(21, 8, 8, 0.98));
+  color: #d5abab;
+  opacity: 0.72;
+}
+
+.die-face.is-kept {
+  border-color: rgba(68, 166, 112, 0.34);
+}
+
+.dice-roll-breakdown {
+  margin: -4px 0 2px;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--muted);
 }
 
 .dice-total {
@@ -933,7 +977,7 @@ button, input, textarea, select { font: inherit; }
   grid-auto-rows: max-content;
   gap: 6px;
   min-height: 0;
-  max-height: none;
+  max-height: 180px;
   overflow-y: auto;
   padding-right: 4px;
 }
@@ -2661,6 +2705,42 @@ button.downcrawl-remoteness-option {
 .downcrawl-hero-card .section {
   margin-bottom: 10px;
 }
+.downcrawl-hero-resources {
+  display: grid;
+  gap: 8px;
+}
+.downcrawl-hero-resource-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.downcrawl-hero-resource {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid rgba(153, 222, 187, 0.2);
+  background: rgba(0, 0, 0, 0.24);
+}
+.downcrawl-hero-resource-label {
+  color: var(--downcrawl-muted, var(--downcrawl-card-muted));
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.downcrawl-hero-resource-value {
+  min-height: 38px;
+  display: grid;
+  align-items: center;
+  font-size: 1.28rem;
+  font-weight: 700;
+}
+.downcrawl-hero-resource-input {
+  min-height: 38px;
+  text-align: center;
+  font-size: 1.16rem;
+  font-weight: 700;
+}
 .downcrawl-hero-name-field {
   min-height: 42px;
   display: grid;
@@ -3261,10 +3341,8 @@ button.downcrawl-remoteness-option {
                   <option value="downcrawl">Downcrawl</option>
                 </select>
               </div>
-              <div class="dice-row" aria-label="Dados de seis caras">
-                <div class="die-face" id="dieFaceOne" aria-live="polite">1</div>
-                <div class="die-face" id="dieFaceTwo" aria-live="polite">1</div>
-              </div>
+              <div class="dice-row" id="diceRollFaces" aria-label="Dados de seis caras"></div>
+              <p class="dice-roll-breakdown" id="diceRollBreakdown" hidden></p>
             <div class="dice-total" aria-live="polite">
               <span class="dice-total-label" id="diceResultLabel">Resultado</span>
               <strong class="dice-total-value" id="diceTotalValue">2</strong>
@@ -3276,6 +3354,16 @@ button.downcrawl-remoteness-option {
                 <option value="standard" hidden>Tirada estandar</option>
                 <option value="finish-adventure">Terminar Aventura</option>
                 <option value="advance-adventure">Avanzar aventura</option>
+                <option value="face-challenge">Afrontar un desafio</option>
+              </select>
+            </div>
+            <div class="dice-system-box" id="diceChallengeBox" hidden>
+              <span class="dice-total-label" id="diceChallengeLabel">Dificultad</span>
+              <select class="dice-system-select" id="diceChallengeSelect" aria-label="Seleccionar dificultad del desafio">
+                <option value="easy">Facil</option>
+                <option value="tricky">Tricky</option>
+                <option value="difficult">Dificil</option>
+                <option value="foolish">Temerario</option>
               </select>
             </div>
             <div class="dice-system-box" id="diceHeroStatBox" hidden>
@@ -3285,6 +3373,10 @@ button.downcrawl-remoteness-option {
               <select class="dice-system-select" id="diceHeroStatSelect" aria-label="Seleccionar estadistica del heroe"></select>
             </div>
             <p class="dice-roll-help" id="diceRollHelp" hidden></p>
+            <div class="dice-push-actions" id="dicePushActions" hidden>
+              <p class="dice-push-summary" id="dicePushSummary"></p>
+              <div class="dice-push-buttons" id="dicePushButtons"></div>
+            </div>
             <button class="dice-roll-button" id="rollDiceButton" type="button">Hacer tirada</button>
             <button class="dice-secondary-button" id="clearDiceButton" type="button">Limpiar</button>
             <div class="dice-power-box">
@@ -3389,7 +3481,14 @@ const STORAGE_KEY = 'legend-in-the-mist.board.v1';
 const DOWNCRAWL_NODE_TYPES = ['downcrawl-hero', 'folk-deck', 'volume-deck', 'discard-deck', 'history-deck', 'folk', 'volume', 'adventure', 'note'];
 const DOWNCRAWL_DICE_ROLL_TYPES = [
   { value: 'finish-adventure', label: 'Terminar Aventura' },
-  { value: 'advance-adventure', label: 'Avanzar aventura' }
+  { value: 'advance-adventure', label: 'Avanzar aventura' },
+  { value: 'face-challenge', label: 'Afrontar un desafio' }
+];
+const DOWNCRAWL_CHALLENGE_DIFFICULTIES = [
+  { value: 'easy', label: 'Facil', diceCount: 3, keepRule: 'drop-lowest', summary: '3d6, descarta el menor' },
+  { value: 'tricky', label: 'Tricky', diceCount: 2, keepRule: 'keep-all', summary: '2d6' },
+  { value: 'difficult', label: 'Dificil', diceCount: 3, keepRule: 'drop-highest', summary: '3d6, descarta el mayor' },
+  { value: 'foolish', label: 'Temerario', diceCount: 4, keepRule: 'drop-two-highest', summary: '4d6, descarta los 2 mayores' }
 ];
 const NODE_MIN_DIMENSIONS = {
   hero: { width: 1410, height: 590 },
@@ -3532,6 +3631,53 @@ function normalizeAdventureOutcomeStates(values, total) {
   });
 }
 
+function normalizeDowncrawlChallengeDifficulty(value) {
+  const rawValue = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  return DOWNCRAWL_CHALLENGE_DIFFICULTIES.some((option) => option.value === rawValue)
+    ? rawValue
+    : 'tricky';
+}
+
+function getDowncrawlChallengeDifficultyMeta(value) {
+  return DOWNCRAWL_CHALLENGE_DIFFICULTIES.find((option) => option.value === normalizeDowncrawlChallengeDifficulty(value))
+    ?? DOWNCRAWL_CHALLENGE_DIFFICULTIES[1];
+}
+
+function normalizeDiceRollValues(values, expectedCount = 2) {
+  if (!Array.isArray(values) || values.length !== expectedCount) return null;
+  const normalized = values
+    .map((value) => Math.round(Number(value)))
+    .filter((value) => Number.isInteger(value) && value >= 1 && value <= 6);
+  return normalized.length === expectedCount ? normalized : null;
+}
+
+function getKeptRollIndices(rollValues, keepRule = 'keep-all') {
+  if (!Array.isArray(rollValues) || !rollValues.length) return [];
+  if (keepRule === 'keep-all') {
+    return rollValues.map((_, index) => index);
+  }
+  if (keepRule === 'drop-lowest') {
+    const dropIndex = rollValues.reduce((best, value, index, source) => (
+      best === -1 || value < source[best] ? index : best
+    ), -1);
+    return rollValues.map((_, index) => index).filter((index) => index !== dropIndex);
+  }
+  if (keepRule === 'drop-highest') {
+    const dropIndex = rollValues.reduce((best, value, index, source) => (
+      best === -1 || value > source[best] ? index : best
+    ), -1);
+    return rollValues.map((_, index) => index).filter((index) => index !== dropIndex);
+  }
+  if (keepRule === 'drop-two-highest') {
+    const ranked = rollValues
+      .map((value, index) => ({ value, index }))
+      .sort((left, right) => right.value - left.value || left.index - right.index);
+    const dropped = new Set(ranked.slice(0, 2).map((entry) => entry.index));
+    return rollValues.map((_, index) => index).filter((index) => !dropped.has(index));
+  }
+  return rollValues.map((_, index) => index);
+}
+
 function normalizeDiceRollType(value, system = 'legend') {
   const rawValue = typeof value === 'string' ? value.trim().toLowerCase() : '';
   if (system === 'downcrawl') {
@@ -3578,6 +3724,12 @@ function normalizeDiceHeroStatSelection(value, nodes) {
     return '';
   }
   return `hero-stat:${nodeId}:${index}`;
+}
+
+function resolveDowncrawlHeroSelection(selectionId, nodes) {
+  const normalizedId = normalizeDiceHeroSelection(selectionId, nodes);
+  if (!normalizedId) return null;
+  return nodes.find((node) => node.id === normalizedId && node.type === 'downcrawl-hero') ?? null;
 }
 
 function getDowncrawlHeroStatPowerValue(stat) {
@@ -3687,10 +3839,33 @@ function getAutoDiceModifiers(dice, nodes, selection) {
       readonly: true
     }];
   }
+  if (dice.rollType === 'face-challenge') {
+    const heroStat = resolveDowncrawlHeroStatSelection(dice.heroStatSelection, nodes);
+    if (!heroStat) return [];
+    return [{
+      id: `auto:${heroStat.id}:face-challenge`,
+      nodeId: heroStat.nodeId,
+      value: heroStat.value,
+      label: heroStat.label,
+      readonly: true
+    }];
+  }
   return [];
 }
 
 function getDiceRollContext(dice, nodes, selection) {
+  if (dice?.system === 'downcrawl' && dice?.rollType === 'face-challenge') {
+    const selectedHeroStat = resolveDowncrawlHeroStatSelection(dice.heroStatSelection, nodes);
+    return {
+      canRoll: Boolean(selectedHeroStat),
+      successMin: 8,
+      failureMax: 7,
+      selectedAdventure: null,
+      finishStatus: null,
+      selectedHeroStat,
+      availableMilestoneIndex: null
+    };
+  }
   if (dice?.system === 'downcrawl' && dice?.rollType === 'finish-adventure') {
     const selectedAdventure = getSelectedAdventureNode(selection, nodes);
     const finishStatus = getFinishAdventureStatus(selectedAdventure);
@@ -3730,6 +3905,12 @@ function getDiceRollContext(dice, nodes, selection) {
 }
 
 function getDiceResultMeta(dice) {
+  if (dice?.system === 'downcrawl' && dice?.rollType === 'face-challenge') {
+    return {
+      success: '8+ Exito',
+      failure: '7- Conserva tu fuerza o empuja el exito'
+    };
+  }
   if (dice?.system === 'downcrawl' && ['finish-adventure', 'advance-adventure'].includes(dice?.rollType)) {
     return {
       success: 'Exito',
@@ -3745,7 +3926,7 @@ function getDiceResultMeta(dice) {
 
 function getDiceResultState(dice) {
   if (dice?.cleared || typeof dice?.total !== 'number') return null;
-  if (dice.system === 'downcrawl' && ['finish-adventure', 'advance-adventure'].includes(dice.rollType)) {
+  if (dice.system === 'downcrawl' && ['finish-adventure', 'advance-adventure', 'face-challenge'].includes(dice.rollType)) {
     return dice.total >= 8 ? 'success' : 'consequence';
   }
   if (dice.total <= 6) return 'consequence';
@@ -3790,6 +3971,12 @@ function createDefaultState() {
     toolsMenuOpen: false,
     dice: sanitizeDiceState({
       system: 'legend',
+      challengeDifficulty: 'tricky',
+      rollValues: [1, 1],
+      faceChallengeBonus: 0,
+      faceChallengeFatefulUses: 0,
+      faceChallengeBreakingUses: 0,
+      faceChallengeResolved: '',
       dieOne: 1,
       dieTwo: 1,
       modifiers: [],
@@ -3955,9 +4142,11 @@ function getDiceSystemMeta(system) {
 
 function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const activeModules = sanitizeModules(modules);
-  const cleared = Boolean(dice?.cleared);
   const system = normalizeDiceSystem(dice?.system, activeModules);
   const rollType = normalizeDiceRollType(dice?.rollType, system);
+  const challengeDifficulty = system === 'downcrawl'
+    ? normalizeDowncrawlChallengeDifficulty(dice?.challengeDifficulty)
+    : 'tricky';
   const heroSelection = system === 'downcrawl'
     ? normalizeDiceHeroSelection(dice?.heroSelection, nodes)
     : '';
@@ -3969,8 +4158,38 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const normalizedHeroStatSelection = resolvedHeroStat && (!effectiveHeroSelection || resolvedHeroStat.nodeId === effectiveHeroSelection)
     ? heroStatSelection
     : '';
-  const dieOne = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieOne) || 1)));
-  const dieTwo = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieTwo) || 1)));
+  const faceChallengeBonus = system === 'downcrawl' && rollType === 'face-challenge'
+    ? Math.max(0, Math.min(40, Math.round(Number(dice?.faceChallengeBonus) || 0)))
+    : 0;
+  const faceChallengeFatefulUses = system === 'downcrawl' && rollType === 'face-challenge'
+    ? Math.max(0, Math.min(20, Math.round(Number(dice?.faceChallengeFatefulUses) || 0)))
+    : 0;
+  const faceChallengeBreakingUses = system === 'downcrawl' && rollType === 'face-challenge'
+    ? Math.max(0, Math.min(20, Math.round(Number(dice?.faceChallengeBreakingUses) || 0)))
+    : 0;
+  const faceChallengeResolved = system === 'downcrawl' && rollType === 'face-challenge' && dice?.faceChallengeResolved === 'conserve'
+    ? 'conserve'
+    : '';
+  const challengeMeta = getDowncrawlChallengeDifficultyMeta(challengeDifficulty);
+  const expectedDiceCount = system === 'downcrawl' && rollType === 'face-challenge'
+    ? challengeMeta.diceCount
+    : 2;
+  const normalizedRollValues = normalizeDiceRollValues(dice?.rollValues, expectedDiceCount);
+  const legacyRollValues = expectedDiceCount === 2 && Number.isFinite(Number(dice?.dieOne)) && Number.isFinite(Number(dice?.dieTwo))
+    ? [
+      Math.max(1, Math.min(6, Math.round(Number(dice?.dieOne) || 1))),
+      Math.max(1, Math.min(6, Math.round(Number(dice?.dieTwo) || 1)))
+    ]
+    : null;
+  const rollValues = normalizedRollValues ?? legacyRollValues ?? [];
+  const hasVisibleRoll = rollValues.length === expectedDiceCount;
+  const cleared = Boolean(dice?.cleared) || !hasVisibleRoll;
+  const keptRollIndices = cleared
+    ? []
+    : getKeptRollIndices(rollValues, system === 'downcrawl' && rollType === 'face-challenge' ? challengeMeta.keepRule : 'keep-all');
+  const keptRollValues = keptRollIndices.map((index) => rollValues[index]).filter((value) => Number.isInteger(value));
+  const dieOne = keptRollValues[0] ?? null;
+  const dieTwo = keptRollValues[1] ?? null;
   const modifiers = normalizeDiceModifierIds(dice?.modifiers, nodes);
   const disabledModifiers = normalizeDiceModifierIds(dice?.disabledModifiers, nodes)
     .filter((modifierId) => modifiers.includes(modifierId));
@@ -3984,16 +4203,30 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
       value: invertedModifiers.includes(modifier.id) ? modifier.value * -1 : modifier.value
     }))
     .filter((modifier) => !disabledModifiers.includes(modifier.id));
-  const autoModifiers = getAutoDiceModifiers({ system, rollType, heroSelection: effectiveHeroSelection, heroStatSelection: normalizedHeroStatSelection }, nodes, selection);
-  const power = [...modifierEntries, ...autoModifiers].reduce((sum, modifier) => sum + modifier.value, 0);
-  const baseTotal = cleared ? null : dieOne + dieTwo;
+  const autoModifiers = getAutoDiceModifiers({
+    system,
+    rollType,
+    challengeDifficulty,
+    heroSelection: effectiveHeroSelection,
+    heroStatSelection: normalizedHeroStatSelection
+  }, nodes, selection);
+  const power = [...modifierEntries, ...autoModifiers].reduce((sum, modifier) => sum + modifier.value, 0) + faceChallengeBonus;
+  const baseTotal = cleared ? null : keptRollValues.reduce((sum, value) => sum + value, 0);
   return {
     system,
     rollType,
+    challengeDifficulty,
     heroSelection: effectiveHeroSelection,
     heroStatSelection: normalizedHeroStatSelection,
+    rollValues: cleared ? [] : rollValues,
+    keptRollIndices,
+    keptRollValues,
     dieOne,
     dieTwo,
+    faceChallengeBonus,
+    faceChallengeFatefulUses,
+    faceChallengeBreakingUses,
+    faceChallengeResolved,
     modifiers,
     disabledModifiers,
     invertedModifiers,
@@ -4111,7 +4344,10 @@ function sanitizeNode(node) {
     safeNode.heroName = typeof node.heroName === 'string' ? node.heroName : safeNode.title;
     safeNode.heroTitle = typeof node.heroTitle === 'string' ? node.heroTitle : '';
     safeNode.title = safeNode.title || 'Heroe de Downcrawl';
-    safeNode.sliverStats = normalizeSliverStats(node.sliverStats);
+    const refreshedHero = applyDowncrawlHeroUsedRefresh(node, normalizeSliverStats(node.sliverStats));
+    safeNode.sliverStats = refreshedHero.sliverStats;
+    safeNode.heroFate = refreshedHero.heroFate;
+    safeNode.heroTack = Math.max(0, Math.min(99, Math.round(Number(node.heroTack) || 0)));
     safeNode.heroAspects = Array.isArray(node.heroAspects) ? node.heroAspects.filter((item) => typeof item === 'string') : [];
     safeNode.heroAspectChecks = normalizeIndexedChecks(node.heroAspectChecks, safeNode.heroAspects.length);
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS['downcrawl-hero'].width, safeNode.width);
@@ -4259,11 +4495,14 @@ const closeSidebarButton = document.getElementById('closeSidebarButton');
 const toolsMenuButton = document.getElementById('toolsMenuButton');
 const toolsMenuPanel = document.getElementById('toolsMenuPanel');
 const closeToolsMenuButton = document.getElementById('closeToolsMenuButton');
-const dieFaceOne = document.getElementById('dieFaceOne');
-const dieFaceTwo = document.getElementById('dieFaceTwo');
+const diceRollFaces = document.getElementById('diceRollFaces');
+const diceRollBreakdown = document.getElementById('diceRollBreakdown');
 const diceTotal = document.querySelector('.dice-total');
 const diceTray = document.querySelector('.dice-tray');
 const diceSystemSelect = document.getElementById('diceSystemSelect');
+const diceChallengeBox = document.getElementById('diceChallengeBox');
+const diceChallengeLabel = document.getElementById('diceChallengeLabel');
+const diceChallengeSelect = document.getElementById('diceChallengeSelect');
 const diceRollTypeBox = document.getElementById('diceRollTypeBox');
 const diceRollTypeSelect = document.getElementById('diceRollTypeSelect');
 const diceHeroStatBox = document.getElementById('diceHeroStatBox');
@@ -4272,6 +4511,9 @@ const diceHeroSelect = document.getElementById('diceHeroSelect');
 const diceHeroStatSelect = document.getElementById('diceHeroStatSelect');
 const diceHeroStatLabel = document.getElementById('diceHeroStatLabel');
 const diceRollHelp = document.getElementById('diceRollHelp');
+const dicePushActions = document.getElementById('dicePushActions');
+const dicePushSummary = document.getElementById('dicePushSummary');
+const dicePushButtons = document.getElementById('dicePushButtons');
 const diceRollTypeLabel = document.getElementById('diceRollTypeLabel');
 const diceTotalValue = document.getElementById('diceTotalValue');
 const diceTotalNote = document.getElementById('diceTotalNote');
@@ -5418,6 +5660,11 @@ function clearDiceRoll() {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
+    rollValues: [],
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
     dieOne: null,
     dieTwo: null,
     cleared: true
@@ -5454,7 +5701,34 @@ function setDiceRollType(rollType) {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
-    rollType
+    rollType,
+    cleared: current.rollType !== rollType
+      ? true
+      : current.cleared,
+    faceChallengeBonus: current.rollType !== rollType ? 0 : current.faceChallengeBonus,
+    faceChallengeFatefulUses: current.rollType !== rollType ? 0 : current.faceChallengeFatefulUses,
+    faceChallengeBreakingUses: current.rollType !== rollType ? 0 : current.faceChallengeBreakingUses,
+    faceChallengeResolved: current.rollType !== rollType ? '' : current.faceChallengeResolved,
+    rollValues: current.rollType !== rollType
+      ? []
+      : current.rollValues
+  }, state.nodes, state.modules, selection);
+  renderDiceTray();
+  schedulePersist();
+}
+
+function setDiceChallengeDifficulty(challengeDifficulty) {
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  state.dice = sanitizeDiceState({
+    ...current,
+    challengeDifficulty,
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
+    cleared: true,
+    rollValues: []
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
@@ -5466,7 +5740,13 @@ function setDiceHeroSelection(heroSelection) {
   state.dice = sanitizeDiceState({
     ...current,
     heroSelection,
-    heroStatSelection: ''
+    heroStatSelection: '',
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
+    rollValues: current.rollType === 'face-challenge' ? [] : current.rollValues,
+    cleared: current.rollType === 'face-challenge' ? true : current.cleared
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
@@ -5477,10 +5757,83 @@ function setDiceHeroStatSelection(heroStatSelection) {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
-    heroStatSelection
+    heroStatSelection,
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
+    rollValues: current.rollType === 'face-challenge' ? [] : current.rollValues,
+    cleared: current.rollType === 'face-challenge' ? true : current.cleared
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
+}
+
+function applyFaceChallengeChoice(choice) {
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  if (current.system !== 'downcrawl' || current.rollType !== 'face-challenge' || current.cleared || current.total >= 8) return;
+  const heroNode = resolveDowncrawlHeroSelection(current.heroSelection, state.nodes);
+  const heroStat = resolveDowncrawlHeroStatSelection(current.heroStatSelection, state.nodes);
+
+  if (choice === 'conserve') {
+    if (!heroNode) return;
+    state.nodes = state.nodes.map((node) => (
+      node.id === heroNode.id && node.type === 'downcrawl-hero'
+        ? { ...node, heroFate: Math.max(0, Math.min(99, node.heroFate + 1)) }
+        : node
+    ));
+    state.dice = sanitizeDiceState({
+      ...current,
+      faceChallengeResolved: 'conserve'
+    }, state.nodes, state.modules, selection);
+    render();
+    schedulePersist();
+    return;
+  }
+
+  if (choice === 'fateful') {
+    if (!heroNode) return;
+    if (heroNode.heroFate <= 0) return;
+    state.nodes = state.nodes.map((node) => (
+      node.id === heroNode.id && node.type === 'downcrawl-hero'
+        ? { ...node, heroFate: Math.max(0, node.heroFate - 1) }
+        : node
+    ));
+    state.dice = sanitizeDiceState({
+      ...current,
+      faceChallengeBonus: current.faceChallengeBonus + 2,
+      faceChallengeFatefulUses: current.faceChallengeFatefulUses + 1,
+      faceChallengeResolved: ''
+    }, state.nodes, state.modules, selection);
+    render();
+    schedulePersist();
+    return;
+  }
+
+  if (choice === 'breaking') {
+    if (!heroStat) return;
+    state.nodes = state.nodes.map((node) => {
+      if (node.id !== heroStat.nodeId || node.type !== 'downcrawl-hero') return node;
+      const nextStats = normalizeSliverStats(node.sliverStats);
+      nextStats[heroStat.index] = {
+        ...nextStats[heroStat.index],
+        damaged: true
+      };
+      return {
+        ...node,
+        sliverStats: nextStats
+      };
+    });
+    state.dice = sanitizeDiceState({
+      ...current,
+      faceChallengeBonus: current.faceChallengeBonus + 2,
+      faceChallengeBreakingUses: current.faceChallengeBreakingUses + 1,
+      faceChallengeResolved: ''
+    }, state.nodes, state.modules, selection);
+    render();
+    schedulePersist();
+  }
 }
 
 function applyDiceModifierSourceBehavior(element, node, modifierId) {
@@ -5893,6 +6246,21 @@ function createDowncrawlDisplayField(value, className = 'note-strip') {
   return field;
 }
 
+function createDowncrawlNumberField(value, onInput, extraClassName = '') {
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.min = '0';
+  input.max = '99';
+  input.step = '1';
+  input.className = `inline-edit-control downcrawl-inline-input downcrawl-hero-resource-input${extraClassName ? ` ${extraClassName}` : ''}`;
+  input.value = String(Math.max(0, Math.min(99, Math.round(Number(value) || 0))));
+  input.addEventListener('mousedown', (event) => event.stopPropagation());
+  input.addEventListener('click', (event) => event.stopPropagation());
+  input.addEventListener('dblclick', (event) => event.stopPropagation());
+  input.addEventListener('input', () => onInput(Math.max(0, Math.min(99, Math.round(Number(input.value) || 0)))));
+  return input;
+}
+
 function createDowncrawlCardShell(node, label) {
   const shell = document.createElement('div');
   shell.className = 'downcrawl-shell';
@@ -5990,6 +6358,23 @@ function createDowncrawlLineEditor(value, label, onInput, isResource = false, re
   return section;
 }
 
+function applyDowncrawlHeroUsedRefresh(node, stats) {
+  const nextStats = normalizeSliverStats(stats);
+  if (!nextStats.length || !nextStats.every((stat) => stat.used)) {
+    return {
+      sliverStats: nextStats,
+      heroFate: Math.max(0, Math.min(99, Math.round(Number(node?.heroFate) || 0)))
+    };
+  }
+  return {
+    sliverStats: nextStats.map((stat) => ({
+      ...stat,
+      used: false
+    })),
+    heroFate: Math.max(0, Math.min(99, Math.round(Number(node?.heroFate) || 0) + 1))
+  };
+}
+
 function patchDowncrawlHeroStat(nodeId, index, patch, renderImmediately = false) {
   const current = state.nodes.find((item) => item.id === nodeId);
   if (!current || current.type !== 'downcrawl-hero') return;
@@ -5998,7 +6383,11 @@ function patchDowncrawlHeroStat(nodeId, index, patch, renderImmediately = false)
     ...nextStats[index],
     ...patch
   };
-  const nextPatch = { sliverStats: nextStats };
+  const refreshed = applyDowncrawlHeroUsedRefresh(current, nextStats);
+  const nextPatch = {
+    sliverStats: refreshed.sliverStats,
+    heroFate: refreshed.heroFate
+  };
   if (renderImmediately) {
     updateNode(nodeId, nextPatch);
     return;
@@ -6126,6 +6515,35 @@ function renderDowncrawlHero(node, article) {
     titleSection.append(heroTitleField);
   }
   shell.append(titleSection);
+
+  const resourcesSection = document.createElement('div');
+  resourcesSection.className = 'section downcrawl-hero-resources';
+  resourcesSection.innerHTML = '<span class="section-tag">Recursos</span>';
+  const resourceRow = document.createElement('div');
+  resourceRow.className = 'downcrawl-hero-resource-row';
+  [
+    { key: 'heroFate', label: 'Destino', value: node.heroFate },
+    { key: 'heroTack', label: 'TACK / Inteligencia', value: node.heroTack }
+  ].forEach((resource) => {
+    const item = document.createElement('div');
+    item.className = 'downcrawl-hero-resource';
+    const label = document.createElement('span');
+    label.className = 'downcrawl-hero-resource-label';
+    label.textContent = resource.label;
+    if (isInlineEditingNode(node.id)) {
+      item.append(label, createDowncrawlNumberField(resource.value, (nextValue) => {
+        patchNodeState(node.id, { [resource.key]: nextValue });
+      }));
+    } else {
+      const value = document.createElement('div');
+      value.className = 'downcrawl-hero-resource-value';
+      value.textContent = String(resource.value ?? 0);
+      item.append(label, value);
+    }
+    resourceRow.append(item);
+  });
+  resourcesSection.append(resourceRow);
+  shell.append(resourcesSection);
 
   const statsSection = document.createElement('div');
   statsSection.className = 'section';
@@ -7069,9 +7487,11 @@ function renderDiceTray() {
   state.dice = dice;
   const diceMeta = getDiceSystemMeta(dice.system);
   const rollContext = getDiceRollContext(dice, state.nodes, selection);
+  const challengeMeta = getDowncrawlChallengeDifficultyMeta(dice.challengeDifficulty);
   diceTray.classList.toggle('is-legend', dice.system === 'legend');
-  diceTray.classList.toggle('is-downcrawl-basic', dice.system === 'downcrawl' && dice.rollType !== 'advance-adventure');
+  diceTray.classList.toggle('is-downcrawl-basic', dice.system === 'downcrawl' && !['advance-adventure', 'face-challenge'].includes(dice.rollType));
   diceTray.classList.toggle('is-downcrawl-advance', dice.system === 'downcrawl' && dice.rollType === 'advance-adventure');
+  diceTray.classList.toggle('is-downcrawl-challenge', dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
   const disabledSet = new Set(dice.disabledModifiers);
   const invertedSet = new Set(dice.invertedModifiers);
   const modifierEntries = dice.modifiers
@@ -7090,6 +7510,15 @@ function renderDiceTray() {
     })));
   const resultState = getDiceResultState(dice);
   const resultMeta = getDiceResultMeta(dice);
+  const selectedFaceChallengeHero = resolveDowncrawlHeroSelection(dice.heroSelection, state.nodes);
+  const hasValidFaceChallengeDriver = Boolean(selectedFaceChallengeHero) && Boolean(rollContext.selectedHeroStat);
+  const canResolveFaceChallenge = dice.system === 'downcrawl'
+    && dice.rollType === 'face-challenge'
+    && !dice.cleared
+    && typeof dice.total === 'number'
+    && dice.total < 8
+    && hasValidFaceChallengeDriver
+    && dice.faceChallengeResolved !== 'conserve';
   diceSystemSelect.value = dice.system;
   const downcrawlOption = diceSystemSelect.querySelector('option[value="downcrawl"]');
   if (downcrawlOption) {
@@ -7097,22 +7526,25 @@ function renderDiceTray() {
     downcrawlOption.hidden = !state.modules.downcrawlEnabled;
   }
   diceSystemSelect.setAttribute('aria-label', `Seleccionar lanzador de dados: ${diceMeta.title}`);
+  diceChallengeBox.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
+  diceChallengeLabel.textContent = 'Dificultad';
+  diceChallengeSelect.value = dice.challengeDifficulty;
   diceRollTypeBox.hidden = dice.system !== 'downcrawl';
   diceRollTypeLabel.textContent = diceMeta.rollTypeLabel;
   if (dice.system === 'downcrawl') {
     diceRollTypeSelect.value = dice.rollType;
     diceRollTypeSelect.setAttribute('aria-label', `Seleccionar tipo de tirada en ${diceMeta.title}`);
   }
-  const showAdvanceAdventureSelectors = dice.system === 'downcrawl' && dice.rollType === 'advance-adventure';
+  const showHeroStatSelectors = dice.system === 'downcrawl' && ['advance-adventure', 'face-challenge'].includes(dice.rollType);
   const heroOptions = getDowncrawlHeroSelectionOptions(state.nodes);
   const heroStatOptions = getDowncrawlHeroStatSelectionOptions(state.nodes)
     .filter((option) => !dice.heroSelection || option.nodeId === dice.heroSelection);
-  diceHeroStatBox.hidden = !showAdvanceAdventureSelectors;
+  diceHeroStatBox.hidden = !showHeroStatSelectors;
   diceHeroLabel.textContent = 'Heroe';
   diceHeroStatLabel.textContent = 'Estadistica';
   diceHeroSelect.replaceChildren();
   diceHeroStatSelect.replaceChildren();
-  if (showAdvanceAdventureSelectors) {
+  if (showHeroStatSelectors) {
     const heroPlaceholder = document.createElement('option');
     heroPlaceholder.value = '';
     heroPlaceholder.textContent = heroOptions.length ? 'Elige un heroe' : 'No hay heroes disponibles';
@@ -7143,9 +7575,58 @@ function renderDiceTray() {
     diceHeroSelect.disabled = true;
     diceHeroStatSelect.disabled = true;
   }
+
+  const displayedRollValues = dice.cleared
+    ? Array.from({ length: dice.system === 'downcrawl' && dice.rollType === 'face-challenge' ? challengeMeta.diceCount : 2 }, () => null)
+    : dice.rollValues;
+  const keptSet = new Set(dice.keptRollIndices);
+  diceRollFaces.replaceChildren();
+  displayedRollValues.forEach((value, index) => {
+    const face = document.createElement('div');
+    face.className = `die-face${value === null ? '' : keptSet.has(index) ? ' is-kept' : ' is-discarded'}`;
+    const valueEl = document.createElement('strong');
+    valueEl.className = 'die-face-value';
+    valueEl.textContent = value === null ? '' : String(value);
+    const note = document.createElement('span');
+    note.className = 'die-face-note';
+    note.textContent = value === null ? '' : keptSet.has(index) ? 'Cuenta' : 'Descartado';
+    face.append(valueEl, note);
+    diceRollFaces.append(face);
+  });
+  diceRollBreakdown.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
+  if (dice.system === 'downcrawl' && dice.rollType === 'face-challenge') {
+    if (dice.cleared) {
+      diceRollBreakdown.textContent = `${challengeMeta.label}: ${challengeMeta.summary}. Tricky es la base; si la situacion aprieta, ajusta un nivel antes de tirar.`;
+    } else {
+      const keptText = dice.keptRollValues.join(' + ');
+      const discardedText = dice.rollValues
+        .filter((_, index) => !keptSet.has(index))
+        .join(', ');
+      diceRollBreakdown.textContent = discardedText
+        ? `Se conservan ${keptText} y se descartan ${discardedText}.`
+        : `Se conservan ${keptText}.`;
+    }
+  } else {
+    diceRollBreakdown.textContent = '';
+  }
+
   diceRollHelp.hidden = dice.system !== 'downcrawl';
   if (dice.system !== 'downcrawl') {
     diceRollHelp.textContent = '';
+  } else if (dice.rollType === 'face-challenge') {
+    diceRollHelp.textContent = !dice.heroSelection
+      ? 'Elige un heroe para afrontar el desafio.'
+      : !rollContext.selectedHeroStat
+        ? 'Elige una estadistica del heroe para sumar su PODER a la tirada.'
+        : dice.faceChallengeResolved === 'conserve'
+          ? 'Has conservado tu fuerza: fallas la tirada, explicas que aprendiste o por que te costo, y ganas 1 DESTINO.'
+        : resultState === 'consequence'
+          ? 'En 7-, puedes conservar tu fuerza para fallar y ganar DESTINO, o seguir empujando con Momento fatidico o Punto de ruptura hasta llegar a 8+.'
+          : resultState === 'success'
+            ? dice.faceChallengeBonus > 0
+              ? `Has llegado a 8+ tras empujar la tirada. Di como superas el desafio usando ${rollContext.selectedHeroStat.shortLabel}.`
+              : `En 8+, di como superas el desafio usando ${rollContext.selectedHeroStat.shortLabel}.`
+            : `${challengeMeta.label}: ${challengeMeta.summary}. Tiraras usando ${rollContext.selectedHeroStat.shortLabel}.`;
   } else if (dice.rollType === 'finish-adventure') {
     if (!rollContext.selectedAdventure) {
       diceRollHelp.textContent = 'Selecciona una carta de aventura para habilitar la tirada.';
@@ -7172,19 +7653,64 @@ function renderDiceTray() {
   diceResultLabel.textContent = diceMeta.resultLabel;
   dicePowerLabel.textContent = diceMeta.powerLabel;
   diceModifierListLabel.textContent = diceMeta.modifierLabel;
-  dieFaceOne.textContent = dice.cleared ? '' : String(dice.dieOne);
-  dieFaceTwo.textContent = dice.cleared ? '' : String(dice.dieTwo);
   diceTotalValue.textContent = dice.cleared ? '' : String(dice.total);
   diceTotalNote.textContent = dice.cleared
     ? ''
-    : resultState === 'consequence'
-      ? resultMeta.failure
-      : resultState === 'success'
-        ? resultMeta.success
-        : resultMeta.mixed;
+    : dice.system === 'downcrawl' && dice.rollType === 'face-challenge' && dice.faceChallengeResolved === 'conserve'
+      ? 'Fallo asumido, gana DESTINO'
+      : resultState === 'consequence'
+        ? resultMeta.failure
+        : resultState === 'success'
+          ? resultMeta.success
+          : resultMeta.mixed;
   diceTotal.classList.toggle('is-consequence', !dice.cleared && resultState === 'consequence');
   diceTotal.classList.toggle('is-mixed', !dice.cleared && resultState === 'mixed');
   diceTotal.classList.toggle('is-success', !dice.cleared && resultState === 'success');
+  dicePushActions.hidden = !canResolveFaceChallenge;
+  dicePushSummary.textContent = '';
+  dicePushButtons.replaceChildren();
+  if (canResolveFaceChallenge) {
+    const summaryParts = [];
+    if (dice.faceChallengeFatefulUses > 0) summaryParts.push(`Momentos fatidicos: ${dice.faceChallengeFatefulUses}`);
+    if (dice.faceChallengeBreakingUses > 0) summaryParts.push(`Puntos de ruptura: ${dice.faceChallengeBreakingUses}`);
+    if (dice.faceChallengeBonus > 0) summaryParts.push(`Empuje acumulado: +${dice.faceChallengeBonus}`);
+    dicePushSummary.textContent = summaryParts.length
+      ? `${summaryParts.join(' · ')}. Puedes seguir empujando hasta 8+ o conservar tu fuerza.`
+      : 'La tirada sigue abierta: elige si conservas tu fuerza o empujas el exito con un coste.';
+
+    const conserveButton = document.createElement('button');
+    conserveButton.type = 'button';
+    conserveButton.className = 'dice-secondary-button';
+    conserveButton.textContent = 'Conservar tu fuerza (+1 DESTINO)';
+    conserveButton.addEventListener('mousedown', (event) => event.stopPropagation());
+    conserveButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      applyFaceChallengeChoice('conserve');
+    });
+
+    const fatefulButton = document.createElement('button');
+    fatefulButton.type = 'button';
+    fatefulButton.className = 'dice-secondary-button';
+    fatefulButton.textContent = `Momento fatidico (+2, gasta 1 DESTINO${selectedFaceChallengeHero ? `, te quedan ${selectedFaceChallengeHero.heroFate}` : ''})`;
+    fatefulButton.disabled = !selectedFaceChallengeHero || selectedFaceChallengeHero.heroFate <= 0;
+    fatefulButton.addEventListener('mousedown', (event) => event.stopPropagation());
+    fatefulButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      applyFaceChallengeChoice('fateful');
+    });
+
+    const breakingButton = document.createElement('button');
+    breakingButton.type = 'button';
+    breakingButton.className = 'dice-secondary-button';
+    breakingButton.textContent = 'Punto de ruptura (+2)';
+    breakingButton.addEventListener('mousedown', (event) => event.stopPropagation());
+    breakingButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      applyFaceChallengeChoice('breaking');
+    });
+
+    dicePushButtons.append(conserveButton, fatefulButton, breakingButton);
+  }
   rollDiceButton.disabled = !rollContext.canRoll;
   rollDiceButton.setAttribute('aria-disabled', String(!rollContext.canRoll));
   dicePowerValue.value = `${dice.power >= 0 ? '+' : ''}${dice.power}`;
@@ -7202,6 +7728,8 @@ function renderDiceTray() {
           : 'La aventura seleccionada ya no puede usar esta tirada final.'
       : dice.system === 'downcrawl' && dice.rollType === 'advance-adventure'
         ? (!dice.heroSelection ? 'Selecciona un heroe para elegir despues una estadistica.' : 'Selecciona una estadistica de heroe para anadir su PODER a la tirada.')
+      : dice.system === 'downcrawl' && dice.rollType === 'face-challenge'
+        ? (!dice.heroSelection ? 'Selecciona un heroe para elegir despues una estadistica.' : 'Selecciona una estadistica de heroe para anadir su PODER al desafio.')
         : diceMeta.emptyModifiersText;
     diceModifierList.append(empty);
     return;
@@ -7288,12 +7816,34 @@ function applyAdventureProgressRollResult(rollContext, succeeded) {
         damaged: succeeded ? nextStats[heroStat.index].damaged : true,
         used: succeeded ? true : nextStats[heroStat.index].used
       };
+      const refreshed = applyDowncrawlHeroUsedRefresh(node, nextStats);
       return {
         ...node,
-        sliverStats: nextStats
+        sliverStats: refreshed.sliverStats,
+        heroFate: refreshed.heroFate
       };
     }
     return node;
+  });
+}
+
+function applyFaceChallengeRollUsage(rollContext) {
+  const heroStat = rollContext.selectedHeroStat;
+  if (!heroStat) return;
+
+  state.nodes = state.nodes.map((node) => {
+    if (node.id !== heroStat.nodeId || node.type !== 'downcrawl-hero') return node;
+    const nextStats = normalizeSliverStats(node.sliverStats);
+    nextStats[heroStat.index] = {
+      ...nextStats[heroStat.index],
+      used: true
+    };
+    const refreshed = applyDowncrawlHeroUsedRefresh(node, nextStats);
+    return {
+      ...node,
+      sliverStats: refreshed.sliverStats,
+      heroFate: refreshed.heroFate
+    };
   });
 }
 
@@ -7305,18 +7855,32 @@ function rollDice() {
     renderDiceTray();
     return;
   }
-  const dieOne = Math.floor(Math.random() * 6) + 1;
-  const dieTwo = Math.floor(Math.random() * 6) + 1;
+  const challengeMeta = getDowncrawlChallengeDifficultyMeta(currentDice.challengeDifficulty);
+  const rollCount = currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
+    ? challengeMeta.diceCount
+    : 2;
+  const rollValues = Array.from({ length: rollCount }, () => Math.floor(Math.random() * 6) + 1);
   state.dice = sanitizeDiceState({
     system: currentDice.system,
     rollType: currentDice.rollType,
-    dieOne,
-    dieTwo,
+    challengeDifficulty: currentDice.challengeDifficulty,
+    heroSelection: currentDice.heroSelection,
+    heroStatSelection: currentDice.heroStatSelection,
+    rollValues,
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
     modifiers: currentDice.modifiers,
     disabledModifiers: currentDice.disabledModifiers,
     invertedModifiers: currentDice.invertedModifiers,
     cleared: false
   }, state.nodes, state.modules, selection);
+  if (currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge') {
+    applyFaceChallengeRollUsage(rollContext);
+    render();
+    return;
+  }
   if (currentDice.system === 'downcrawl' && currentDice.rollType === 'advance-adventure') {
     applyAdventureProgressRollResult(rollContext, state.dice.total >= 8);
     render();
@@ -7547,6 +8111,8 @@ addDowncrawlHeroButton.addEventListener('click', () => {
     heroName: 'Nuevo heroe del Abajo',
     heroTitle: 'Explorador de ecos y umbrales rotos',
     sliverStats: normalizeSliverStats(),
+    heroFate: 0,
+    heroTack: 0,
     heroAspects: ['Viejos huesos', 'Libro de los suenos', 'Cantor de canciones'],
     heroAspectChecks: [],
     x: BOARD_OFFSET_X + 300 + state.nodes.length * 14,
@@ -7748,6 +8314,10 @@ diceSystemSelect.addEventListener('change', () => {
 
 diceRollTypeSelect.addEventListener('change', () => {
   setDiceRollType(diceRollTypeSelect.value);
+});
+
+diceChallengeSelect.addEventListener('change', () => {
+  setDiceChallengeDifficulty(diceChallengeSelect.value);
 });
 
 diceHeroSelect.addEventListener('change', () => {
