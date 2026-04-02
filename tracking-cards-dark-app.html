@@ -123,6 +123,18 @@
   --downcrawl-story-border: rgba(58, 183, 174, 0.56);
   --downcrawl-story-text: #ebf8f5;
   --downcrawl-story-accent: #3ab7ae;
+  --downcrawl-hero-surface: linear-gradient(180deg, rgba(11, 16, 18, 0.98), rgba(3, 6, 8, 0.99));
+  --downcrawl-hero-border: rgba(148, 171, 160, 0.5);
+  --downcrawl-hero-text: #eef7f3;
+  --downcrawl-hero-muted: rgba(205, 220, 214, 0.7);
+  --downcrawl-hero-tag-bg: rgba(128, 165, 149, 0.18);
+  --downcrawl-hero-panel: rgba(8, 14, 15, 0.9);
+  --downcrawl-hero-panel-active: rgba(18, 30, 31, 0.96);
+  --downcrawl-hero-panel-active-border: rgba(136, 188, 164, 0.24);
+  --downcrawl-hero-option-border: rgba(171, 221, 196, 0.28);
+  --downcrawl-hero-option-divider: rgba(171, 221, 196, 0.18);
+  --downcrawl-hero-option-active-border: rgba(171, 221, 196, 0.54);
+  --downcrawl-hero-accent: #9ed8bd;
   --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
 }
 
@@ -244,6 +256,18 @@
   --downcrawl-story-border: rgba(111, 167, 150, 0.44);
   --downcrawl-story-text: #23433f;
   --downcrawl-story-accent: #4f8f80;
+  --downcrawl-hero-surface: linear-gradient(180deg, rgba(255, 251, 245, 0.98), rgba(238, 231, 220, 0.99));
+  --downcrawl-hero-border: rgba(114, 139, 123, 0.38);
+  --downcrawl-hero-text: #26392f;
+  --downcrawl-hero-muted: rgba(38, 57, 47, 0.6);
+  --downcrawl-hero-tag-bg: rgba(125, 163, 142, 0.14);
+  --downcrawl-hero-panel: rgba(236, 230, 219, 0.98);
+  --downcrawl-hero-panel-active: rgba(224, 235, 226, 0.96);
+  --downcrawl-hero-panel-active-border: rgba(92, 138, 109, 0.18);
+  --downcrawl-hero-option-border: rgba(128, 168, 145, 0.28);
+  --downcrawl-hero-option-divider: rgba(128, 168, 145, 0.16);
+  --downcrawl-hero-option-active-border: rgba(101, 151, 122, 0.48);
+  --downcrawl-hero-accent: #567d66;
   --shadow: 0 20px 50px rgba(93, 68, 40, 0.16);
 }
 
@@ -365,6 +389,18 @@
   --downcrawl-story-border: rgba(92, 92, 92, 0.44);
   --downcrawl-story-text: #242424;
   --downcrawl-story-accent: #434343;
+  --downcrawl-hero-surface: linear-gradient(180deg, rgba(247, 247, 247, 0.99), rgba(227, 227, 227, 0.99));
+  --downcrawl-hero-border: rgba(98, 98, 98, 0.4);
+  --downcrawl-hero-text: #262626;
+  --downcrawl-hero-muted: rgba(86, 86, 86, 0.72);
+  --downcrawl-hero-tag-bg: rgba(188, 188, 188, 0.24);
+  --downcrawl-hero-panel: rgba(236, 236, 236, 0.97);
+  --downcrawl-hero-panel-active: rgba(223, 223, 223, 0.98);
+  --downcrawl-hero-panel-active-border: rgba(102, 102, 102, 0.2);
+  --downcrawl-hero-option-border: rgba(126, 126, 126, 0.26);
+  --downcrawl-hero-option-divider: rgba(126, 126, 126, 0.16);
+  --downcrawl-hero-option-active-border: rgba(96, 96, 96, 0.5);
+  --downcrawl-hero-accent: #434343;
   --shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
 }
 
@@ -628,10 +664,46 @@ button, input, textarea, select { font: inherit; }
 
 .dice-tray {
   display: grid;
-  grid-template-rows: auto auto auto auto minmax(0, auto) minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto auto auto minmax(0, auto) minmax(0, 1fr) auto;
   gap: 12px;
   min-height: 0;
   height: 100%;
+}
+
+.dice-system-box {
+  display: grid;
+  gap: 6px;
+}
+
+.dice-system-select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04));
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px),
+    0 0;
+  background-size: 6px 6px, 6px 6px, 100% 100%;
+  background-repeat: no-repeat;
+  color: var(--text);
+  padding: 10px 36px 10px 12px;
+  font: inherit;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dice-system-select:focus {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.dice-system-select option {
+  color: #1c1c1c;
+  background: #f5f5f5;
 }
 
 .dice-modifier-list {
@@ -1916,6 +1988,91 @@ button, input, textarea, select { font: inherit; }
 .theme-weakness-editor:focus {
   outline: 2px solid rgba(255, 116, 116, 0.45);
 }
+.theme-special-button,
+.theme-back-button,
+.theme-improvement-add,
+.theme-improvement-remove {
+  min-height: 30px;
+  border: 1px solid var(--theme-card-border);
+  background: var(--theme-accent-soft);
+  color: var(--theme-accent);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.theme-special-button {
+  padding: 6px 10px;
+}
+.theme-special-button:hover,
+.theme-back-button:hover,
+.theme-improvement-add:hover,
+.theme-improvement-remove:hover {
+  background: color-mix(in srgb, var(--theme-accent-soft) 55%, var(--theme-accent) 45%);
+  color: var(--theme-text);
+}
+.theme-special-button {
+  width: 100%;
+}
+.theme-back-button {
+  width: 100%;
+  padding: 6px 10px;
+}
+.theme-card-shell,
+.theme-special-back-face {
+  display: grid;
+  gap: 12px;
+  min-height: 100%;
+}
+.theme-improvement-list {
+  display: grid;
+  gap: 10px;
+}
+.theme-improvement-card {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--theme-note-border);
+  background: var(--theme-note-bg);
+}
+.theme-improvement-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.theme-improvement-card-title {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.theme-improvement-add,
+.theme-improvement-remove {
+  padding: 6px 8px;
+}
+.theme-improvement-empty {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px dashed var(--theme-note-border);
+  background: rgba(6, 16, 16, 0.24);
+  text-align: center;
+}
+.theme-improvement-empty-copy {
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.theme-improvement-title-input,
+.theme-improvement-description-input {
+  width: 100%;
+}
+.theme-improvement-description-input {
+  min-height: 84px;
+  resize: vertical;
+}
 .theme-footer-checks {
   display: grid;
   width: max-content;
@@ -1926,7 +2083,7 @@ button, input, textarea, select { font: inherit; }
 }
 .theme-check-row {
   display: grid;
-  grid-template-columns: 92px 56px;
+  grid-template-columns: 92px auto;
   column-gap: 12px;
   align-items: center;
 }
@@ -1939,18 +2096,22 @@ button, input, textarea, select { font: inherit; }
 }
 .theme-check-track {
   display: grid;
-  grid-template-columns: repeat(3, 16px);
-  gap: 4px;
+  grid-template-columns: repeat(3, 18px);
+  gap: 5px;
   justify-content: start;
 }
 .theme-check-button {
-  width: 16px;
-  min-width: 16px;
-  height: 16px;
+  display: block;
+  box-sizing: border-box;
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
   padding: 0;
   border: 1px solid var(--check-empty-border);
   background: var(--check-empty-bg);
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
 }
 .theme-check-button.filled {
   background: var(--check-fill-bg);
@@ -2145,13 +2306,56 @@ button, input, textarea, select { font: inherit; }
 .downcrawl-shell {
   min-height: 100%;
 }
-.downcrawl-deck-label {
+.downcrawl-card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
   margin: 0 0 10px;
+}
+.downcrawl-deck-label {
+  margin: 0;
   color: var(--downcrawl-muted, var(--downcrawl-card-muted));
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+.downcrawl-face-toggle {
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid var(--downcrawl-option-border, rgba(214, 226, 228, 0.24));
+  background: var(--downcrawl-panel, rgba(0, 0, 0, 0.22));
+  color: var(--downcrawl-text, var(--downcrawl-card-text));
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.downcrawl-face-toggle:hover {
+  background: var(--downcrawl-panel-active, rgba(17, 39, 40, 0.92));
+}
+.downcrawl-face-toggle > * {
+  pointer-events: none;
+}
+.downcrawl-back-face {
+  display: grid;
+  gap: 10px;
+  min-height: 100%;
+}
+.downcrawl-back-notes {
+  display: grid;
+  gap: 8px;
+  min-height: 100%;
+}
+.downcrawl-back-notes-input {
+  min-height: 220px;
+  resize: vertical;
+}
+.downcrawl-note-card .node-title {
+  color: var(--downcrawl-story-accent);
 }
 .downcrawl-subheading-row {
   display: flex;
@@ -2337,6 +2541,190 @@ button.downcrawl-remoteness-option {
   --downcrawl-option-divider: rgba(170, 202, 255, 0.18);
   --downcrawl-option-active-border: rgba(170, 202, 255, 0.52);
   --downcrawl-accent: var(--downcrawl-folk-accent);
+}
+.downcrawl-hero-card {
+  --node-width: 320px;
+  --node-height: 560px;
+  --downcrawl-surface: var(--downcrawl-hero-surface);
+  --downcrawl-border: var(--downcrawl-hero-border);
+  --downcrawl-text: var(--downcrawl-hero-text);
+  --downcrawl-muted: var(--downcrawl-hero-muted);
+  --downcrawl-tag-bg: var(--downcrawl-hero-tag-bg);
+  --downcrawl-panel: var(--downcrawl-hero-panel);
+  --downcrawl-panel-active: var(--downcrawl-hero-panel-active);
+  --downcrawl-panel-active-border: var(--downcrawl-hero-panel-active-border);
+  --downcrawl-option-border: var(--downcrawl-hero-option-border);
+  --downcrawl-option-divider: var(--downcrawl-hero-option-divider);
+  --downcrawl-option-active-border: var(--downcrawl-hero-option-active-border);
+  --downcrawl-accent: var(--downcrawl-hero-accent);
+}
+.downcrawl-hero-card .node-title {
+  margin-bottom: 2px;
+  color: var(--downcrawl-hero-accent);
+  font-size: 2rem;
+  line-height: 0.96;
+}
+.downcrawl-hero-title {
+  color: var(--downcrawl-muted, var(--downcrawl-card-muted));
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.2;
+}
+.downcrawl-hero-card .section {
+  margin-bottom: 10px;
+}
+.downcrawl-hero-name-field {
+  min-height: 42px;
+  display: grid;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.downcrawl-hero-stats {
+  display: grid;
+  gap: 8px;
+}
+.downcrawl-hero-stat {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto 24px;
+  gap: 8px;
+  align-items: center;
+  min-height: 36px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+}
+.downcrawl-hero-stat.is-edge {
+  border-color: rgba(153, 222, 187, 0.36);
+  box-shadow: inset 0 0 0 1px rgba(153, 222, 187, 0.12);
+}
+.downcrawl-hero-stat.is-burden {
+  border-color: rgba(214, 142, 142, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(214, 142, 142, 0.08);
+}
+.downcrawl-hero-stat-label {
+  min-width: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.downcrawl-hero-stat.is-damaged .downcrawl-hero-stat-label {
+  opacity: 0.6;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.downcrawl-hero-stat-badge {
+  min-width: 38px;
+  min-height: 28px;
+  display: grid;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--downcrawl-muted, var(--downcrawl-card-muted));
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: none;
+}
+.downcrawl-hero-stat.is-edge .downcrawl-hero-stat-badge {
+  border-color: rgba(153, 222, 187, 0.4);
+  background: rgba(103, 180, 142, 0.18);
+  color: var(--downcrawl-hero-accent);
+}
+.downcrawl-hero-stat.is-burden .downcrawl-hero-stat-badge {
+  border-color: rgba(214, 142, 142, 0.34);
+  background: rgba(122, 47, 47, 0.18);
+  color: #f0c6c6;
+}
+.downcrawl-hero-stat.is-neutral .downcrawl-hero-stat-badge {
+  color: var(--downcrawl-text, var(--downcrawl-card-text));
+}
+.downcrawl-hero-stat-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(214, 226, 228, 0.24);
+  background: rgba(0, 0, 0, 0.22);
+  color: transparent;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.downcrawl-hero-stat-mark.is-damage.active {
+  border-color: rgba(214, 64, 64, 0.9);
+  background: rgba(55, 8, 8, 0.92);
+  color: #ff7474;
+}
+.downcrawl-hero-stat-mark.is-used.active {
+  border-color: rgba(140, 231, 194, 0.72);
+  background: rgba(17, 59, 46, 0.92);
+  color: #dfffee;
+}
+.downcrawl-hero-stat-mark:focus {
+  outline: 2px solid rgba(235, 248, 245, 0.34);
+  outline-offset: 1px;
+}
+.downcrawl-hero-stat-editor-row {
+  display: grid;
+  gap: 6px;
+}
+.downcrawl-hero-tone-toggle {
+  display: inline-grid;
+  grid-template-columns: repeat(3, auto);
+  width: fit-content;
+  border: 1px solid var(--downcrawl-option-border, rgba(214, 226, 228, 0.24));
+  background: var(--downcrawl-panel, rgba(0, 0, 0, 0.22));
+}
+.downcrawl-hero-tone-option {
+  min-height: 28px;
+  min-width: 36px;
+  padding: 5px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--downcrawl-muted, var(--downcrawl-card-muted));
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  cursor: pointer;
+}
+.downcrawl-hero-tone-option + .downcrawl-hero-tone-option {
+  border-left: 1px solid var(--downcrawl-option-divider, rgba(214, 226, 228, 0.18));
+}
+.downcrawl-hero-tone-option.is-active {
+  background: var(--downcrawl-panel-active, rgba(17, 39, 40, 0.92));
+  color: var(--downcrawl-text, var(--downcrawl-card-text));
+  box-shadow: inset 0 0 0 1px var(--downcrawl-panel-active-border, rgba(97, 194, 185, 0.22));
+}
+.downcrawl-hero-aspects {
+  display: grid;
+  gap: 8px;
+}
+.downcrawl-hero-aspects .checkable-tag-list {
+  gap: 8px;
+}
+.downcrawl-hero-aspects .checkable-tag-row {
+  grid-template-columns: minmax(0, 1fr) 32px;
+  gap: 8px;
+  align-items: center;
+}
+.downcrawl-hero-aspect-tag {
+  min-height: 36px;
+  padding: 9px 12px;
+  border: 1px solid rgba(153, 222, 187, 0.2);
+  border-radius: 999px;
+  background: rgba(103, 180, 142, 0.08);
+  color: var(--downcrawl-text, var(--downcrawl-card-text));
+  font-size: 0.84rem;
+  line-height: 1.2;
+}
+.downcrawl-hero-card .tag-check-button {
+  align-self: stretch;
+  min-width: 32px;
+  min-height: 32px;
 }
 .folk-deck-sheet {
   --node-width: 1450px;
@@ -2646,7 +3034,8 @@ button.downcrawl-remoteness-option {
 .tracking-check {
   display: inline-grid;
   place-items: center;
-  min-width: 0;
+  width: 22px;
+  min-width: 22px;
   height: 22px;
   border: 1px solid var(--check-empty-border);
   background: var(--check-empty-bg);
@@ -2742,6 +3131,7 @@ button.downcrawl-remoteness-option {
           </div>
           <div class="create-menu-section" id="downcrawlCreateSection">
             <span class="create-menu-section-title">Downcrawl</span>
+            <button class="create-menu-button" id="addDowncrawlHeroButton" type="button">Heroe de Downcrawl</button>
             <button class="create-menu-button" id="addFolkDeckButton" type="button">Baraja de Folk</button>
             <button class="create-menu-button" id="addVolumeDeckButton" type="button">Baraja de Volumenes</button>
             <button class="create-menu-button" id="addDiscardDeckButton" type="button">Baraja de Descartes</button>
@@ -2749,6 +3139,7 @@ button.downcrawl-remoteness-option {
             <button class="create-menu-button" id="addFolkButton" type="button">Carta Folk</button>
             <button class="create-menu-button" id="addVolumeButton" type="button">Carta Volumen</button>
             <button class="create-menu-button" id="addAdventureButton" type="button">Carta Aventura</button>
+            <button class="create-menu-button" id="addNoteButton" type="button">Carta Nota</button>
           </div>
         </div>
       </div>
@@ -2775,23 +3166,30 @@ button.downcrawl-remoteness-option {
               <span class="menu-lines"><span></span><span></span><span></span></span>
             </button>
             <div class="dice-tray">
+              <div class="dice-system-box">
+                <span class="dice-total-label">Sistema</span>
+                <select class="dice-system-select" id="diceSystemSelect" aria-label="Seleccionar lanzador de dados">
+                  <option value="legend">Legend in the Mist</option>
+                  <option value="downcrawl">Downcrawl</option>
+                </select>
+              </div>
               <div class="dice-row" aria-label="Dados de seis caras">
                 <div class="die-face" id="dieFaceOne" aria-live="polite">1</div>
                 <div class="die-face" id="dieFaceTwo" aria-live="polite">1</div>
               </div>
             <div class="dice-total" aria-live="polite">
-              <span class="dice-total-label">Resultado</span>
+              <span class="dice-total-label" id="diceResultLabel">Resultado</span>
               <strong class="dice-total-value" id="diceTotalValue">2</strong>
               <span class="dice-total-note" id="diceTotalNote"></span>
             </div>
             <button class="dice-roll-button" id="rollDiceButton" type="button">Hacer tirada</button>
             <button class="dice-secondary-button" id="clearDiceButton" type="button">Limpiar</button>
             <div class="dice-power-box">
-              <span class="dice-total-label">PODER</span>
+              <span class="dice-total-label" id="dicePowerLabel">PODER</span>
               <input class="dice-power-input" id="dicePowerValue" type="text" value="+0" readonly aria-readonly="true">
             </div>
             <div class="dice-modifier-list" aria-live="polite">
-              <span class="dice-modifier-list-label">Modificadores activos</span>
+              <span class="dice-modifier-list-label" id="diceModifierListLabel">Modificadores activos</span>
               <div class="dice-modifier-items" id="diceModifierList"></div>
             </div>
             <button class="dice-secondary-button" id="clearDiceModifiersButton" type="button">Limpiar</button>
@@ -2885,20 +3283,22 @@ const BOARD_HEIGHT = 3600;
 const BOARD_OFFSET_X = 1800;
 const BOARD_OFFSET_Y = 1100;
 const STORAGE_KEY = 'legend-in-the-mist.board.v1';
-const DOWNCRAWL_NODE_TYPES = ['folk-deck', 'volume-deck', 'discard-deck', 'history-deck', 'folk', 'volume', 'adventure'];
+const DOWNCRAWL_NODE_TYPES = ['downcrawl-hero', 'folk-deck', 'volume-deck', 'discard-deck', 'history-deck', 'folk', 'volume', 'adventure', 'note'];
 const NODE_MIN_DIMENSIONS = {
   hero: { width: 1410, height: 590 },
   theme: { width: 250, height: 500 },
   tracking: { width: 224, height: 96 },
   'positive-tag': { width: 224, height: 96 },
   'negative-tag': { width: 224, height: 96 },
+  'downcrawl-hero': { width: 320, height: 560 },
   'folk-deck': { width: 1450, height: 780 },
   'volume-deck': { width: 1450, height: 780 },
   'discard-deck': { width: 1450, height: 780 },
   'history-deck': { width: 1450, height: 780 },
   folk: { width: 420, height: 646 },
   volume: { width: 420, height: 548 },
-  adventure: { width: 360, height: 320 }
+  adventure: { width: 360, height: 320 },
+  note: { width: 360, height: 520 }
 };
 const HERO_CARD_MIN_DIMENSIONS = {
   width: 210,
@@ -2908,6 +3308,17 @@ const THEME_POWER_OPTIONS = [
   { value: 'origen', label: 'Origen' },
   { value: 'aventura', label: 'Aventura' },
   { value: 'grandeza', label: 'Grandeza' }
+];
+const DOWNCRAWL_HERO_STAT_DEFAULTS = [
+  { label: 'Arrollador', tone: 'neutral' },
+  { label: 'Preciso', tone: 'burden' },
+  { label: 'Llamativo', tone: 'edge' },
+  { label: 'Veloz', tone: 'neutral' }
+];
+const DOWNCRAWL_HERO_STAT_TONE_OPTIONS = [
+  { id: 'burden', label: '-' },
+  { id: 'neutral', label: '' },
+  { id: 'edge', label: '+' }
 ];
 
 const initialNodes = [
@@ -2937,6 +3348,14 @@ function cloneNodes(nodes) {
     themeAbandonChecks: Array.isArray(node.themeAbandonChecks) ? [...node.themeAbandonChecks] : node.themeAbandonChecks,
     themeMilestoneChecks: Array.isArray(node.themeMilestoneChecks) ? [...node.themeMilestoneChecks] : node.themeMilestoneChecks,
     themeImprovementChecks: Array.isArray(node.themeImprovementChecks) ? [...node.themeImprovementChecks] : node.themeImprovementChecks,
+    specialImprovements: Array.isArray(node.specialImprovements)
+      ? node.specialImprovements.map((entry) => ({ ...entry }))
+      : node.specialImprovements,
+    sliverStats: Array.isArray(node.sliverStats)
+      ? node.sliverStats.map((entry) => ({ ...entry }))
+      : node.sliverStats,
+    heroAspects: Array.isArray(node.heroAspects) ? [...node.heroAspects] : node.heroAspects,
+    heroAspectChecks: Array.isArray(node.heroAspectChecks) ? [...node.heroAspectChecks] : node.heroAspectChecks,
     folkEntries: Array.isArray(node.folkEntries) ? [...node.folkEntries] : node.folkEntries,
     volumeEntries: Array.isArray(node.volumeEntries) ? [...node.volumeEntries] : node.volumeEntries,
     volumeResourceStates: Array.isArray(node.volumeResourceStates) ? [...node.volumeResourceStates] : node.volumeResourceStates,
@@ -2968,6 +3387,17 @@ function normalizeIndexedChecks(values, total) {
   )].sort((left, right) => left - right);
 }
 
+function normalizeSpecialImprovements(value) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((entry) => entry && typeof entry === 'object')
+    .map((entry) => ({
+      id: typeof entry.id === 'string' && entry.id.trim() ? entry.id : crypto.randomUUID(),
+      title: typeof entry.title === 'string' ? entry.title : '',
+      description: typeof entry.description === 'string' ? entry.description : ''
+    }));
+}
+
 function normalizeThemePower(value) {
   const normalized = String(value || '').trim().toLowerCase();
   return THEME_POWER_OPTIONS.some((option) => option.value === normalized) ? normalized : 'origen';
@@ -2994,30 +3424,51 @@ function normalizeAdventureOutcomeStates(values, total) {
     return value === 'positive' || value === 'negative' ? value : 'empty';
   });
 }
+
+function normalizeSliverStats(values) {
+  const source = Array.isArray(values) ? values : [];
+  return DOWNCRAWL_HERO_STAT_DEFAULTS.map((fallback, index) => {
+    const entry = source[index];
+    const label = typeof entry?.label === 'string' && entry.label.trim()
+      ? entry.label.trim()
+      : fallback.label;
+    const tone = ['edge', 'neutral', 'burden'].includes(entry?.tone)
+      ? entry.tone
+      : fallback.tone;
+    return {
+      label,
+      tone,
+      damaged: Boolean(entry?.damaged),
+      used: Boolean(entry?.used)
+    };
+  });
+}
 function createDefaultState() {
-  const nodes = cloneNodes(initialNodes);
+  const nodes = cloneNodes(initialNodes).map(sanitizeNode).filter(Boolean);
   const firstId = nodes[0]?.id ?? null;
+  const modules = sanitizeModules({
+    downcrawlEnabled: true
+  });
   return {
     nodes,
     selectedId: firstId,
     selectedIds: firstId ? [firstId] : [],
     boardName: 'Sesion actual',
     theme: 'dark',
-    modules: {
-      downcrawlEnabled: true
-    },
+    modules,
     zoom: 1,
     sidebarOpen: false,
     createMenuOpen: false,
     toolsMenuOpen: false,
     dice: sanitizeDiceState({
+      system: 'legend',
       dieOne: 1,
       dieTwo: 1,
       modifiers: [],
       disabledModifiers: [],
       invertedModifiers: [],
       cleared: false
-    }, nodes)
+    }, nodes, modules)
   };
 }
 
@@ -3030,7 +3481,7 @@ function parseDiceModifierId(modifierId) {
   if ((kind === 'theme-title' || kind === 'tracking-card' || kind === 'folk-title' || kind === 'volume-title') && parts.length === 2) {
     return { kind, nodeId };
   }
-  if (!['theme-tag', 'theme-weakness', 'hero-relation', 'hero-backpack', 'folk-entry', 'volume-entry'].includes(kind) || parts.length !== 3) {
+  if (!['theme-tag', 'theme-weakness', 'hero-relation', 'hero-backpack', 'downcrawl-hero-aspect', 'folk-entry', 'volume-entry'].includes(kind) || parts.length !== 3) {
     return null;
   }
   const index = Math.round(Number(indexText));
@@ -3080,6 +3531,13 @@ function resolveDiceModifier(modifierId, nodes) {
     const tag = Array.isArray(node.tags) ? node.tags[parsed.index - 1] : null;
     if (!tag || !tag.trim()) return null;
     return { id: modifierId, nodeId: node.id, value: 1, label: tag.trim() };
+  }
+
+  if (parsed.kind === 'downcrawl-hero-aspect') {
+    if (node.type !== 'downcrawl-hero') return null;
+    const aspect = Array.isArray(node.heroAspects) ? node.heroAspects[parsed.index - 1] : null;
+    if (!aspect || !aspect.trim()) return null;
+    return { id: modifierId, nodeId: node.id, value: 1, label: `${node.heroName?.trim() || node.title.trim() || 'Heroe'}: ${aspect.trim()}` };
   }
 
   if (parsed.kind === 'tracking-card') {
@@ -3139,8 +3597,36 @@ function normalizeDiceModifierIds(modifiers, nodes) {
   return validIds;
 }
 
-function sanitizeDiceState(dice, nodes = []) {
+function normalizeDiceSystem(system, modules = sanitizeModules()) {
+  const rawSystem = typeof system === 'string' ? system.trim().toLowerCase() : '';
+  if (rawSystem === 'downcrawl' && modules.downcrawlEnabled) {
+    return 'downcrawl';
+  }
+  return 'legend';
+}
+
+function getDiceSystemMeta(system) {
+  return system === 'downcrawl'
+    ? {
+      title: 'Downcrawl',
+      resultLabel: 'Resultado',
+      powerLabel: 'PODER',
+      modifierLabel: 'Modificadores activos',
+      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER en Downcrawl.'
+    }
+    : {
+      title: 'Legend in the Mist',
+      resultLabel: 'Resultado',
+      powerLabel: 'PODER',
+      modifierLabel: 'Modificadores activos',
+      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER.'
+    };
+}
+
+function sanitizeDiceState(dice, nodes = [], modules = null) {
+  const activeModules = sanitizeModules(modules);
   const cleared = Boolean(dice?.cleared);
+  const system = normalizeDiceSystem(dice?.system, activeModules);
   const dieOne = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieOne) || 1)));
   const dieTwo = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieTwo) || 1)));
   const modifiers = normalizeDiceModifierIds(dice?.modifiers, nodes);
@@ -3159,6 +3645,7 @@ function sanitizeDiceState(dice, nodes = []) {
   const power = modifierEntries.reduce((sum, modifier) => sum + modifier.value, 0);
   const baseTotal = cleared ? null : dieOne + dieTwo;
   return {
+    system,
     dieOne,
     dieTwo,
     modifiers,
@@ -3193,6 +3680,10 @@ function isDowncrawlDeckNode(node) {
 
 function isDowncrawlCardNode(node) {
   return isDowncrawlNode(node) && !isDowncrawlDeckNode(node);
+}
+
+function isFlippableDowncrawlNode(node) {
+  return isDowncrawlCardNode(node);
 }
 
 function getNodeMinimumSize(nodeOrType) {
@@ -3264,8 +3755,20 @@ function sanitizeNode(node) {
     safeNode.themeAbandonChecks = normalizeIndexedChecks(node.themeAbandonChecks, 3);
     safeNode.themeMilestoneChecks = normalizeIndexedChecks(node.themeMilestoneChecks, 3);
     safeNode.themeImprovementChecks = normalizeIndexedChecks(node.themeImprovementChecks, 3);
+    safeNode.showBack = Boolean(node.showBack);
+    safeNode.specialImprovements = normalizeSpecialImprovements(node.specialImprovements);
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS.theme.width, safeNode.width);
     safeNode.height = Math.max(NODE_MIN_DIMENSIONS.theme.height, safeNode.height);
+  }
+  if (node.type === 'downcrawl-hero') {
+    safeNode.heroName = typeof node.heroName === 'string' ? node.heroName : safeNode.title;
+    safeNode.heroTitle = typeof node.heroTitle === 'string' ? node.heroTitle : '';
+    safeNode.title = safeNode.title || 'Heroe de Downcrawl';
+    safeNode.sliverStats = normalizeSliverStats(node.sliverStats);
+    safeNode.heroAspects = Array.isArray(node.heroAspects) ? node.heroAspects.filter((item) => typeof item === 'string') : [];
+    safeNode.heroAspectChecks = normalizeIndexedChecks(node.heroAspectChecks, safeNode.heroAspects.length);
+    safeNode.width = Math.max(NODE_MIN_DIMENSIONS['downcrawl-hero'].width, safeNode.width);
+    safeNode.height = Math.max(NODE_MIN_DIMENSIONS['downcrawl-hero'].height, safeNode.height);
   }
   if (node.type === 'folk') {
     safeNode.subtitle = safeNode.subtitle || 'Folk Deck';
@@ -3315,6 +3818,16 @@ function sanitizeNode(node) {
     safeNode.adventureOutcomeStates = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, safeNode.milestoneCount);
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS.adventure.width, safeNode.width);
     safeNode.height = Math.max(NODE_MIN_DIMENSIONS.adventure.height, safeNode.height);
+  }
+  if (node.type === 'note') {
+    safeNode.subtitle = safeNode.subtitle || 'Nota';
+    safeNode.title = safeNode.title || 'Nueva nota';
+    safeNode.width = Math.max(NODE_MIN_DIMENSIONS.note.width, safeNode.width);
+    safeNode.height = Math.max(NODE_MIN_DIMENSIONS.note.height, safeNode.height);
+  }
+  if (isFlippableDowncrawlNode(safeNode)) {
+    safeNode.showBack = Boolean(node.showBack);
+    safeNode.backNotes = typeof node.backNotes === 'string' ? node.backNotes : '';
   }
   if (node.type === 'tracking') {
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS.tracking.width, safeNode.width);
@@ -3376,7 +3889,7 @@ function parseBoardPayload(parsed) {
       sidebarOpen: false,
       createMenuOpen: false,
       toolsMenuOpen: false,
-      dice: sanitizeDiceState(parsed.dice, nodes)
+      dice: sanitizeDiceState(parsed.dice, nodes, modules)
     },
     viewport: {
       left: Number(parsed.viewportLeft),
@@ -3402,11 +3915,15 @@ const closeToolsMenuButton = document.getElementById('closeToolsMenuButton');
 const dieFaceOne = document.getElementById('dieFaceOne');
 const dieFaceTwo = document.getElementById('dieFaceTwo');
 const diceTotal = document.querySelector('.dice-total');
+const diceSystemSelect = document.getElementById('diceSystemSelect');
 const diceTotalValue = document.getElementById('diceTotalValue');
 const diceTotalNote = document.getElementById('diceTotalNote');
+const diceResultLabel = document.getElementById('diceResultLabel');
 const rollDiceButton = document.getElementById('rollDiceButton');
 const clearDiceButton = document.getElementById('clearDiceButton');
+const dicePowerLabel = document.getElementById('dicePowerLabel');
 const dicePowerValue = document.getElementById('dicePowerValue');
+const diceModifierListLabel = document.getElementById('diceModifierListLabel');
 const diceModifierList = document.getElementById('diceModifierList');
 const clearDiceModifiersButton = document.getElementById('clearDiceModifiersButton');
 const sidebar = document.getElementById('sidebar');
@@ -3419,6 +3936,7 @@ const addHeroButton = document.getElementById('addHeroButton');
 const addThemeButton = document.getElementById('addThemeButton');
 const addCommunityButton = document.getElementById('addCommunityButton');
 const addTrackingButton = document.getElementById('addTrackingButton');
+const addDowncrawlHeroButton = document.getElementById('addDowncrawlHeroButton');
 const addFolkDeckButton = document.getElementById('addFolkDeckButton');
 const addVolumeDeckButton = document.getElementById('addVolumeDeckButton');
 const addDiscardDeckButton = document.getElementById('addDiscardDeckButton');
@@ -3426,6 +3944,7 @@ const addStoryDeckButton = document.getElementById('addStoryDeckButton');
 const addFolkButton = document.getElementById('addFolkButton');
 const addVolumeButton = document.getElementById('addVolumeButton');
 const addAdventureButton = document.getElementById('addAdventureButton');
+const addNoteButton = document.getElementById('addNoteButton');
 const addPositiveTagButton = document.getElementById('addPositiveTagButton');
 const addNegativeTagButton = document.getElementById('addNegativeTagButton');
 const centerBoardButton = document.getElementById('centerBoardButton');
@@ -3448,6 +3967,7 @@ let resizeState = null;
 let heroCardResizeState = null;
 let suppressBoardClick = false;
 let persistTimer = null;
+let inlineEditClickState = { id: null, at: 0 };
 
 function getSelectedNode() {
   if (!state.selectedIds.includes(state.selectedId)) {
@@ -3736,7 +4256,7 @@ function syncSelection() {
 function applyModuleConstraints() {
   state.modules = sanitizeModules(state.modules);
   state.nodes = sanitizeNodesForModules(state.nodes, state.modules);
-  state.dice = sanitizeDiceState(state.dice, state.nodes);
+  state.dice = sanitizeDiceState(state.dice, state.nodes, state.modules);
   syncSelection();
 }
 
@@ -3858,7 +4378,7 @@ function createBoardSnapshot() {
     boardName: state.boardName,
     theme: normalizeTheme(state.theme),
     modules: sanitizeModules(state.modules),
-    dice: sanitizeDiceState(state.dice, state.nodes),
+    dice: sanitizeDiceState(state.dice, state.nodes, state.modules),
     zoom: state.zoom,
     viewportLeft: board.scrollLeft,
     viewportTop: board.scrollTop
@@ -3953,7 +4473,9 @@ function lines(text) {
 }
 
 function canInlineEditNode(node) {
-  return Boolean(node);
+  return Boolean(node)
+    && !(isFlippableDowncrawlNode(node) && node.showBack)
+    && !(node.type === 'theme' && node.showBack);
 }
 
 function isInlineEditingNode(id) {
@@ -3995,6 +4517,12 @@ function buildThemeBody(tagsText, weaknessText) {
     tags.push(`debilidad: ${weakness}`);
   }
   return tags.join('\n');
+}
+
+function createThemeCardShell() {
+  const shell = document.createElement('div');
+  shell.className = 'theme-card-shell';
+  return shell;
 }
 
 function attachInlineEditorBehavior(article, node) {
@@ -4060,11 +4588,12 @@ function createThemeCheckRow(node, label, patchKey) {
 
   Array.from({ length: 3 }, (_, index) => {
     const checkNumber = index + 1;
+    const isFilled = checkedSet.has(checkNumber);
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `theme-check-button${checkedSet.has(checkNumber) ? ' filled' : ''}`;
-    button.setAttribute('aria-label', `${label}: marcar casilla ${checkNumber} de 3 en ${node.title || 'tarjeta de tema'}`);
-    button.setAttribute('aria-pressed', checkedSet.has(checkNumber) ? 'true' : 'false');
+    button.className = `theme-check-button${isFilled ? ' filled' : ''}`;
+    button.setAttribute('aria-label', `${label}: ajustar progreso a ${checkNumber} de 3 en ${node.title || 'tarjeta de tema'}`);
+    button.setAttribute('aria-pressed', isFilled ? 'true' : 'false');
     button.addEventListener('mousedown', (event) => {
       event.stopPropagation();
     });
@@ -4076,9 +4605,8 @@ function createThemeCheckRow(node, label, patchKey) {
       } else {
         activateNode(node.id);
       }
-      const nextChecks = checkedSet.has(checkNumber)
-        ? [...checkedSet].filter((value) => value !== checkNumber)
-        : [...checkedSet, checkNumber];
+      const nextValue = checkedSet.has(checkNumber) ? checkNumber - 1 : checkNumber;
+      const nextChecks = Array.from({ length: nextValue }, (_, valueIndex) => valueIndex + 1);
       updateNode(node.id, {
         [patchKey]: normalizeIndexedChecks(nextChecks, 3)
       });
@@ -4096,6 +4624,166 @@ function createThemeFooterChecks(node) {
   wrap.append(createThemeCheckRow(node, 'Abandono', 'themeAbandonChecks'));
   wrap.append(createThemeCheckRow(node, 'Mejora', 'themeImprovementChecks'));
   wrap.append(createThemeCheckRow(node, 'Hito', 'themeMilestoneChecks'));
+  return wrap;
+}
+
+function createThemeSpecialButton(node) {
+  const improvements = Array.isArray(node.specialImprovements) ? node.specialImprovements : [];
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'theme-special-button';
+  button.textContent = `Mejoras especiales (${improvements.length})`;
+  button.setAttribute('aria-label', `Mostrar ${improvements.length} mejoras especiales de ${node.title || 'la tarjeta'}`);
+  button.addEventListener('mousedown', (event) => event.stopPropagation());
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (state.toolsMenuOpen) return;
+    if (!isNodeSelected(node.id)) {
+      selectOnly(node.id);
+    } else {
+      activateNode(node.id);
+    }
+    if (state.inlineEditingId === node.id) {
+      stopInlineEdit(false);
+    }
+    updateNode(node.id, { showBack: true });
+  });
+  return button;
+}
+
+function updateThemeSpecialImprovement(nodeId, improvementId, patch) {
+  const current = state.nodes.find((item) => item.id === nodeId && item.type === 'theme');
+  if (!current) return;
+  const nextImprovements = normalizeSpecialImprovements(current.specialImprovements).map((entry) => (
+    entry.id === improvementId ? { ...entry, ...patch } : entry
+  ));
+  patchNodeState(nodeId, { specialImprovements: nextImprovements });
+}
+
+function createThemeImprovementEditor(node, improvement, index) {
+  const item = document.createElement('div');
+  item.className = 'theme-improvement-card';
+  const header = document.createElement('div');
+  header.className = 'theme-improvement-card-header';
+  const title = document.createElement('p');
+  title.className = 'theme-improvement-card-title';
+  title.textContent = `Mejora ${index + 1}`;
+  const removeButton = document.createElement('button');
+  removeButton.type = 'button';
+  removeButton.className = 'theme-improvement-remove';
+  removeButton.textContent = 'Eliminar';
+  removeButton.setAttribute('aria-label', `Eliminar mejora especial ${index + 1} de ${node.title || 'la tarjeta'}`);
+  removeButton.addEventListener('mousedown', (event) => event.stopPropagation());
+  removeButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (state.toolsMenuOpen) return;
+    const nextImprovements = normalizeSpecialImprovements(node.specialImprovements).filter((entry) => entry.id !== improvement.id);
+    updateNode(node.id, { specialImprovements: nextImprovements });
+  });
+  header.append(title, removeButton);
+  item.append(header);
+
+  const titleInput = createInlineInput('theme-improvement-title-input', improvement.title, (value) => {
+    updateThemeSpecialImprovement(node.id, improvement.id, { title: value });
+  });
+  titleInput.placeholder = 'Titulo de la mejora';
+  item.append(titleInput);
+
+  const descriptionInput = createInlineTextarea(improvement.description, 4, (value) => {
+    updateThemeSpecialImprovement(node.id, improvement.id, { description: value });
+  });
+  descriptionInput.classList.add('theme-improvement-description-input');
+  descriptionInput.placeholder = 'Describe la mejora especial.';
+  item.append(descriptionInput);
+
+  return item;
+}
+
+function createThemeBackFace(node) {
+  const wrap = document.createElement('div');
+  wrap.className = 'theme-special-back-face';
+  const header = document.createElement('div');
+  header.className = 'node-header';
+  const title = document.createElement('h3');
+  title.className = 'node-title';
+  title.textContent = node.title || 'Sin titulo';
+  header.append(title);
+  wrap.append(header);
+
+  const backButton = document.createElement('button');
+  backButton.type = 'button';
+  backButton.className = 'theme-back-button';
+  backButton.textContent = 'Volver al anverso';
+  backButton.setAttribute('aria-label', `Volver al anverso de ${node.title || 'la tarjeta'}`);
+  backButton.addEventListener('mousedown', (event) => event.stopPropagation());
+  backButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (state.toolsMenuOpen) return;
+    if (!isNodeSelected(node.id)) {
+      selectOnly(node.id);
+    } else {
+      activateNode(node.id);
+    }
+    updateNode(node.id, { showBack: false });
+  });
+  wrap.append(backButton);
+
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.innerHTML = '<span class="section-tag">Mejoras especiales</span>';
+  const list = document.createElement('div');
+  list.className = 'theme-improvement-list';
+  const improvements = normalizeSpecialImprovements(node.specialImprovements);
+
+  if (!improvements.length) {
+    const empty = document.createElement('div');
+    empty.className = 'theme-improvement-empty';
+    const copy = document.createElement('div');
+    copy.className = 'theme-improvement-empty-copy';
+    copy.textContent = 'Todavia no hay mejoras especiales. Anade la primera para usar este reverso.';
+    const addFirstButton = document.createElement('button');
+    addFirstButton.type = 'button';
+    addFirstButton.className = 'theme-improvement-add';
+    addFirstButton.textContent = 'Anadir mejora';
+    addFirstButton.addEventListener('mousedown', (event) => event.stopPropagation());
+    addFirstButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (state.toolsMenuOpen) return;
+      updateNode(node.id, {
+        specialImprovements: [
+          ...improvements,
+          { id: crypto.randomUUID(), title: '', description: '' }
+        ]
+      });
+    });
+    empty.append(copy, addFirstButton);
+    list.append(empty);
+  } else {
+    improvements.forEach((improvement, index) => {
+      list.append(createThemeImprovementEditor(node, improvement, index));
+    });
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'theme-improvement-add';
+    addButton.textContent = 'Anadir mejora';
+    addButton.addEventListener('mousedown', (event) => event.stopPropagation());
+    addButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (state.toolsMenuOpen) return;
+      updateNode(node.id, {
+        specialImprovements: [
+          ...improvements,
+          { id: crypto.randomUUID(), title: '', description: '' }
+        ]
+      });
+    });
+    section.append(list, addButton);
+    wrap.append(section);
+    return wrap;
+  }
+
+  section.append(list);
+  wrap.append(section);
   return wrap;
 }
 
@@ -4305,11 +4993,16 @@ function getDiceModifierIdForTag(node, patchKey, index, itemText) {
     if (!relation || !relation.trim()) return null;
     return `hero-relation:${node.id}:${index}`;
   }
+  if (patchKey === 'heroAspectChecks' && node.type === 'downcrawl-hero') {
+    const aspect = Array.isArray(node.heroAspects) ? node.heroAspects[index - 1] : null;
+    if (!aspect || !aspect.trim()) return null;
+    return `downcrawl-hero-aspect:${node.id}:${index}`;
+  }
   return null;
 }
 
 function toggleDiceModifier(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   const modifiers = current.modifiers.includes(modifierId)
     ? current.modifiers.filter((entry) => entry !== modifierId)
     : [...current.modifiers, modifierId];
@@ -4320,66 +5013,76 @@ function toggleDiceModifier(modifierId) {
     modifiers,
     disabledModifiers,
     invertedModifiers
-  }, state.nodes);
+  }, state.nodes, state.modules);
   render();
 }
 
 function toggleDiceModifierEnabled(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   const disabledModifiers = current.disabledModifiers.includes(modifierId)
     ? current.disabledModifiers.filter((entry) => entry !== modifierId)
     : [...current.disabledModifiers, modifierId];
   state.dice = sanitizeDiceState({
     ...current,
     disabledModifiers
-  }, state.nodes);
+  }, state.nodes, state.modules);
   render();
 }
 
 function removeDiceModifier(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   state.dice = sanitizeDiceState({
     ...current,
     modifiers: current.modifiers.filter((entry) => entry !== modifierId),
     disabledModifiers: current.disabledModifiers.filter((entry) => entry !== modifierId),
     invertedModifiers: current.invertedModifiers.filter((entry) => entry !== modifierId)
-  }, state.nodes);
+  }, state.nodes, state.modules);
   render();
 }
 
 function toggleDiceModifierSign(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   const invertedModifiers = current.invertedModifiers.includes(modifierId)
     ? current.invertedModifiers.filter((entry) => entry !== modifierId)
     : [...current.invertedModifiers, modifierId];
   state.dice = sanitizeDiceState({
     ...current,
     invertedModifiers
-  }, state.nodes);
+  }, state.nodes, state.modules);
   render();
 }
 
 function clearDiceRoll() {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   state.dice = sanitizeDiceState({
     ...current,
     dieOne: null,
     dieTwo: null,
     cleared: true
-  }, state.nodes);
+  }, state.nodes, state.modules);
   renderDiceTray();
   schedulePersist();
 }
 
 function clearAllDiceModifiers() {
-  const current = sanitizeDiceState(state.dice, state.nodes);
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
   state.dice = sanitizeDiceState({
     ...current,
     modifiers: [],
     disabledModifiers: [],
     invertedModifiers: []
-  }, state.nodes);
+  }, state.nodes, state.modules);
   render();
+}
+
+function setDiceSystem(system) {
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  state.dice = sanitizeDiceState({
+    ...current,
+    system
+  }, state.nodes, state.modules);
+  renderDiceTray();
+  schedulePersist();
 }
 
 function applyDiceModifierSourceBehavior(element, node, modifierId) {
@@ -4620,6 +5323,12 @@ function renderHero(node, article) {
 function renderTheme(node, article) {
   const cardLabel = node.subtitle || 'Tarjeta de tema';
   article.classList.add('theme-sheet', 'small-title', getThemePowerClass(node.themePower));
+  const shell = createThemeCardShell();
+  if (node.showBack) {
+    shell.append(createThemeBackFace(node));
+    article.append(shell);
+    return;
+  }
   if (isInlineEditingNode(node.id)) {
     article.classList.add('inline-editing');
     const header = document.createElement('div');
@@ -4627,7 +5336,7 @@ function renderTheme(node, article) {
     header.append(createInlineInput('inline-edit-title', node.title, (value) => {
       patchNodeState(node.id, { title: value, themeTitleChecks: normalizeIndexedChecks(node.themeTitleChecks, value.trim() ? 1 : 0) });
     }));
-    article.append(header);
+    shell.append(header);
     const meta = document.createElement('div');
     meta.className = 'section';
     meta.innerHTML = `<span class="section-tag">${cardLabel}</span>`;
@@ -4639,7 +5348,7 @@ function renderTheme(node, article) {
     });
     metaGrid.append(createThemeMetaRow('Poder', powerContent), createThemeMetaRow('Tipo', typeEditor));
     meta.append(metaGrid);
-    article.append(meta);
+    shell.append(meta);
     const tags = document.createElement('div');
     tags.className = 'section';
     tags.innerHTML = '<span class="section-tag">Tags</span>';
@@ -4650,7 +5359,7 @@ function renderTheme(node, article) {
     });
     tagsEditor.classList.add('theme-tag-editor');
     tags.append(tagsEditor);
-    article.append(tags);
+    shell.append(tags);
     const weakness = document.createElement('div');
     weakness.className = 'section';
     weakness.innerHTML = '<span class="section-tag">Debilidades</span>';
@@ -4661,26 +5370,28 @@ function renderTheme(node, article) {
     });
     weaknessEditor.classList.add('theme-weakness-editor');
     weakness.append(weaknessEditor);
-    article.append(weakness);
+    shell.append(weakness);
     const mission = document.createElement('div');
     mission.className = 'section';
     mission.innerHTML = '<span class="section-tag">Mision</span>';
     mission.append(createInlineTextarea(node.mission || '', 4, (value) => {
       patchNodeState(node.id, { mission: value });
     }));
-    article.append(mission);
+    shell.append(mission);
+    shell.append(createThemeSpecialButton(node));
     const hint = document.createElement('div');
     hint.className = 'inline-edit-hint';
     hint.textContent = 'Edicion directa activa. Pulsa Esc o haz clic fuera para cerrar.';
-    article.append(createThemeFooterChecks(node));
-    article.append(hint);
+    shell.append(createThemeFooterChecks(node));
+    shell.append(hint);
+    article.append(shell);
     attachInlineEditorBehavior(article, node);
     return;
   }
   const header = document.createElement('div');
   header.className = 'node-header';
   header.append(createCheckableTagList(node, [node.title || 'Sin titulo'], node.title ? node.themeTitleChecks : [], 'node-title', 'themeTitleChecks'));
-  article.append(header);
+  shell.append(header);
   const meta = document.createElement('div');
   meta.className = 'section';
   meta.innerHTML = `<span class="section-tag">${cardLabel}</span>`;
@@ -4690,14 +5401,14 @@ function renderTheme(node, article) {
   typeValue.textContent = node.kind || node.subtitle || '';
   metaGrid.append(createThemeMetaRow('Poder', createThemePowerSelector(node)), createThemeMetaRow('Tipo', typeValue));
   meta.append(metaGrid);
-  article.append(meta);
+  shell.append(meta);
   const tags = document.createElement('div');
   tags.className = 'section';
   tags.innerHTML = '<span class="section-tag">Tags</span>';
   const themeTagLines = lines(node.body).slice(0, 2);
   const themeTagItems = themeTagLines.length ? themeTagLines : ['Sin tags todavia'];
   tags.append(createCheckableTagList(node, themeTagItems, themeTagLines.length ? node.themeTagChecks : [], 'theme-tag', 'themeTagChecks'));
-  article.append(tags);
+  shell.append(tags);
   const weakness = lines(node.body)[2];
   if (weakness) {
     const weak = document.createElement('div');
@@ -4705,7 +5416,7 @@ function renderTheme(node, article) {
     weak.innerHTML = '<span class="section-tag">Debilidades</span>';
     const weaknessText = weakness.replace(/^debilidad:\s*/i, '');
     weak.append(createCheckableTagList(node, [weaknessText], node.themeWeaknessChecks || [], 'theme-weakness-tag', 'themeWeaknessChecks'));
-    article.append(weak);
+    shell.append(weak);
   }
   const mission = document.createElement('div');
   mission.className = 'section';
@@ -4714,8 +5425,10 @@ function renderTheme(node, article) {
   m.className = 'note-strip';
   m.textContent = node.mission || 'Sin mision todavia.';
   mission.append(m);
-  article.append(mission);
-  article.append(createThemeFooterChecks(node));
+  shell.append(mission);
+  shell.append(createThemeSpecialButton(node));
+  shell.append(createThemeFooterChecks(node));
+  article.append(shell);
 }
 function renderTracking(node, article) {
   article.classList.add('tracking-card', 'small-title');
@@ -4782,6 +5495,71 @@ function createDowncrawlDisplayField(value, className = 'note-strip') {
   return field;
 }
 
+function createDowncrawlCardShell(node, label) {
+  const shell = document.createElement('div');
+  shell.className = 'downcrawl-shell';
+  const topbar = document.createElement('div');
+  topbar.className = 'downcrawl-card-topbar';
+  const deckLabel = document.createElement('p');
+  deckLabel.className = 'downcrawl-deck-label';
+  deckLabel.textContent = label;
+  topbar.append(deckLabel);
+  if (isFlippableDowncrawlNode(node)) {
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'downcrawl-face-toggle';
+    toggle.textContent = node.showBack ? 'Ver frente' : 'Ver dorso';
+    toggle.setAttribute('aria-pressed', node.showBack ? 'true' : 'false');
+    toggle.setAttribute('aria-label', `${node.showBack ? 'Mostrar frente' : 'Mostrar dorso'} de ${node.title || node.subtitle || 'la tarjeta'}`);
+    toggle.addEventListener('mousedown', (event) => event.stopPropagation());
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (state.toolsMenuOpen) return;
+      if (!isNodeSelected(node.id)) {
+        selectOnly(node.id);
+      } else {
+        activateNode(node.id);
+      }
+      if (state.inlineEditingId === node.id) {
+        stopInlineEdit(false);
+      }
+      updateNode(node.id, { showBack: !node.showBack });
+    });
+    topbar.append(toggle);
+  }
+  shell.append(topbar);
+  return shell;
+}
+
+function createDowncrawlBackFace(node) {
+  const wrap = document.createElement('div');
+  wrap.className = 'downcrawl-back-face';
+  const header = document.createElement('div');
+  header.className = 'node-header';
+  const title = document.createElement('h3');
+  title.className = 'node-title';
+  title.textContent = node.title || node.subtitle || 'Tarjeta';
+  header.append(title);
+  wrap.append(header);
+
+  const notes = document.createElement('div');
+  notes.className = 'section downcrawl-back-notes';
+  notes.innerHTML = '<span class="section-tag">Notas</span>';
+  const textarea = document.createElement('textarea');
+  textarea.className = 'inline-edit-control downcrawl-inline-textarea downcrawl-back-notes-input';
+  textarea.rows = 10;
+  textarea.value = node.backNotes || '';
+  textarea.placeholder = 'Escribe aqui las notas del dorso.';
+  textarea.addEventListener('mousedown', (event) => event.stopPropagation());
+  textarea.addEventListener('click', (event) => event.stopPropagation());
+  textarea.addEventListener('change', () => patchNodeState(node.id, { backNotes: textarea.value }));
+  textarea.addEventListener('blur', () => patchNodeState(node.id, { backNotes: textarea.value }));
+  notes.append(textarea);
+  wrap.append(notes);
+
+  return wrap;
+}
+
 function createDowncrawlLine(node, value, label, index, isResource = false, resourceControl = null) {
   const section = document.createElement('div');
   section.className = 'section downcrawl-line';
@@ -4812,6 +5590,207 @@ function createDowncrawlLineEditor(value, label, onInput, isResource = false, re
   }
   section.append(createDowncrawlInlineField(value, 1, onInput));
   return section;
+}
+
+function patchDowncrawlHeroStat(nodeId, index, patch, renderImmediately = false) {
+  const current = state.nodes.find((item) => item.id === nodeId);
+  if (!current || current.type !== 'downcrawl-hero') return;
+  const nextStats = normalizeSliverStats(current.sliverStats);
+  nextStats[index] = {
+    ...nextStats[index],
+    ...patch
+  };
+  const nextPatch = { sliverStats: nextStats };
+  if (renderImmediately) {
+    updateNode(nodeId, nextPatch);
+    return;
+  }
+  patchNodeState(nodeId, nextPatch);
+}
+
+function getDowncrawlHeroToneLabel(tone) {
+  return DOWNCRAWL_HERO_STAT_TONE_OPTIONS.find((option) => option.id === tone)?.label ?? '';
+}
+
+function createDowncrawlHeroStatMarkButton(node, index, kind, active) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = `downcrawl-hero-stat-mark is-${kind}${active ? ' active' : ''}`;
+  button.textContent = active ? (kind === 'damage' ? 'X' : '✓') : '';
+  button.setAttribute('aria-label', `${kind === 'damage' ? 'Marcar dano' : 'Marcar uso'} en ${node.sliverStats?.[index]?.label || 'estadistica'}`);
+  button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  button.addEventListener('mousedown', (event) => event.stopPropagation());
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (state.toolsMenuOpen) return;
+    patchDowncrawlHeroStat(node.id, index, {
+      [kind === 'damage' ? 'damaged' : 'used']: !active
+    }, true);
+  });
+  return button;
+}
+
+function createDowncrawlHeroToneToggle(node, index, currentTone) {
+  const wrap = document.createElement('div');
+  wrap.className = 'downcrawl-hero-tone-toggle';
+
+  DOWNCRAWL_HERO_STAT_TONE_OPTIONS.forEach((option) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `downcrawl-hero-tone-option${currentTone === option.id ? ' is-active' : ''}`;
+    button.textContent = option.label;
+    button.setAttribute('aria-label', `Ajustar ${node.sliverStats?.[index]?.label || 'estadistica'} como ${option.label.toLowerCase()}`);
+    button.addEventListener('mousedown', (event) => event.stopPropagation());
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (state.toolsMenuOpen) return;
+      patchDowncrawlHeroStat(node.id, index, { tone: option.id }, true);
+    });
+    wrap.append(button);
+  });
+
+  return wrap;
+}
+
+function createDowncrawlHeroStatDisplay(node, index, stat) {
+  const row = document.createElement('div');
+  row.className = `downcrawl-hero-stat is-${stat.tone}${stat.damaged ? ' is-damaged' : ''}`;
+  row.append(createDowncrawlHeroStatMarkButton(node, index, 'damage', stat.damaged));
+  const label = document.createElement('div');
+  label.className = 'downcrawl-hero-stat-label';
+  label.textContent = stat.label;
+  const badge = document.createElement('div');
+  badge.className = 'downcrawl-hero-stat-badge';
+  badge.textContent = getDowncrawlHeroToneLabel(stat.tone);
+  row.append(label, badge, createDowncrawlHeroStatMarkButton(node, index, 'used', stat.used));
+  return row;
+}
+
+function renderDowncrawlHero(node, article) {
+  article.classList.add('downcrawl-card', 'downcrawl-hero-card', 'small-title');
+  const allStatsUsed = node.sliverStats.every((stat) => stat.used);
+  const shell = createDowncrawlCardShell(node, 'Heroe de Downcrawl');
+
+  if (node.showBack) {
+    article.append(shell);
+    shell.append(createDowncrawlBackFace(node));
+    return;
+  }
+
+  const header = document.createElement('div');
+  header.className = 'node-header';
+  if (isInlineEditingNode(node.id)) {
+    const titleEditor = createInlineInput('inline-edit-title', node.title || 'Heroe de Downcrawl', (value) => {
+      patchNodeState(node.id, { title: value });
+    });
+    titleEditor.placeholder = 'Titulo de la tarjeta';
+    header.append(titleEditor);
+  } else {
+    const cardTitle = document.createElement('h3');
+    cardTitle.className = 'node-title';
+    cardTitle.textContent = node.title || 'Heroe de Downcrawl';
+    header.append(cardTitle);
+  }
+  shell.append(header);
+
+  const nameSection = document.createElement('div');
+  nameSection.className = 'section';
+  nameSection.innerHTML = '<span class="section-tag">Nombre</span>';
+  if (isInlineEditingNode(node.id)) {
+    const heroNameField = createDowncrawlInlineField(node.heroName || node.title || '', 1, (value) => {
+      patchNodeState(node.id, {
+        heroName: value
+      });
+    });
+    heroNameField.placeholder = 'Nombre del heroe';
+    heroNameField.classList.add('downcrawl-hero-name-field');
+    nameSection.append(heroNameField);
+  } else {
+    const heroName = createDowncrawlDisplayField(node.heroName || 'Sin nombre todavia');
+    heroName.classList.add('downcrawl-hero-name-field');
+    nameSection.append(heroName);
+  }
+  shell.append(nameSection);
+
+  const titleSection = document.createElement('div');
+  titleSection.className = 'section';
+  titleSection.innerHTML = '<span class="section-tag">Titulo</span>';
+  if (isInlineEditingNode(node.id)) {
+    const heroTitleField = createDowncrawlInlineField(node.heroTitle || '', 2, (value) => {
+      patchNodeState(node.id, { heroTitle: value });
+    });
+    heroTitleField.placeholder = 'Bardo de la escalera rota';
+    heroTitleField.classList.add('downcrawl-hero-title');
+    titleSection.append(heroTitleField);
+  } else {
+    const heroTitleField = createDowncrawlDisplayField(node.heroTitle || 'Sin titulo todavia');
+    heroTitleField.classList.add('downcrawl-hero-title');
+    titleSection.append(heroTitleField);
+  }
+  shell.append(titleSection);
+
+  const statsSection = document.createElement('div');
+  statsSection.className = 'section';
+  statsSection.innerHTML = `<div class="downcrawl-subheading-row"><span class="section-tag">Estadisticas</span><span class="downcrawl-mini-note">${allStatsUsed ? 'Bonus listo' : 'Sliver of Fate'}</span></div>`;
+  const statList = document.createElement('div');
+  statList.className = 'downcrawl-hero-stats';
+  node.sliverStats.forEach((stat, index) => {
+    if (isInlineEditingNode(node.id)) {
+      const row = document.createElement('div');
+      row.className = 'downcrawl-hero-stat-editor-row';
+      const controlsRow = document.createElement('div');
+      controlsRow.className = `downcrawl-hero-stat is-${stat.tone}${stat.damaged ? ' is-damaged' : ''}`;
+      controlsRow.append(createDowncrawlHeroStatMarkButton(node, index, 'damage', stat.damaged));
+      const input = createDowncrawlInlineField(stat.label, 1, (value) => {
+        patchDowncrawlHeroStat(node.id, index, { label: value });
+      });
+      input.placeholder = DOWNCRAWL_HERO_STAT_DEFAULTS[index]?.label || 'Estadistica';
+      const badge = document.createElement('div');
+      badge.className = 'downcrawl-hero-stat-badge';
+      badge.textContent = getDowncrawlHeroToneLabel(stat.tone);
+      controlsRow.append(input, badge, createDowncrawlHeroStatMarkButton(node, index, 'used', stat.used));
+      row.append(controlsRow, createDowncrawlHeroToneToggle(node, index, stat.tone));
+      statList.append(row);
+    } else {
+      statList.append(createDowncrawlHeroStatDisplay(node, index, stat));
+    }
+  });
+  statsSection.append(statList);
+  shell.append(statsSection);
+
+  const aspectsSection = document.createElement('div');
+  aspectsSection.className = 'section downcrawl-hero-aspects';
+  aspectsSection.innerHTML = '<span class="section-tag">Aspectos</span>';
+  if (isInlineEditingNode(node.id)) {
+    const editor = createInlineTextarea((node.heroAspects || []).join('\n'), 4, (value) => {
+      patchNodeState(node.id, {
+        heroAspects: lines(value),
+        heroAspectChecks: normalizeIndexedChecks(node.heroAspectChecks, lines(value).length)
+      });
+    });
+    editor.classList.add('downcrawl-inline-textarea');
+    editor.placeholder = 'Viejos huesos\nLibro de los suenos\nCantor de canciones';
+    aspectsSection.append(editor);
+  } else {
+    const aspectItems = Array.isArray(node.heroAspects) && node.heroAspects.filter((item) => item.trim()).length
+      ? node.heroAspects.filter((item) => item.trim())
+      : ['Sin aspectos todavia'];
+    aspectsSection.append(createCheckableTagList(node, aspectItems, aspectItems[0] === 'Sin aspectos todavia' ? [] : node.heroAspectChecks, 'downcrawl-hero-aspect-tag', 'heroAspectChecks'));
+  }
+  shell.append(aspectsSection);
+
+  if (isInlineEditingNode(node.id)) {
+    const hint = document.createElement('div');
+    hint.className = 'inline-edit-hint';
+    hint.textContent = 'Edicion directa activa. Pulsa Esc o haz clic fuera para cerrar.';
+    shell.append(hint);
+    article.classList.add('inline-editing');
+    article.append(shell);
+    attachInlineEditorBehavior(article, node);
+    return;
+  }
+
+  article.append(shell);
 }
 
 function patchNodeListEntry(nodeId, key, index, value) {
@@ -5006,9 +5985,13 @@ function createRemotenessOptions(node) {
 
 function renderFolk(node, article) {
   article.classList.add('downcrawl-card', 'downcrawl-folk-card', 'small-title');
-  const shell = document.createElement('div');
-  shell.className = 'downcrawl-shell';
-  shell.innerHTML = '<p class="downcrawl-deck-label">Mazo de folk</p>';
+  const shell = createDowncrawlCardShell(node, 'Mazo de folk');
+
+  if (node.showBack) {
+    article.append(shell);
+    shell.append(createDowncrawlBackFace(node));
+    return;
+  }
 
   const header = document.createElement('div');
   header.className = 'node-header';
@@ -5235,9 +6218,13 @@ function renderHistoryDeck(node, article) {
 
 function renderVolume(node, article) {
   article.classList.add('downcrawl-card', 'downcrawl-volume-card', 'small-title');
-  const shell = document.createElement('div');
-  shell.className = 'downcrawl-shell';
-  shell.innerHTML = '<p class="downcrawl-deck-label">Mazo de mapa</p>';
+  const shell = createDowncrawlCardShell(node, 'Mazo de mapa');
+
+  if (node.showBack) {
+    article.append(shell);
+    shell.append(createDowncrawlBackFace(node));
+    return;
+  }
 
   const header = document.createElement('div');
   header.className = 'node-header';
@@ -5347,9 +6334,13 @@ function createAdventureMilestoneRow(node, label, index, editable) {
 
 function renderAdventure(node, article) {
   article.classList.add('downcrawl-card', 'downcrawl-adventure-card', 'small-title');
-  const shell = document.createElement('div');
-  shell.className = 'downcrawl-shell';
-  shell.innerHTML = '<p class="downcrawl-deck-label">Downcrawl Aventura</p>';
+  const shell = createDowncrawlCardShell(node, 'Downcrawl Aventura');
+
+  if (node.showBack) {
+    article.append(shell);
+    shell.append(createDowncrawlBackFace(node));
+    return;
+  }
 
   const header = document.createElement('div');
   header.className = 'node-header';
@@ -5388,6 +6379,63 @@ function renderAdventure(node, article) {
     milestoneList.append(createAdventureMilestoneRow(node, label, index, true));
   });
   shell.append(milestoneList);
+
+  if (isInlineEditingNode(node.id)) {
+    const hint = document.createElement('div');
+    hint.className = 'inline-edit-hint';
+    hint.textContent = 'Edicion directa activa. Pulsa Esc o haz clic fuera para cerrar.';
+    shell.append(hint);
+    article.classList.add('inline-editing');
+    article.append(shell);
+    attachInlineEditorBehavior(article, node);
+    return;
+  }
+
+  article.append(shell);
+}
+
+function renderNote(node, article) {
+  article.classList.add('downcrawl-card', 'downcrawl-note-card', 'small-title');
+  const shell = createDowncrawlCardShell(node, 'Downcrawl Nota');
+
+  if (node.showBack) {
+    article.append(shell);
+    shell.append(createDowncrawlBackFace(node));
+    return;
+  }
+
+  const header = document.createElement('div');
+  header.className = 'node-header';
+  if (isInlineEditingNode(node.id)) {
+    const titleEditor = createInlineInput('inline-edit-title', node.title, (value) => patchNodeState(node.id, { title: value }));
+    titleEditor.placeholder = 'Titulo de la nota';
+    header.append(titleEditor);
+  } else {
+    const title = document.createElement('h3');
+    title.className = 'node-title';
+    title.textContent = node.title || 'Nueva nota';
+    header.append(title);
+  }
+  shell.append(header);
+
+  const notes = document.createElement('div');
+  notes.className = 'section downcrawl-back-notes';
+  notes.innerHTML = '<span class="section-tag">Notas</span>';
+  if (isInlineEditingNode(node.id)) {
+    const textarea = document.createElement('textarea');
+    textarea.className = 'inline-edit-control downcrawl-inline-textarea downcrawl-back-notes-input';
+    textarea.rows = 10;
+    textarea.value = node.body || '';
+    textarea.placeholder = 'Escribe aqui las notas del frente.';
+    textarea.addEventListener('mousedown', (event) => event.stopPropagation());
+    textarea.addEventListener('click', (event) => event.stopPropagation());
+    textarea.addEventListener('change', () => patchNodeState(node.id, { body: textarea.value }));
+    textarea.addEventListener('blur', () => patchNodeState(node.id, { body: textarea.value }));
+    notes.append(textarea);
+  } else {
+    notes.append(createDowncrawlDisplayField(node.body || 'Sin notas en el frente todavia.'));
+  }
+  shell.append(notes);
 
   if (isInlineEditingNode(node.id)) {
     const hint = document.createElement('div');
@@ -5480,6 +6528,7 @@ function renderBoard() {
   if (node.type === 'hero') renderHero(node, article);
   if (node.type === 'theme') renderTheme(node, article);
   if (node.type === 'tracking') renderTracking(node, article);
+  if (node.type === 'downcrawl-hero') renderDowncrawlHero(node, article);
   if (node.type === 'folk-deck') renderFolkDeck(node, article);
   if (node.type === 'volume-deck') renderVolumeDeck(node, article);
   if (node.type === 'discard-deck') renderDiscardDeck(node, article);
@@ -5487,6 +6536,7 @@ function renderBoard() {
   if (node.type === 'folk') renderFolk(node, article);
   if (node.type === 'volume') renderVolume(node, article);
   if (node.type === 'adventure') renderAdventure(node, article);
+  if (node.type === 'note') renderNote(node, article);
     if (node.type === 'positive-tag') renderSimpleLabel(node, article, 'positive-tag-card');
     if (node.type === 'negative-tag') renderSimpleLabel(node, article, 'negative-tag-card');
     appendResizeHandle(node, article);
@@ -5527,14 +6577,24 @@ function renderBoard() {
       });
     });
 
-    article.addEventListener('click', () => {
+    article.addEventListener('click', (event) => {
       if (state.toolsMenuOpen) return;
       if (isInlineEditingNode(node.id)) return;
+      const now = performance.now();
+      const isRepeatedClick = inlineEditClickState.id === node.id && (now - inlineEditClickState.at) <= 320;
       if (!isNodeSelected(node.id)) {
         selectOnly(node.id);
       } else {
         activateNode(node.id);
       }
+      if (isRepeatedClick && canInlineEditNode(node) && state.selectedIds.length === 1 && state.selectedId === node.id) {
+        inlineEditClickState = { id: null, at: 0 };
+        event.preventDefault();
+        event.stopPropagation();
+        beginInlineEdit(node.id);
+        return;
+      }
+      inlineEditClickState = { id: node.id, at: now };
       render();
     });
 
@@ -5596,8 +6656,9 @@ function renderToolsMenu() {
 }
 
 function renderDiceTray() {
-  const dice = sanitizeDiceState(state.dice, state.nodes);
+  const dice = sanitizeDiceState(state.dice, state.nodes, state.modules);
   state.dice = dice;
+  const diceMeta = getDiceSystemMeta(dice.system);
   const disabledSet = new Set(dice.disabledModifiers);
   const invertedSet = new Set(dice.invertedModifiers);
   const modifierEntries = dice.modifiers
@@ -5614,6 +6675,16 @@ function renderDiceTray() {
     : dice.total >= 10
       ? 'success'
       : 'mixed';
+  diceSystemSelect.value = dice.system;
+  const downcrawlOption = diceSystemSelect.querySelector('option[value="downcrawl"]');
+  if (downcrawlOption) {
+    downcrawlOption.disabled = !state.modules.downcrawlEnabled;
+    downcrawlOption.hidden = !state.modules.downcrawlEnabled;
+  }
+  diceSystemSelect.setAttribute('aria-label', `Seleccionar lanzador de dados: ${diceMeta.title}`);
+  diceResultLabel.textContent = diceMeta.resultLabel;
+  dicePowerLabel.textContent = diceMeta.powerLabel;
+  diceModifierListLabel.textContent = diceMeta.modifierLabel;
   dieFaceOne.textContent = dice.cleared ? '' : String(dice.dieOne);
   dieFaceTwo.textContent = dice.cleared ? '' : String(dice.dieTwo);
   diceTotalValue.textContent = dice.cleared ? '' : String(dice.total);
@@ -5634,7 +6705,7 @@ function renderDiceTray() {
   if (!modifierEntries.length) {
     const empty = document.createElement('p');
     empty.className = 'dice-modifier-empty';
-    empty.textContent = 'Abre la bandeja y pulsa tags o debilidades para sumar PODER.';
+    empty.textContent = diceMeta.emptyModifiersText;
     diceModifierList.append(empty);
     return;
   }
@@ -5688,17 +6759,18 @@ function renderDiceTray() {
 }
 
 function rollDice() {
-  const currentDice = sanitizeDiceState(state.dice, state.nodes);
+  const currentDice = sanitizeDiceState(state.dice, state.nodes, state.modules);
   const dieOne = Math.floor(Math.random() * 6) + 1;
   const dieTwo = Math.floor(Math.random() * 6) + 1;
   state.dice = sanitizeDiceState({
+    system: currentDice.system,
     dieOne,
     dieTwo,
     modifiers: currentDice.modifiers,
     disabledModifiers: currentDice.disabledModifiers,
     invertedModifiers: currentDice.invertedModifiers,
     cleared: false
-  }, state.nodes);
+  }, state.nodes, state.modules);
   renderDiceTray();
   schedulePersist();
 }
@@ -5841,9 +6913,11 @@ createMenuButton.addEventListener('click', () => {
 });
 
 function finishNodeCreation(node) {
-  state.nodes = [...state.nodes, node];
+  const safeNode = sanitizeNode(node);
+  if (!safeNode) return;
+  state.nodes = [...state.nodes, safeNode];
   state.createMenuOpen = false;
-  selectOnly(node.id);
+  selectOnly(safeNode.id);
   render();
 }
 
@@ -5874,12 +6948,12 @@ zoomSlider.addEventListener('input', () => {
 });
 
 addThemeButton.addEventListener('click', () => {
-  const node = { id: crypto.randomUUID(), type: 'theme', title: 'Nueva tarjeta', subtitle: 'Tarjeta de tema', body: 'tag principal\notro tag\ndebilidad: pendiente', x: BOARD_OFFSET_X + 240 + state.nodes.length * 18, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14, width: 250, height: 500, kind: 'Tema', themePower: 'origen', mission: 'Define aqui la mision de esta tarjeta.' };
+  const node = { id: crypto.randomUUID(), type: 'theme', title: 'Nueva tarjeta', subtitle: 'Tarjeta de tema', body: 'tag principal\notro tag\ndebilidad: pendiente', x: BOARD_OFFSET_X + 240 + state.nodes.length * 18, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14, width: 250, height: 500, kind: 'Tema', themePower: 'origen', mission: 'Define aqui la mision de esta tarjeta.', showBack: false, specialImprovements: [] };
   finishNodeCreation(node);
 });
 
 addCommunityButton.addEventListener('click', () => {
-  const node = { id: crypto.randomUUID(), type: 'theme', title: 'Nueva comunidad', subtitle: 'Tarjeta de comunidad', body: 'rasgo principal\notro rasgo\ndebilidad: pendiente', x: BOARD_OFFSET_X + 260 + state.nodes.length * 18, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14, width: 250, height: 500, kind: 'Comunidad', themePower: 'origen', mission: 'Define aqui la mision de esta comunidad.' };
+  const node = { id: crypto.randomUUID(), type: 'theme', title: 'Nueva comunidad', subtitle: 'Tarjeta de comunidad', body: 'rasgo principal\notro rasgo\ndebilidad: pendiente', x: BOARD_OFFSET_X + 260 + state.nodes.length * 18, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14, width: 250, height: 500, kind: 'Comunidad', themePower: 'origen', mission: 'Define aqui la mision de esta comunidad.', showBack: false, specialImprovements: [] };
   finishNodeCreation(node);
 });
 
@@ -5908,6 +6982,27 @@ addHeroButton.addEventListener('click', () => {
 
 addTrackingButton.addEventListener('click', () => {
   const node = { id: crypto.randomUUID(), type: 'tracking', title: 'Nueva tarjeta de estado', subtitle: 'Estado', body: 'nuevo estado', x: BOARD_OFFSET_X + 300 + state.nodes.length * 12, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 12, width: 224, height: 96, selectedChecks: [], progress: 0, totalChecks: 6 };
+  finishNodeCreation(node);
+});
+
+addDowncrawlHeroButton.addEventListener('click', () => {
+  if (!sanitizeModules(state.modules).downcrawlEnabled) return;
+  const node = {
+    id: crypto.randomUUID(),
+    type: 'downcrawl-hero',
+    title: 'Heroe de Downcrawl',
+    subtitle: 'Heroe de Downcrawl',
+    body: '',
+    heroName: 'Nuevo heroe del Abajo',
+    heroTitle: 'Explorador de ecos y umbrales rotos',
+    sliverStats: normalizeSliverStats(),
+    heroAspects: ['Viejos huesos', 'Libro de los suenos', 'Cantor de canciones'],
+    heroAspectChecks: [],
+    x: BOARD_OFFSET_X + 300 + state.nodes.length * 14,
+    y: BOARD_OFFSET_Y + 180 + state.nodes.length * 12,
+    width: NODE_MIN_DIMENSIONS['downcrawl-hero'].width,
+    height: NODE_MIN_DIMENSIONS['downcrawl-hero'].height
+  };
   finishNodeCreation(node);
 });
 
@@ -6036,6 +7131,24 @@ addAdventureButton.addEventListener('click', () => {
   finishNodeCreation(node);
 });
 
+addNoteButton.addEventListener('click', () => {
+  if (!sanitizeModules(state.modules).downcrawlEnabled) return;
+  const node = {
+    id: crypto.randomUUID(),
+    type: 'note',
+    title: 'Nueva nota',
+    subtitle: 'Nota',
+    body: '',
+    backNotes: '',
+    showBack: false,
+    x: BOARD_OFFSET_X + 460 + state.nodes.length * 14,
+    y: BOARD_OFFSET_Y + 180 + state.nodes.length * 12,
+    width: NODE_MIN_DIMENSIONS.note.width,
+    height: NODE_MIN_DIMENSIONS.note.height
+  };
+  finishNodeCreation(node);
+});
+
 downcrawlModuleToggle.addEventListener('change', () => {
   state.modules = sanitizeModules({
     ...state.modules,
@@ -6076,6 +7189,10 @@ importBoardButton.addEventListener('click', () => {
 themeSelect.addEventListener('change', () => {
   state.theme = normalizeTheme(themeSelect.value);
   render();
+});
+
+diceSystemSelect.addEventListener('change', () => {
+  setDiceSystem(diceSystemSelect.value);
 });
 
 importBoardInput.addEventListener('change', async () => {
@@ -6122,6 +7239,7 @@ boardInner.addEventListener('mousedown', (event) => {
 
 boardInner.addEventListener('click', (event) => {
   if (event.target !== boardInner) return;
+  inlineEditClickState = { id: null, at: 0 };
   if (suppressBoardClick) {
     suppressBoardClick = false;
     return;
