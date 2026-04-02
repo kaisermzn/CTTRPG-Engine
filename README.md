@@ -23,14 +23,20 @@ The main app lives in `tracking-cards-dark-app.html`.
 - JSON export and import
 - Floating creation menu for board pieces
 - `Legend in the Mist` creation menu with hero, theme, community, status, and tag cards
-- `2d6` dice tray with result bands and persistent last roll
+- Theme and community cards with a back side for editable special improvements
+- Front-side special improvements button with live count on theme and community cards
+- Incremental progress checks for `Abandon`, `Improve`, and `Milestone` on theme and community cards
+- `2d6` dice tray with a persistent system selector for `Legend in the Mist` and `Downcrawl`
+- Persistent last roll plus shared modifier controls for both tray variants
 - Roll modifiers collected from cards and tags on the board
 - Dice tray kept at full viewport height, with active modifiers stacked without stretching
 - Board navigation remains available while the dice tray is open so power tags can be found and added
 - Multiple card types for `Legend in the Mist`
-- Experimental `Downcrawl` module with extra cards and decks
+- Experimental `Downcrawl` module with hero cards, extra cards, decks, and a note card with notes on both sides
+- All `Downcrawl` cards that are not decks can be flipped to a back side with editable notes
 - `Downcrawl` creation options disappear from the `+` menu when the module is disabled
 - Multi-selection, inline editing, contextual delete action, and board centering
+- Inline editing remains available on `Legend in the Mist` cards even after the first click re-renders selection state
 
 ### Project Structure
 
@@ -48,8 +54,10 @@ The main app lives in `tracking-cards-dark-app.html`.
 3. Use the top-left menu for theme, modules, and JSON import/export.
 4. Use the floating `+` button to create cards, decks, and tags.
    In `Legend in the Mist`, this includes hero, theme, community, status, and tag cards.
-5. Use the top-right controls for zoom, board centering, and the `2d6` dice tray.
-6. If `Downcrawl (Experimental)` is disabled from `Modulos`, its creation options disappear from the floating `+` menu.
+5. Theme and community cards show a `Special Improvements (N)` button on the front. Use it to flip to the back side, where you can add, edit, and remove special improvements with title and description.
+6. Theme and community `Abandon`, `Improve`, and `Milestone` checks work as left-to-right incremental progress tracks.
+7. Use the top-right controls for zoom, board centering, and the `2d6` dice tray.
+8. If `Downcrawl (Experimental)` is disabled from `Modulos`, its creation options disappear from the floating `+` menu and the dice tray falls back to `Legend in the Mist`.
 
 ### Technical Notes
 
@@ -82,14 +90,20 @@ La app principal esta en `tracking-cards-dark-app.html`.
 - Exportacion e importacion en JSON
 - Menu flotante para crear piezas del tablero
 - Menu `Legend in the Mist` con tarjeta de heroe, tarjeta de tema, tarjeta de comunidad, tarjeta de estado y etiquetas
-- Bandeja de dados `2d6` con rangos de resultado y ultima tirada persistente
+- Tarjetas de tema y comunidad con reverso para mejoras especiales editables
+- Boton frontal de mejoras especiales con contador en tarjetas de tema y comunidad
+- Checks incrementales de `Abandono`, `Mejora` e `Hito` en tarjetas de tema y comunidad
+- Bandeja de dados `2d6` con selector persistente de sistema entre `Legend in the Mist` y `Downcrawl`
+- Ultima tirada persistente y controles compartidos de modificadores para ambas variantes del lanzador
 - Modificadores de tirada tomados de tarjetas y etiquetas del tablero
 - Bandeja de dados a altura completa del viewport, con modificadores activos apilados sin estirarse
 - El tablero sigue siendo navegable mientras la bandeja de dados esta abierta para buscar y anadir etiquetas de poder
 - Varios tipos de tarjeta para `Legend in the Mist`
-- Modulo experimental de `Downcrawl` con cartas y barajas extra
+- Modulo experimental de `Downcrawl` con heroes, cartas, una tarjeta de nota con notas en ambos lados y barajas extra
+- Todas las cartas `Downcrawl` que no son baraja pueden girarse a un dorso con notas editables
 - Las opciones de creacion de `Downcrawl` desaparecen del menu `+` cuando el modulo esta desactivado
 - Seleccion multiple, edicion inline, borrado contextual y centrado del tablero
+- La edicion inline sigue disponible en tarjetas `Legend in the Mist` aunque el primer clic rerenderice la seleccion
 
 ### Estructura del proyecto
 
@@ -107,8 +121,10 @@ La app principal esta en `tracking-cards-dark-app.html`.
 3. Usa el menu superior izquierdo para tema, modulos e importacion/exportacion JSON.
 4. Usa el boton flotante `+` para crear tarjetas, barajas y etiquetas.
    En `Legend in the Mist`, incluye tarjeta de heroe, tema, comunidad, estado y etiquetas.
-5. Usa los controles superiores derechos para zoom, centrado del tablero y bandeja de dados `2d6`.
-6. Si desactivas `Downcrawl (Experimental)` desde `Modulos`, sus opciones de creacion dejan de mostrarse en el boton flotante `+`.
+5. Las tarjetas de tema y comunidad muestran en el anverso un boton `Mejoras especiales (N)`. Usalo para girar al reverso y anadir, editar o eliminar mejoras especiales con titulo y descripcion.
+6. Los checks de `Abandono`, `Mejora` e `Hito` en tema y comunidad funcionan como progreso incremental de izquierda a derecha.
+7. Usa los controles superiores derechos para zoom, centrado del tablero y bandeja de dados `2d6`.
+8. Si desactivas `Downcrawl (Experimental)` desde `Modulos`, sus opciones de creacion dejan de mostrarse en el boton flotante `+` y la bandeja vuelve automaticamente a `Legend in the Mist`.
 
 ### Notas tecnicas
 
