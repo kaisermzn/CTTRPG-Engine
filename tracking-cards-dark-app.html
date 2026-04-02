@@ -664,15 +664,30 @@ button, input, textarea, select { font: inherit; }
 
 .dice-tray {
   display: grid;
-  grid-template-rows: auto auto auto auto auto minmax(0, auto) minmax(0, 1fr) auto;
   gap: 12px;
   min-height: 0;
   height: 100%;
 }
 
+.dice-tray.is-legend {
+  grid-template-rows: auto auto auto auto auto auto minmax(0, 1fr) auto;
+}
+
+.dice-tray.is-downcrawl-basic {
+  grid-template-rows: auto auto auto auto auto auto auto auto minmax(0, 1fr) auto;
+}
+
+.dice-tray.is-downcrawl-advance {
+  grid-template-rows: auto auto auto auto auto auto auto auto auto minmax(0, 1fr) auto;
+}
+
 .dice-system-box {
   display: grid;
   gap: 6px;
+}
+
+.dice-system-box[hidden] {
+  display: none;
 }
 
 .dice-system-select {
@@ -704,6 +719,13 @@ button, input, textarea, select { font: inherit; }
 .dice-system-select option {
   color: #1c1c1c;
   background: #f5f5f5;
+}
+
+.dice-roll-help {
+  margin: -2px 0 2px;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--muted);
 }
 
 .dice-modifier-list {
@@ -822,6 +844,18 @@ button, input, textarea, select { font: inherit; }
 .dice-roll-button:hover {
   border-color: rgba(97, 194, 185, 0.42);
   color: #eef7f6;
+}
+
+.dice-roll-button:disabled,
+.dice-secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.dice-roll-button:disabled:hover,
+.dice-secondary-button:disabled:hover {
+  border-color: rgba(58, 183, 174, 0.22);
+  color: var(--text);
 }
 
 :root[data-theme="print"] .dice-roll-button:hover,
@@ -948,6 +982,10 @@ button, input, textarea, select { font: inherit; }
 
 .dice-modifier-item.is-positive {
   border-color: rgba(68, 166, 112, 0.22);
+}
+
+.dice-modifier-item.is-readonly {
+  grid-template-columns: minmax(0, 1fr) auto;
 }
 
 :root[data-theme="print"] .dice-modifier-item.is-negative,
@@ -2251,6 +2289,38 @@ button, input, textarea, select { font: inherit; }
   gap: 10px;
   align-items: center;
 }
+.adventure-milestone-row.is-empty .adventure-milestone-name,
+.adventure-milestone-row.is-empty .adventure-milestone-input {
+  border-color: rgba(148, 148, 148, 0.24);
+  color: rgba(234, 234, 234, 0.9);
+}
+.adventure-milestone-row.is-positive .adventure-milestone-name,
+.adventure-milestone-row.is-positive .adventure-milestone-input {
+  border-color: rgba(84, 194, 155, 0.52);
+  box-shadow: inset 0 0 0 1px rgba(84, 194, 155, 0.14);
+  color: #b8f0dc;
+}
+.adventure-milestone-row.is-negative .adventure-milestone-name,
+.adventure-milestone-row.is-negative .adventure-milestone-input {
+  border-color: rgba(212, 106, 106, 0.54);
+  box-shadow: inset 0 0 0 1px rgba(212, 106, 106, 0.12);
+  color: #f0b1b1;
+}
+.adventure-milestone-row.is-final .adventure-milestone-name,
+.adventure-milestone-row.is-final .adventure-milestone-input {
+  border-color: rgba(212, 182, 96, 0.46);
+  box-shadow: inset 0 0 0 1px rgba(212, 182, 96, 0.12);
+}
+.adventure-milestone-row.is-final.is-positive .adventure-milestone-name,
+.adventure-milestone-row.is-final.is-positive .adventure-milestone-input {
+  border-color: rgba(84, 194, 155, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(84, 194, 155, 0.16);
+}
+.adventure-milestone-row.is-final.is-negative .adventure-milestone-name,
+.adventure-milestone-row.is-final.is-negative .adventure-milestone-input {
+  border-color: rgba(212, 106, 106, 0.62);
+  box-shadow: inset 0 0 0 1px rgba(212, 106, 106, 0.16);
+}
 .adventure-milestone-name {
   min-height: 38px;
   display: grid;
@@ -2283,6 +2353,24 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: center;
+}
+.adventure-milestone-row.is-empty .adventure-slider-state {
+  color: #a5a09a;
+}
+.adventure-milestone-row.is-positive .adventure-slider-state {
+  color: #7fd7b4;
+}
+.adventure-milestone-row.is-negative .adventure-slider-state {
+  color: #e59595;
+}
+.adventure-slider-state.is-final {
+  color: #d7c17a;
+}
+.adventure-milestone-row.is-final.is-positive .adventure-slider-state {
+  color: #8ce0be;
+}
+.adventure-milestone-row.is-final.is-negative .adventure-slider-state {
+  color: #efadad;
 }
 .adventure-slider-wrap {
   display: grid;
@@ -3182,6 +3270,21 @@ button.downcrawl-remoteness-option {
               <strong class="dice-total-value" id="diceTotalValue">2</strong>
               <span class="dice-total-note" id="diceTotalNote"></span>
             </div>
+            <div class="dice-system-box" id="diceRollTypeBox" hidden>
+              <span class="dice-total-label" id="diceRollTypeLabel">Tipo de tirada</span>
+              <select class="dice-system-select" id="diceRollTypeSelect" aria-label="Seleccionar tipo de tirada de dados">
+                <option value="standard" hidden>Tirada estandar</option>
+                <option value="finish-adventure">Terminar Aventura</option>
+                <option value="advance-adventure">Avanzar aventura</option>
+              </select>
+            </div>
+            <div class="dice-system-box" id="diceHeroStatBox" hidden>
+              <span class="dice-total-label" id="diceHeroLabel">Heroe</span>
+              <select class="dice-system-select" id="diceHeroSelect" aria-label="Seleccionar heroe"></select>
+              <span class="dice-total-label" id="diceHeroStatLabel">Estadistica</span>
+              <select class="dice-system-select" id="diceHeroStatSelect" aria-label="Seleccionar estadistica del heroe"></select>
+            </div>
+            <p class="dice-roll-help" id="diceRollHelp" hidden></p>
             <button class="dice-roll-button" id="rollDiceButton" type="button">Hacer tirada</button>
             <button class="dice-secondary-button" id="clearDiceButton" type="button">Limpiar</button>
             <div class="dice-power-box">
@@ -3284,6 +3387,10 @@ const BOARD_OFFSET_X = 1800;
 const BOARD_OFFSET_Y = 1100;
 const STORAGE_KEY = 'legend-in-the-mist.board.v1';
 const DOWNCRAWL_NODE_TYPES = ['downcrawl-hero', 'folk-deck', 'volume-deck', 'discard-deck', 'history-deck', 'folk', 'volume', 'adventure', 'note'];
+const DOWNCRAWL_DICE_ROLL_TYPES = [
+  { value: 'finish-adventure', label: 'Terminar Aventura' },
+  { value: 'advance-adventure', label: 'Avanzar aventura' }
+];
 const NODE_MIN_DIMENSIONS = {
   hero: { width: 1410, height: 590 },
   theme: { width: 250, height: 500 },
@@ -3423,6 +3530,227 @@ function normalizeAdventureOutcomeStates(values, total) {
     const value = source[index];
     return value === 'positive' || value === 'negative' ? value : 'empty';
   });
+}
+
+function normalizeDiceRollType(value, system = 'legend') {
+  const rawValue = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  if (system === 'downcrawl') {
+    return DOWNCRAWL_DICE_ROLL_TYPES.some((option) => option.value === rawValue)
+      ? rawValue
+      : 'finish-adventure';
+  }
+  return 'standard';
+}
+
+function getSelectedAdventureNode(selection, nodes) {
+  const selectedId = typeof selection?.selectedId === 'string' ? selection.selectedId : null;
+  if (!selectedId) return null;
+  const node = nodes.find((entry) => entry.id === selectedId);
+  return node?.type === 'adventure' ? node : null;
+}
+
+function getAvailableAdventureMilestoneIndex(node) {
+  if (!node || node.type !== 'adventure') return null;
+  const milestoneCount = Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1)));
+  const outcomes = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, milestoneCount);
+  for (let index = 0; index < Math.max(0, milestoneCount - 1); index += 1) {
+    if (outcomes[index] === 'empty') return index;
+  }
+  return null;
+}
+
+function normalizeDiceHeroSelection(value, nodes) {
+  const rawValue = typeof value === 'string' ? value.trim() : '';
+  if (!rawValue) return '';
+  const node = nodes.find((entry) => entry.id === rawValue);
+  return node?.type === 'downcrawl-hero' ? rawValue : '';
+}
+
+function normalizeDiceHeroStatSelection(value, nodes) {
+  const rawValue = typeof value === 'string' ? value.trim() : '';
+  if (!rawValue) return '';
+  const parts = rawValue.split(':');
+  if (parts.length !== 3 || parts[0] !== 'hero-stat') return '';
+  const [, nodeId, indexText] = parts;
+  const index = Math.round(Number(indexText));
+  const node = nodes.find((entry) => entry.id === nodeId);
+  if (!node || node.type !== 'downcrawl-hero' || !Number.isInteger(index) || index < 0 || index >= normalizeSliverStats(node.sliverStats).length) {
+    return '';
+  }
+  return `hero-stat:${nodeId}:${index}`;
+}
+
+function getDowncrawlHeroStatPowerValue(stat) {
+  if (stat?.tone === 'edge') return 1;
+  if (stat?.tone === 'burden') return -1;
+  return 0;
+}
+
+function getDowncrawlHeroStatSelectionOptions(nodes) {
+  return nodes
+    .filter((node) => node.type === 'downcrawl-hero')
+    .flatMap((node) => normalizeSliverStats(node.sliverStats).map((stat, index) => {
+      const value = getDowncrawlHeroStatPowerValue(stat);
+      return {
+        id: `hero-stat:${node.id}:${index}`,
+        nodeId: node.id,
+        index,
+        value,
+        label: `${node.heroName?.trim() || node.title?.trim() || 'Heroe'}: ${stat.label || `Estadistica ${index + 1}`}`,
+        shortLabel: stat.label || `Estadistica ${index + 1}`
+      };
+    }));
+}
+
+function getDowncrawlHeroSelectionOptions(nodes) {
+  return nodes
+    .filter((node) => node.type === 'downcrawl-hero')
+    .map((node) => ({
+      id: node.id,
+      label: node.heroName?.trim() || node.title?.trim() || 'Heroe'
+    }));
+}
+
+function resolveDowncrawlHeroStatSelection(selectionId, nodes) {
+  const normalizedId = normalizeDiceHeroStatSelection(selectionId, nodes);
+  if (!normalizedId) return null;
+  return getDowncrawlHeroStatSelectionOptions(nodes).find((entry) => entry.id === normalizedId) ?? null;
+}
+
+function getAdventurePowerModifier(node) {
+  if (!node || node.type !== 'adventure') return null;
+  const milestoneCount = Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1)));
+  const outcomes = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, milestoneCount);
+  const successes = outcomes.filter((value) => value === 'positive').length;
+  const failures = outcomes.filter((value) => value === 'negative').length;
+  let value = 0;
+  if (successes > failures) {
+    value = 2;
+  } else if (failures > successes) {
+    value = -(failures - successes);
+  }
+  if (!value) return null;
+  return {
+    id: `auto:adventure:${node.id}:finish-adventure`,
+    nodeId: node.id,
+    value,
+    label: `${node.title?.trim() || 'Aventura'}: balance de hitos`,
+    readonly: true
+  };
+}
+
+function getFinishAdventureStatus(node) {
+  if (!node || node.type !== 'adventure') {
+    return {
+      canRoll: false,
+      reason: 'missing-adventure'
+    };
+  }
+  const milestoneCount = Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1)));
+  const outcomes = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, milestoneCount);
+  const finalIndex = milestoneCount - 1;
+  const finalState = outcomes[finalIndex];
+  if (finalState !== 'empty') {
+    return {
+      canRoll: false,
+      reason: 'already-finished'
+    };
+  }
+  const previousResolved = outcomes.slice(0, finalIndex).every((value) => value !== 'empty');
+  if (!previousResolved) {
+    return {
+      canRoll: false,
+      reason: 'pending-previous-milestones'
+    };
+  }
+  return {
+    canRoll: true,
+    reason: 'ready'
+  };
+}
+
+function getAutoDiceModifiers(dice, nodes, selection) {
+  if (dice?.system !== 'downcrawl') return [];
+  if (dice.rollType === 'finish-adventure') {
+    const adventureNode = getSelectedAdventureNode(selection, nodes);
+    const modifier = getAdventurePowerModifier(adventureNode);
+    return modifier ? [modifier] : [];
+  }
+  if (dice.rollType === 'advance-adventure') {
+    const heroStat = resolveDowncrawlHeroStatSelection(dice.heroStatSelection, nodes);
+    if (!heroStat) return [];
+    return [{
+      id: `auto:${heroStat.id}:advance-adventure`,
+      nodeId: heroStat.nodeId,
+      value: heroStat.value,
+      label: heroStat.label,
+      readonly: true
+    }];
+  }
+  return [];
+}
+
+function getDiceRollContext(dice, nodes, selection) {
+  if (dice?.system === 'downcrawl' && dice?.rollType === 'finish-adventure') {
+    const selectedAdventure = getSelectedAdventureNode(selection, nodes);
+    const finishStatus = getFinishAdventureStatus(selectedAdventure);
+    return {
+      canRoll: finishStatus.canRoll,
+      successMin: 8,
+      failureMax: 7,
+      selectedAdventure,
+      finishStatus,
+      selectedHeroStat: null,
+      availableMilestoneIndex: null
+    };
+  }
+  if (dice?.system === 'downcrawl' && dice?.rollType === 'advance-adventure') {
+    const selectedAdventure = getSelectedAdventureNode(selection, nodes);
+    const availableMilestoneIndex = getAvailableAdventureMilestoneIndex(selectedAdventure);
+    const selectedHeroStat = resolveDowncrawlHeroStatSelection(dice.heroStatSelection, nodes);
+    return {
+      canRoll: Boolean(selectedAdventure) && availableMilestoneIndex !== null && Boolean(selectedHeroStat),
+      successMin: 8,
+      failureMax: 7,
+      selectedAdventure,
+      finishStatus: null,
+      selectedHeroStat,
+      availableMilestoneIndex
+    };
+  }
+  return {
+    canRoll: true,
+    successMin: 10,
+    failureMax: 6,
+    selectedAdventure: null,
+    finishStatus: null,
+    selectedHeroStat: null,
+    availableMilestoneIndex: null
+  };
+}
+
+function getDiceResultMeta(dice) {
+  if (dice?.system === 'downcrawl' && ['finish-adventure', 'advance-adventure'].includes(dice?.rollType)) {
+    return {
+      success: 'Exito',
+      failure: 'Fracaso'
+    };
+  }
+  return {
+    success: 'Exito',
+    failure: 'Consecuencias',
+    mixed: 'Exito y consecuencias'
+  };
+}
+
+function getDiceResultState(dice) {
+  if (dice?.cleared || typeof dice?.total !== 'number') return null;
+  if (dice.system === 'downcrawl' && ['finish-adventure', 'advance-adventure'].includes(dice.rollType)) {
+    return dice.total >= 8 ? 'success' : 'consequence';
+  }
+  if (dice.total <= 6) return 'consequence';
+  if (dice.total >= 10) return 'success';
+  return 'mixed';
 }
 
 function normalizeSliverStats(values) {
@@ -3612,21 +3940,35 @@ function getDiceSystemMeta(system) {
       resultLabel: 'Resultado',
       powerLabel: 'PODER',
       modifierLabel: 'Modificadores activos',
-      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER en Downcrawl.'
+      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER en Downcrawl.',
+      rollTypeLabel: 'Tipo de tirada'
     }
     : {
       title: 'Legend in the Mist',
       resultLabel: 'Resultado',
       powerLabel: 'PODER',
       modifierLabel: 'Modificadores activos',
-      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER.'
+      emptyModifiersText: 'Abre la bandeja y pulsa tags o debilidades para sumar PODER.',
+      rollTypeLabel: 'Tipo de tirada'
     };
 }
 
-function sanitizeDiceState(dice, nodes = [], modules = null) {
+function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const activeModules = sanitizeModules(modules);
   const cleared = Boolean(dice?.cleared);
   const system = normalizeDiceSystem(dice?.system, activeModules);
+  const rollType = normalizeDiceRollType(dice?.rollType, system);
+  const heroSelection = system === 'downcrawl'
+    ? normalizeDiceHeroSelection(dice?.heroSelection, nodes)
+    : '';
+  const heroStatSelection = system === 'downcrawl'
+    ? normalizeDiceHeroStatSelection(dice?.heroStatSelection, nodes)
+    : '';
+  const resolvedHeroStat = heroStatSelection ? resolveDowncrawlHeroStatSelection(heroStatSelection, nodes) : null;
+  const effectiveHeroSelection = heroSelection || resolvedHeroStat?.nodeId || '';
+  const normalizedHeroStatSelection = resolvedHeroStat && (!effectiveHeroSelection || resolvedHeroStat.nodeId === effectiveHeroSelection)
+    ? heroStatSelection
+    : '';
   const dieOne = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieOne) || 1)));
   const dieTwo = cleared ? null : Math.max(1, Math.min(6, Math.round(Number(dice?.dieTwo) || 1)));
   const modifiers = normalizeDiceModifierIds(dice?.modifiers, nodes);
@@ -3642,15 +3984,20 @@ function sanitizeDiceState(dice, nodes = [], modules = null) {
       value: invertedModifiers.includes(modifier.id) ? modifier.value * -1 : modifier.value
     }))
     .filter((modifier) => !disabledModifiers.includes(modifier.id));
-  const power = modifierEntries.reduce((sum, modifier) => sum + modifier.value, 0);
+  const autoModifiers = getAutoDiceModifiers({ system, rollType, heroSelection: effectiveHeroSelection, heroStatSelection: normalizedHeroStatSelection }, nodes, selection);
+  const power = [...modifierEntries, ...autoModifiers].reduce((sum, modifier) => sum + modifier.value, 0);
   const baseTotal = cleared ? null : dieOne + dieTwo;
   return {
     system,
+    rollType,
+    heroSelection: effectiveHeroSelection,
+    heroStatSelection: normalizedHeroStatSelection,
     dieOne,
     dieTwo,
     modifiers,
     disabledModifiers,
     invertedModifiers,
+    autoModifiers,
     power,
     cleared,
     baseTotal,
@@ -3889,7 +4236,7 @@ function parseBoardPayload(parsed) {
       sidebarOpen: false,
       createMenuOpen: false,
       toolsMenuOpen: false,
-      dice: sanitizeDiceState(parsed.dice, nodes, modules)
+      dice: sanitizeDiceState(parsed.dice, nodes, modules, { selectedId: activeSelectedId, selectedIds })
     },
     viewport: {
       left: Number(parsed.viewportLeft),
@@ -3915,7 +4262,17 @@ const closeToolsMenuButton = document.getElementById('closeToolsMenuButton');
 const dieFaceOne = document.getElementById('dieFaceOne');
 const dieFaceTwo = document.getElementById('dieFaceTwo');
 const diceTotal = document.querySelector('.dice-total');
+const diceTray = document.querySelector('.dice-tray');
 const diceSystemSelect = document.getElementById('diceSystemSelect');
+const diceRollTypeBox = document.getElementById('diceRollTypeBox');
+const diceRollTypeSelect = document.getElementById('diceRollTypeSelect');
+const diceHeroStatBox = document.getElementById('diceHeroStatBox');
+const diceHeroLabel = document.getElementById('diceHeroLabel');
+const diceHeroSelect = document.getElementById('diceHeroSelect');
+const diceHeroStatSelect = document.getElementById('diceHeroStatSelect');
+const diceHeroStatLabel = document.getElementById('diceHeroStatLabel');
+const diceRollHelp = document.getElementById('diceRollHelp');
+const diceRollTypeLabel = document.getElementById('diceRollTypeLabel');
 const diceTotalValue = document.getElementById('diceTotalValue');
 const diceTotalNote = document.getElementById('diceTotalNote');
 const diceResultLabel = document.getElementById('diceResultLabel');
@@ -4256,8 +4613,8 @@ function syncSelection() {
 function applyModuleConstraints() {
   state.modules = sanitizeModules(state.modules);
   state.nodes = sanitizeNodesForModules(state.nodes, state.modules);
-  state.dice = sanitizeDiceState(state.dice, state.nodes, state.modules);
   syncSelection();
+  state.dice = sanitizeDiceState(state.dice, state.nodes, state.modules, { selectedId: state.selectedId, selectedIds: state.selectedIds });
 }
 
 function getBoardPoint(clientX, clientY) {
@@ -4378,7 +4735,7 @@ function createBoardSnapshot() {
     boardName: state.boardName,
     theme: normalizeTheme(state.theme),
     modules: sanitizeModules(state.modules),
-    dice: sanitizeDiceState(state.dice, state.nodes, state.modules),
+    dice: sanitizeDiceState(state.dice, state.nodes, state.modules, { selectedId: state.selectedId, selectedIds: state.selectedIds }),
     zoom: state.zoom,
     viewportLeft: board.scrollLeft,
     viewportTop: board.scrollTop
@@ -5002,7 +5359,8 @@ function getDiceModifierIdForTag(node, patchKey, index, itemText) {
 }
 
 function toggleDiceModifier(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   const modifiers = current.modifiers.includes(modifierId)
     ? current.modifiers.filter((entry) => entry !== modifierId)
     : [...current.modifiers, modifierId];
@@ -5013,74 +5371,114 @@ function toggleDiceModifier(modifierId) {
     modifiers,
     disabledModifiers,
     invertedModifiers
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   render();
 }
 
 function toggleDiceModifierEnabled(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   const disabledModifiers = current.disabledModifiers.includes(modifierId)
     ? current.disabledModifiers.filter((entry) => entry !== modifierId)
     : [...current.disabledModifiers, modifierId];
   state.dice = sanitizeDiceState({
     ...current,
     disabledModifiers
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   render();
 }
 
 function removeDiceModifier(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
     modifiers: current.modifiers.filter((entry) => entry !== modifierId),
     disabledModifiers: current.disabledModifiers.filter((entry) => entry !== modifierId),
     invertedModifiers: current.invertedModifiers.filter((entry) => entry !== modifierId)
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   render();
 }
 
 function toggleDiceModifierSign(modifierId) {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   const invertedModifiers = current.invertedModifiers.includes(modifierId)
     ? current.invertedModifiers.filter((entry) => entry !== modifierId)
     : [...current.invertedModifiers, modifierId];
   state.dice = sanitizeDiceState({
     ...current,
     invertedModifiers
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   render();
 }
 
 function clearDiceRoll() {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
     dieOne: null,
     dieTwo: null,
     cleared: true
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
 }
 
 function clearAllDiceModifiers() {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
     modifiers: [],
     disabledModifiers: [],
     invertedModifiers: []
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
   render();
 }
 
 function setDiceSystem(system) {
-  const current = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
     system
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
+  renderDiceTray();
+  schedulePersist();
+}
+
+function setDiceRollType(rollType) {
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  state.dice = sanitizeDiceState({
+    ...current,
+    rollType
+  }, state.nodes, state.modules, selection);
+  renderDiceTray();
+  schedulePersist();
+}
+
+function setDiceHeroSelection(heroSelection) {
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  state.dice = sanitizeDiceState({
+    ...current,
+    heroSelection,
+    heroStatSelection: ''
+  }, state.nodes, state.modules, selection);
+  renderDiceTray();
+  schedulePersist();
+}
+
+function setDiceHeroStatSelection(heroStatSelection) {
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  state.dice = sanitizeDiceState({
+    ...current,
+    heroStatSelection
+  }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
 }
@@ -6308,7 +6706,10 @@ function createAdventureOutcomeSlider(node, index) {
 
 function createAdventureMilestoneRow(node, label, index, editable) {
   const row = document.createElement('div');
-  row.className = 'adventure-milestone-row';
+  const milestoneCount = Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1)));
+  const isFinalMilestone = index === milestoneCount - 1;
+  const outcomeState = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, milestoneCount)[index];
+  row.className = `adventure-milestone-row is-${outcomeState}${isFinalMilestone ? ' is-final' : ''}`;
 
   if (editable) {
     row.append(createAdventureMilestoneInput(node, index, label));
@@ -6322,10 +6723,17 @@ function createAdventureMilestoneRow(node, label, index, editable) {
   const sliderWrap = document.createElement('div');
   sliderWrap.className = 'adventure-slider-wrap';
   sliderWrap.append(createAdventureOutcomeSlider(node, index));
-  const outcomeState = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1))))[index];
   const stateLabel = document.createElement('div');
-  stateLabel.className = 'adventure-slider-state';
-  stateLabel.textContent = outcomeState === 'positive' ? 'Positivo' : outcomeState === 'negative' ? 'Negativo' : 'Pendiente';
+  stateLabel.className = `adventure-slider-state${isFinalMilestone ? ' is-final' : ''}`;
+  if (isFinalMilestone) {
+    stateLabel.textContent = outcomeState === 'positive'
+      ? 'Final resuelto'
+      : outcomeState === 'negative'
+        ? 'Final fallido'
+        : 'Final';
+  } else {
+    stateLabel.textContent = outcomeState === 'positive' ? 'Positivo' : outcomeState === 'negative' ? 'Negativo' : 'Pendiente';
+  }
   sliderWrap.append(stateLabel);
   row.append(sliderWrap);
 
@@ -6656,9 +7064,14 @@ function renderToolsMenu() {
 }
 
 function renderDiceTray() {
-  const dice = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const dice = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = dice;
   const diceMeta = getDiceSystemMeta(dice.system);
+  const rollContext = getDiceRollContext(dice, state.nodes, selection);
+  diceTray.classList.toggle('is-legend', dice.system === 'legend');
+  diceTray.classList.toggle('is-downcrawl-basic', dice.system === 'downcrawl' && dice.rollType !== 'advance-adventure');
+  diceTray.classList.toggle('is-downcrawl-advance', dice.system === 'downcrawl' && dice.rollType === 'advance-adventure');
   const disabledSet = new Set(dice.disabledModifiers);
   const invertedSet = new Set(dice.invertedModifiers);
   const modifierEntries = dice.modifiers
@@ -6669,12 +7082,14 @@ function renderDiceTray() {
       value: invertedSet.has(modifier.id) ? modifier.value * -1 : modifier.value,
       enabled: !disabledSet.has(modifier.id),
       inverted: invertedSet.has(modifier.id)
-    }));
-  const resultState = dice.total <= 6
-    ? 'consequence'
-    : dice.total >= 10
-      ? 'success'
-      : 'mixed';
+    }))
+    .concat(dice.autoModifiers.map((modifier) => ({
+      ...modifier,
+      enabled: true,
+      inverted: false
+    })));
+  const resultState = getDiceResultState(dice);
+  const resultMeta = getDiceResultMeta(dice);
   diceSystemSelect.value = dice.system;
   const downcrawlOption = diceSystemSelect.querySelector('option[value="downcrawl"]');
   if (downcrawlOption) {
@@ -6682,6 +7097,78 @@ function renderDiceTray() {
     downcrawlOption.hidden = !state.modules.downcrawlEnabled;
   }
   diceSystemSelect.setAttribute('aria-label', `Seleccionar lanzador de dados: ${diceMeta.title}`);
+  diceRollTypeBox.hidden = dice.system !== 'downcrawl';
+  diceRollTypeLabel.textContent = diceMeta.rollTypeLabel;
+  if (dice.system === 'downcrawl') {
+    diceRollTypeSelect.value = dice.rollType;
+    diceRollTypeSelect.setAttribute('aria-label', `Seleccionar tipo de tirada en ${diceMeta.title}`);
+  }
+  const showAdvanceAdventureSelectors = dice.system === 'downcrawl' && dice.rollType === 'advance-adventure';
+  const heroOptions = getDowncrawlHeroSelectionOptions(state.nodes);
+  const heroStatOptions = getDowncrawlHeroStatSelectionOptions(state.nodes)
+    .filter((option) => !dice.heroSelection || option.nodeId === dice.heroSelection);
+  diceHeroStatBox.hidden = !showAdvanceAdventureSelectors;
+  diceHeroLabel.textContent = 'Heroe';
+  diceHeroStatLabel.textContent = 'Estadistica';
+  diceHeroSelect.replaceChildren();
+  diceHeroStatSelect.replaceChildren();
+  if (showAdvanceAdventureSelectors) {
+    const heroPlaceholder = document.createElement('option');
+    heroPlaceholder.value = '';
+    heroPlaceholder.textContent = heroOptions.length ? 'Elige un heroe' : 'No hay heroes disponibles';
+    heroPlaceholder.hidden = heroOptions.length > 0;
+    diceHeroSelect.append(heroPlaceholder);
+    heroOptions.forEach((option) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = option.id;
+      optionEl.textContent = option.label;
+      diceHeroSelect.append(optionEl);
+    });
+    diceHeroSelect.value = dice.heroSelection || '';
+    diceHeroSelect.disabled = !heroOptions.length;
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = heroStatOptions.length ? 'Elige una estadistica' : (dice.heroSelection ? 'Ese heroe no tiene estadisticas' : 'Elige antes un heroe');
+    placeholder.hidden = heroStatOptions.length > 0;
+    diceHeroStatSelect.append(placeholder);
+    heroStatOptions.forEach((option) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = option.id;
+      optionEl.textContent = `${option.label} (${option.value >= 0 ? '+' : ''}${option.value})`;
+      diceHeroStatSelect.append(optionEl);
+    });
+    diceHeroStatSelect.value = dice.heroStatSelection || '';
+    diceHeroStatSelect.disabled = !heroStatOptions.length;
+  } else {
+    diceHeroSelect.disabled = true;
+    diceHeroStatSelect.disabled = true;
+  }
+  diceRollHelp.hidden = dice.system !== 'downcrawl';
+  if (dice.system !== 'downcrawl') {
+    diceRollHelp.textContent = '';
+  } else if (dice.rollType === 'finish-adventure') {
+    if (!rollContext.selectedAdventure) {
+      diceRollHelp.textContent = 'Selecciona una carta de aventura para habilitar la tirada.';
+    } else if (rollContext.finishStatus?.reason === 'pending-previous-milestones') {
+      diceRollHelp.textContent = 'Resuelve antes todos los hitos previos al final para poder terminar la aventura.';
+    } else if (rollContext.finishStatus?.reason === 'already-finished') {
+      diceRollHelp.textContent = 'La aventura seleccionada ya tiene el hito final resuelto.';
+    } else {
+      diceRollHelp.textContent = `Usando ${rollContext.selectedAdventure?.title?.trim() || 'la aventura seleccionada'} para calcular el PODER automatico.`;
+    }
+  } else if (dice.rollType === 'advance-adventure') {
+    if (!rollContext.selectedAdventure) {
+      diceRollHelp.textContent = 'Selecciona una carta de aventura para habilitar la tirada.';
+    } else if (rollContext.availableMilestoneIndex === null) {
+      diceRollHelp.textContent = 'La aventura seleccionada ya esta terminada.';
+    } else if (!dice.heroSelection) {
+      diceRollHelp.textContent = 'Elige un heroe para avanzar la aventura.';
+    } else if (!rollContext.selectedHeroStat) {
+      diceRollHelp.textContent = `Elige una estadistica de heroe para avanzar el hito ${rollContext.availableMilestoneIndex + 1}.`;
+    } else {
+      diceRollHelp.textContent = `Se resolvera el hito ${rollContext.availableMilestoneIndex + 1} de ${rollContext.selectedAdventure.title?.trim() || 'la aventura'} usando ${rollContext.selectedHeroStat.shortLabel}.`;
+    }
+  }
   diceResultLabel.textContent = diceMeta.resultLabel;
   dicePowerLabel.textContent = diceMeta.powerLabel;
   diceModifierListLabel.textContent = diceMeta.modifierLabel;
@@ -6691,13 +7178,15 @@ function renderDiceTray() {
   diceTotalNote.textContent = dice.cleared
     ? ''
     : resultState === 'consequence'
-      ? 'Consecuencias'
+      ? resultMeta.failure
       : resultState === 'success'
-        ? 'Exito'
-        : 'Exito y consecuencias';
+        ? resultMeta.success
+        : resultMeta.mixed;
   diceTotal.classList.toggle('is-consequence', !dice.cleared && resultState === 'consequence');
   diceTotal.classList.toggle('is-mixed', !dice.cleared && resultState === 'mixed');
   diceTotal.classList.toggle('is-success', !dice.cleared && resultState === 'success');
+  rollDiceButton.disabled = !rollContext.canRoll;
+  rollDiceButton.setAttribute('aria-disabled', String(!rollContext.canRoll));
   dicePowerValue.value = `${dice.power >= 0 ? '+' : ''}${dice.power}`;
   dicePowerValue.classList.toggle('is-negative', dice.power < 0);
   dicePowerValue.classList.toggle('is-positive', dice.power > 0);
@@ -6705,13 +7194,32 @@ function renderDiceTray() {
   if (!modifierEntries.length) {
     const empty = document.createElement('p');
     empty.className = 'dice-modifier-empty';
-    empty.textContent = diceMeta.emptyModifiersText;
+    empty.textContent = dice.system === 'downcrawl' && dice.rollType === 'finish-adventure' && !rollContext.canRoll
+      ? !rollContext.selectedAdventure
+        ? 'Selecciona una carta de aventura para ver el PODER automatico de sus hitos.'
+        : rollContext.finishStatus?.reason === 'pending-previous-milestones'
+          ? 'Terminar Aventura solo se habilita cuando todos los hitos previos ya estan resueltos.'
+          : 'La aventura seleccionada ya no puede usar esta tirada final.'
+      : dice.system === 'downcrawl' && dice.rollType === 'advance-adventure'
+        ? (!dice.heroSelection ? 'Selecciona un heroe para elegir despues una estadistica.' : 'Selecciona una estadistica de heroe para anadir su PODER a la tirada.')
+        : diceMeta.emptyModifiersText;
     diceModifierList.append(empty);
     return;
   }
   modifierEntries.forEach((modifier) => {
     const row = document.createElement('div');
-    row.className = `dice-modifier-item ${modifier.value < 0 ? 'is-negative' : 'is-positive'}${modifier.enabled ? '' : ' is-disabled'}`;
+    row.className = `dice-modifier-item ${modifier.value < 0 ? 'is-negative' : 'is-positive'}${modifier.enabled ? '' : ' is-disabled'}${modifier.readonly ? ' is-readonly' : ''}`;
+    if (modifier.readonly) {
+      const name = document.createElement('span');
+      name.className = 'dice-modifier-name';
+      name.textContent = modifier.label;
+      const value = document.createElement('strong');
+      value.className = 'dice-modifier-value';
+      value.textContent = `${modifier.value >= 0 ? '+' : ''}${modifier.value}`;
+      row.append(name, value);
+      diceModifierList.append(row);
+      return;
+    }
     const toggle = document.createElement('input');
     toggle.type = 'checkbox';
     toggle.className = 'dice-modifier-toggle';
@@ -6758,19 +7266,62 @@ function renderDiceTray() {
   });
 }
 
+function applyAdventureProgressRollResult(rollContext, succeeded) {
+  const adventureNode = rollContext.selectedAdventure;
+  const heroStat = rollContext.selectedHeroStat;
+  if (!adventureNode || !heroStat || rollContext.availableMilestoneIndex === null) return;
+
+  state.nodes = state.nodes.map((node) => {
+    if (node.id === adventureNode.id && node.type === 'adventure') {
+      const milestoneCount = Math.max(1, Math.min(12, Math.round(Number(node.milestoneCount) || 1)));
+      const nextStates = normalizeAdventureOutcomeStates(node.adventureOutcomeStates, milestoneCount);
+      nextStates[rollContext.availableMilestoneIndex] = succeeded ? 'positive' : 'negative';
+      return {
+        ...node,
+        adventureOutcomeStates: nextStates
+      };
+    }
+    if (node.id === heroStat.nodeId && node.type === 'downcrawl-hero') {
+      const nextStats = normalizeSliverStats(node.sliverStats);
+      nextStats[heroStat.index] = {
+        ...nextStats[heroStat.index],
+        damaged: succeeded ? nextStats[heroStat.index].damaged : true,
+        used: succeeded ? true : nextStats[heroStat.index].used
+      };
+      return {
+        ...node,
+        sliverStats: nextStats
+      };
+    }
+    return node;
+  });
+}
+
 function rollDice() {
-  const currentDice = sanitizeDiceState(state.dice, state.nodes, state.modules);
+  const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
+  const currentDice = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  const rollContext = getDiceRollContext(currentDice, state.nodes, selection);
+  if (!rollContext.canRoll) {
+    renderDiceTray();
+    return;
+  }
   const dieOne = Math.floor(Math.random() * 6) + 1;
   const dieTwo = Math.floor(Math.random() * 6) + 1;
   state.dice = sanitizeDiceState({
     system: currentDice.system,
+    rollType: currentDice.rollType,
     dieOne,
     dieTwo,
     modifiers: currentDice.modifiers,
     disabledModifiers: currentDice.disabledModifiers,
     invertedModifiers: currentDice.invertedModifiers,
     cleared: false
-  }, state.nodes, state.modules);
+  }, state.nodes, state.modules, selection);
+  if (currentDice.system === 'downcrawl' && currentDice.rollType === 'advance-adventure') {
+    applyAdventureProgressRollResult(rollContext, state.dice.total >= 8);
+    render();
+    return;
+  }
   renderDiceTray();
   schedulePersist();
 }
@@ -7193,6 +7744,18 @@ themeSelect.addEventListener('change', () => {
 
 diceSystemSelect.addEventListener('change', () => {
   setDiceSystem(diceSystemSelect.value);
+});
+
+diceRollTypeSelect.addEventListener('change', () => {
+  setDiceRollType(diceRollTypeSelect.value);
+});
+
+diceHeroSelect.addEventListener('change', () => {
+  setDiceHeroSelection(diceHeroSelect.value);
+});
+
+diceHeroStatSelect.addEventListener('change', () => {
+  setDiceHeroStatSelection(diceHeroStatSelect.value);
 });
 
 importBoardInput.addEventListener('change', async () => {

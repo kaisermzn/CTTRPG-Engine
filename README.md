@@ -28,6 +28,8 @@ The main app lives in `tracking-cards-dark-app.html`.
 - Incremental progress checks for `Abandon`, `Improve`, and `Milestone` on theme and community cards
 - `2d6` dice tray with a persistent system selector for `Legend in the Mist` and `Downcrawl`
 - Persistent last roll plus shared modifier controls for both tray variants
+- `Downcrawl` dice tray with a `Terminar Aventura` roll type that requires selecting an adventure card and adds a locked milestone-based power modifier
+- `Downcrawl` dice tray with an `Avanzar aventura` roll type that requires an unfinished adventure plus one hero stat, and updates both the milestone and the chosen stat after the roll
 - Roll modifiers collected from cards and tags on the board
 - Dice tray kept at full viewport height, with active modifiers stacked without stretching
 - Board navigation remains available while the dice tray is open so power tags can be found and added
@@ -57,6 +59,7 @@ The main app lives in `tracking-cards-dark-app.html`.
 5. Theme and community cards show a `Special Improvements (N)` button on the front. Use it to flip to the back side, where you can add, edit, and remove special improvements with title and description.
 6. Theme and community `Abandon`, `Improve`, and `Milestone` checks work as left-to-right incremental progress tracks.
 7. Use the top-right controls for zoom, board centering, and the `2d6` dice tray.
+   In `Downcrawl`, select an adventure card before using `Terminar Aventura`, and for `Avanzar aventura` also choose one hero stat.
 8. If `Downcrawl (Experimental)` is disabled from `Modulos`, its creation options disappear from the floating `+` menu and the dice tray falls back to `Legend in the Mist`.
 
 ### Technical Notes
@@ -95,6 +98,8 @@ La app principal esta en `tracking-cards-dark-app.html`.
 - Checks incrementales de `Abandono`, `Mejora` e `Hito` en tarjetas de tema y comunidad
 - Bandeja de dados `2d6` con selector persistente de sistema entre `Legend in the Mist` y `Downcrawl`
 - Ultima tirada persistente y controles compartidos de modificadores para ambas variantes del lanzador
+- Bandeja `Downcrawl` con tipo de tirada `Terminar Aventura`, que exige seleccionar una carta de aventura y anade un modificador bloqueado de PODER segun el balance de hitos
+- Bandeja `Downcrawl` con tipo de tirada `Avanzar aventura`, que exige una aventura sin terminar y una estadistica de heroe, y actualiza tanto el hito como la estadistica tras resolver la tirada
 - Modificadores de tirada tomados de tarjetas y etiquetas del tablero
 - Bandeja de dados a altura completa del viewport, con modificadores activos apilados sin estirarse
 - El tablero sigue siendo navegable mientras la bandeja de dados esta abierta para buscar y anadir etiquetas de poder
@@ -124,6 +129,7 @@ La app principal esta en `tracking-cards-dark-app.html`.
 5. Las tarjetas de tema y comunidad muestran en el anverso un boton `Mejoras especiales (N)`. Usalo para girar al reverso y anadir, editar o eliminar mejoras especiales con titulo y descripcion.
 6. Los checks de `Abandono`, `Mejora` e `Hito` en tema y comunidad funcionan como progreso incremental de izquierda a derecha.
 7. Usa los controles superiores derechos para zoom, centrado del tablero y bandeja de dados `2d6`.
+   En `Downcrawl`, selecciona antes una carta de aventura para usar `Terminar Aventura`, y para `Avanzar aventura` elige tambien una estadistica de heroe.
 8. Si desactivas `Downcrawl (Experimental)` desde `Modulos`, sus opciones de creacion dejan de mostrarse en el boton flotante `+` y la bandeja vuelve automaticamente a `Legend in the Mist`.
 
 ### Notas tecnicas
