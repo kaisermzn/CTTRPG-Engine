@@ -2229,6 +2229,40 @@ button, input, textarea, select { font: inherit; }
   background: var(--theme-note-bg);
   border-left-color: var(--theme-note-border);
 }
+.image-card {
+  --node-width: 360px;
+  --node-height: 280px;
+  padding: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 24, 30, 0.96), rgba(8, 12, 16, 0.99)),
+    var(--card-surface);
+  border-color: rgba(122, 180, 214, 0.66);
+  color: #eef4f7;
+}
+.image-card-figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(122, 180, 214, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(7, 12, 16, 0.92);
+}
+.image-card-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+:root[data-theme="print"] .image-card {
+  background: linear-gradient(180deg, rgba(249, 249, 249, 0.99), rgba(234, 234, 234, 0.99));
+  border-color: rgba(123, 123, 123, 0.54);
+  color: #333;
+}
+:root[data-theme="print"] .image-card-figure {
+  background: rgba(255, 255, 255, 0.96);
+}
 .downcrawl-card {
   --node-width: 282px;
   --node-height: 560px;
@@ -3289,6 +3323,10 @@ button.downcrawl-remoteness-option {
         </button>
         <div class="create-menu" id="createMenu" hidden>
           <div class="create-menu-section">
+            <span class="create-menu-section-title">Sistema</span>
+            <button class="create-menu-button" id="addImageButton" type="button">Imagen</button>
+          </div>
+          <div class="create-menu-section">
             <span class="create-menu-section-title">Legend in The Mist</span>
             <button class="create-menu-button" id="addHeroButton" type="button">Tarjeta de heroe</button>
             <button class="create-menu-button" id="addThemeButton" type="button">Tarjeta de tema</button>
@@ -3461,6 +3499,7 @@ button.downcrawl-remoteness-option {
           <span>Restaura un tablero guardado desde un archivo.</span>
         </button>
         <input id="importBoardInput" type="file" accept="application/json,.json" hidden>
+        <input id="imageUploadInput" type="file" accept="image/*" hidden>
       </div>
     </section>
   </aside>
@@ -3494,6 +3533,7 @@ const NODE_MIN_DIMENSIONS = {
   hero: { width: 1410, height: 590 },
   theme: { width: 250, height: 500 },
   tracking: { width: 224, height: 96 },
+  image: { width: 24, height: 24 },
   'positive-tag': { width: 224, height: 96 },
   'negative-tag': { width: 224, height: 96 },
   'downcrawl-hero': { width: 320, height: 560 },
@@ -4052,7 +4092,7 @@ function resolveDiceModifier(modifierId, nodes) {
     if (node.type !== 'downcrawl-hero') return null;
     const aspect = Array.isArray(node.heroAspects) ? node.heroAspects[parsed.index - 1] : null;
     if (!aspect || !aspect.trim()) return null;
-    return { id: modifierId, nodeId: node.id, value: 1, label: `${node.heroName?.trim() || node.title.trim() || 'Heroe'}: ${aspect.trim()}` };
+    return { id: modifierId, nodeId: node.id, value: 2, label: `${node.heroName?.trim() || node.title.trim() || 'Heroe'}: ${aspect.trim()}` };
   }
 
   if (parsed.kind === 'tracking-card') {
@@ -4408,6 +4448,15 @@ function sanitizeNode(node) {
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS.note.width, safeNode.width);
     safeNode.height = Math.max(NODE_MIN_DIMENSIONS.note.height, safeNode.height);
   }
+  if (node.type === 'image') {
+    safeNode.subtitle = safeNode.subtitle || 'Imagen';
+    safeNode.title = safeNode.title || 'Nueva imagen';
+    safeNode.imageName = typeof node.imageName === 'string' ? node.imageName : '';
+    safeNode.imageSrc = typeof node.imageSrc === 'string' ? node.imageSrc : '';
+    if (!safeNode.imageSrc) return null;
+    safeNode.width = Math.max(NODE_MIN_DIMENSIONS.image.width, safeNode.width);
+    safeNode.height = Math.max(NODE_MIN_DIMENSIONS.image.height, safeNode.height);
+  }
   if (isFlippableDowncrawlNode(safeNode)) {
     safeNode.showBack = Boolean(node.showBack);
     safeNode.backNotes = typeof node.backNotes === 'string' ? node.backNotes : '';
@@ -4535,6 +4584,7 @@ const addHeroButton = document.getElementById('addHeroButton');
 const addThemeButton = document.getElementById('addThemeButton');
 const addCommunityButton = document.getElementById('addCommunityButton');
 const addTrackingButton = document.getElementById('addTrackingButton');
+const addImageButton = document.getElementById('addImageButton');
 const addDowncrawlHeroButton = document.getElementById('addDowncrawlHeroButton');
 const addFolkDeckButton = document.getElementById('addFolkDeckButton');
 const addVolumeDeckButton = document.getElementById('addVolumeDeckButton');
@@ -4550,6 +4600,7 @@ const centerBoardButton = document.getElementById('centerBoardButton');
 const exportBoardButton = document.getElementById('exportBoardButton');
 const importBoardButton = document.getElementById('importBoardButton');
 const importBoardInput = document.getElementById('importBoardInput');
+const imageUploadInput = document.getElementById('imageUploadInput');
 const themeSelect = document.getElementById('themeSelect');
 const themeToggleState = document.getElementById('themeToggleState');
 const downcrawlModuleToggle = document.getElementById('downcrawlModuleToggle');
@@ -5608,6 +5659,21 @@ function toggleDiceModifier(modifierId) {
     : [...current.modifiers, modifierId];
   const disabledModifiers = current.disabledModifiers.filter((entry) => entry !== modifierId);
   const invertedModifiers = current.invertedModifiers.filter((entry) => entry !== modifierId);
+  const parsed = parseDiceModifierId(modifierId);
+  if (parsed?.kind === 'downcrawl-hero-aspect') {
+    state.nodes = state.nodes.map((node) => {
+      if (node.id !== parsed.nodeId || node.type !== 'downcrawl-hero') return node;
+      const currentChecks = normalizeIndexedChecks(node.heroAspectChecks, (node.heroAspects || []).length);
+      const value = parsed.index;
+      const nextChecks = modifiers.includes(modifierId)
+        ? [...new Set([...currentChecks, value])].sort((left, right) => left - right)
+        : currentChecks.filter((entry) => entry !== value);
+      return {
+        ...node,
+        heroAspectChecks: nextChecks
+      };
+    });
+  }
   state.dice = sanitizeDiceState({
     ...current,
     modifiers,
@@ -6225,6 +6291,30 @@ function renderTracking(node, article) {
   progress.className = 'section';
   progress.append(createTrackingChecks(node));
   article.append(header, tag, progress);
+}
+function renderImage(node, article) {
+  article.classList.add('image-card', 'small-title');
+  if (isInlineEditingNode(node.id)) {
+    article.classList.add('inline-editing');
+    const figure = document.createElement('figure');
+    figure.className = 'image-card-figure';
+    const img = document.createElement('img');
+    img.src = node.imageSrc;
+    img.alt = node.title || node.imageName || 'Imagen';
+    img.draggable = false;
+    figure.append(img);
+    article.append(figure);
+    attachInlineEditorBehavior(article, node);
+    return;
+  }
+  const figure = document.createElement('figure');
+  figure.className = 'image-card-figure';
+  const img = document.createElement('img');
+  img.src = node.imageSrc;
+  img.alt = node.title || node.imageName || 'Imagen';
+  img.draggable = false;
+  figure.append(img);
+  article.append(figure);
 }
 function createDowncrawlInlineField(value, rows, onInput, extraClassName = '') {
   if (rows > 1) {
@@ -7354,6 +7444,7 @@ function renderBoard() {
   if (node.type === 'hero') renderHero(node, article);
   if (node.type === 'theme') renderTheme(node, article);
   if (node.type === 'tracking') renderTracking(node, article);
+  if (node.type === 'image') renderImage(node, article);
   if (node.type === 'downcrawl-hero') renderDowncrawlHero(node, article);
   if (node.type === 'folk-deck') renderFolkDeck(node, article);
   if (node.type === 'volume-deck') renderVolumeDeck(node, article);
@@ -7382,7 +7473,7 @@ function renderBoard() {
       } else {
         activateNode(node.id);
       }
-      if (!event.target.closest('.node-header')) return;
+      if (!event.target.closest('.node-header') && node.type !== 'image') return;
       const rect = boardInner.getBoundingClientRect();
       const startBoardX = (event.clientX - rect.left) / state.zoom;
       const startBoardY = (event.clientY - rect.top) / state.zoom;
@@ -7589,7 +7680,7 @@ function renderDiceTray() {
     valueEl.textContent = value === null ? '' : String(value);
     const note = document.createElement('span');
     note.className = 'die-face-note';
-    note.textContent = value === null ? '' : keptSet.has(index) ? 'Cuenta' : 'Descartado';
+    note.textContent = '';
     face.append(valueEl, note);
     diceRollFaces.append(face);
   });
@@ -7621,7 +7712,7 @@ function renderDiceTray() {
         : dice.faceChallengeResolved === 'conserve'
           ? 'Has conservado tu fuerza: fallas la tirada, explicas que aprendiste o por que te costo, y ganas 1 DESTINO.'
         : resultState === 'consequence'
-          ? 'En 7-, puedes conservar tu fuerza para fallar y ganar DESTINO, o seguir empujando con Momento fatidico o Punto de ruptura hasta llegar a 8+.'
+          ? 'En 7-, puedes conservar tu fuerza para fallar y ganar DESTINO, o seguir empujando con Momento fatidico hasta llegar a 8+.'
           : resultState === 'success'
             ? dice.faceChallengeBonus > 0
               ? `Has llegado a 8+ tras empujar la tirada. Di como superas el desafio usando ${rollContext.selectedHeroStat.shortLabel}.`
@@ -7672,7 +7763,6 @@ function renderDiceTray() {
   if (canResolveFaceChallenge) {
     const summaryParts = [];
     if (dice.faceChallengeFatefulUses > 0) summaryParts.push(`Momentos fatidicos: ${dice.faceChallengeFatefulUses}`);
-    if (dice.faceChallengeBreakingUses > 0) summaryParts.push(`Puntos de ruptura: ${dice.faceChallengeBreakingUses}`);
     if (dice.faceChallengeBonus > 0) summaryParts.push(`Empuje acumulado: +${dice.faceChallengeBonus}`);
     dicePushSummary.textContent = summaryParts.length
       ? `${summaryParts.join(' · ')}. Puedes seguir empujando hasta 8+ o conservar tu fuerza.`
@@ -7699,17 +7789,7 @@ function renderDiceTray() {
       applyFaceChallengeChoice('fateful');
     });
 
-    const breakingButton = document.createElement('button');
-    breakingButton.type = 'button';
-    breakingButton.className = 'dice-secondary-button';
-    breakingButton.textContent = 'Punto de ruptura (+2)';
-    breakingButton.addEventListener('mousedown', (event) => event.stopPropagation());
-    breakingButton.addEventListener('click', (event) => {
-      event.stopPropagation();
-      applyFaceChallengeChoice('breaking');
-    });
-
-    dicePushButtons.append(conserveButton, fatefulButton, breakingButton);
+    dicePushButtons.append(conserveButton, fatefulButton);
   }
   rollDiceButton.disabled = !rollContext.canRoll;
   rollDiceButton.setAttribute('aria-disabled', String(!rollContext.canRoll));
@@ -8098,6 +8178,56 @@ addHeroButton.addEventListener('click', () => {
 addTrackingButton.addEventListener('click', () => {
   const node = { id: crypto.randomUUID(), type: 'tracking', title: 'Nueva tarjeta de estado', subtitle: 'Estado', body: 'nuevo estado', x: BOARD_OFFSET_X + 300 + state.nodes.length * 12, y: BOARD_OFFSET_Y + 120 + state.nodes.length * 12, width: 224, height: 96, selectedChecks: [], progress: 0, totalChecks: 6 };
   finishNodeCreation(node);
+});
+
+addImageButton.addEventListener('click', () => {
+  state.createMenuOpen = false;
+  renderCreateMenu();
+  imageUploadInput.value = '';
+  imageUploadInput.click();
+});
+
+imageUploadInput.addEventListener('change', () => {
+  const [file] = imageUploadInput.files || [];
+  if (!file || !file.type.startsWith('image/')) {
+    imageUploadInput.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.addEventListener('load', () => {
+    if (typeof reader.result !== 'string') {
+      imageUploadInput.value = '';
+      return;
+    }
+    const tempImage = new Image();
+    tempImage.addEventListener('load', () => {
+      const baseName = file.name.replace(/\.[^.]+$/, '').trim();
+      const node = {
+        id: crypto.randomUUID(),
+        type: 'image',
+        title: baseName || 'Nueva imagen',
+        subtitle: 'Imagen',
+        imageName: file.name,
+        imageSrc: reader.result,
+        x: BOARD_OFFSET_X + 320 + state.nodes.length * 18,
+        y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14,
+        width: Math.max(1, Math.round(tempImage.naturalWidth || 1)),
+        height: Math.max(1, Math.round(tempImage.naturalHeight || 1))
+      };
+      finishNodeCreation(node);
+      imageUploadInput.value = '';
+    });
+    tempImage.addEventListener('error', () => {
+      imageUploadInput.value = '';
+      window.alert('No se pudo procesar el tamano de la imagen seleccionada.');
+    });
+    tempImage.src = reader.result;
+  });
+  reader.addEventListener('error', () => {
+    imageUploadInput.value = '';
+    window.alert('No se pudo leer la imagen seleccionada.');
+  });
+  reader.readAsDataURL(file);
 });
 
 addDowncrawlHeroButton.addEventListener('click', () => {
