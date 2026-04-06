@@ -5,7 +5,11 @@
 !.gitignore
 
 # Keep the main app HTML
-!tracking-cards-dark-app.html
+!index.html
+
+# Keep the external dice engine folder
+!dice-3d-engine/
+!dice-3d-engine/**
 
 # Keep a future plain-text readme if added
 !readme.md

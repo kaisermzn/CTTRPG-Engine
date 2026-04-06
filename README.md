@@ -8,9 +8,9 @@ Card TableTop RPG Engine - Prototipo web estatico de una mesa visual inspirada e
 
 ### Overview
 
-This project is currently a single-file HTML application focused on quick prototyping and play support without a build step or backend.
+This project is currently a static HTML-first application focused on quick prototyping and play support without a build step or backend.
 
-The main app lives in `tracking-cards-dark-app.html`.
+The main app lives in `index.html`.
 
 ### Current Features
 
@@ -29,6 +29,7 @@ The main app lives in `tracking-cards-dark-app.html`.
 - Front-side special improvements button with live count on theme and community cards
 - Incremental progress checks for `Abandon`, `Improve`, and `Milestone` on theme and community cards
 - `2d6` dice tray with a persistent system selector for `Legend in the Mist` and `Downcrawl`
+- Optional `3D Dice` mode with a full-screen overlay, physical `d6` rolls, and a persistent on/off toggle in `Modules`
 - Persistent last roll plus shared modifier controls for both tray variants
 - `Downcrawl` dice tray with a `Terminar Aventura` roll type that requires selecting an adventure card, only unlocks when all non-final milestones are already resolved, and adds a locked milestone-based power modifier
 - `Downcrawl` dice tray with an `Avanzar aventura` roll type that requires an unfinished adventure plus one hero and one hero stat, and updates both the milestone and the chosen stat after the roll
@@ -46,17 +47,17 @@ The main app lives in `tracking-cards-dark-app.html`.
 
 ### Project Structure
 
-- `tracking-cards-dark-app.html`: main application
+- `index.html`: main application
+- `dice-3d-engine/`: external `3D` dice runtime, styles, and vendored libraries
 - `APP.md`: current product and feature notes
 - `PLAN.md`: project direction
 - `TODO.TXT`: working backlog
 - `HISTORIAL.MD`: recent change log
-- `AGENTS.md`: agent collaboration context
 
 ### How to Use
 
 1. Clone or download this repository.
-2. Open `tracking-cards-dark-app.html` in your browser.
+2. Open `index.html` in your browser.
 3. Use the top-left menu for theme, modules, and JSON import/export.
 4. Use the floating `+` button to create cards, decks, and tags.
    The first section is `Sistema`, which includes `Imagen`; selecting it opens the browser picker and creates an image card only when a valid image file is chosen.
@@ -83,9 +84,9 @@ This repository is an active prototype. The app is functional, but the architect
 
 ### Resumen
 
-Este proyecto es actualmente una aplicacion HTML de un solo archivo, centrada en prototipado rapido y soporte de juego sin proceso de build ni backend.
+Este proyecto es actualmente una aplicacion estatica centrada en HTML, orientada a prototipado rapido y soporte de juego sin proceso de build ni backend.
 
-La app principal esta en `tracking-cards-dark-app.html`.
+La app principal esta en `index.html`.
 
 ### Funcionalidades actuales
 
@@ -104,6 +105,7 @@ La app principal esta en `tracking-cards-dark-app.html`.
 - Boton frontal de mejoras especiales con contador en tarjetas de tema y comunidad
 - Checks incrementales de `Abandono`, `Mejora` e `Hito` en tarjetas de tema y comunidad
 - Bandeja de dados `2d6` con selector persistente de sistema entre `Legend in the Mist` y `Downcrawl`
+- Modo opcional de `Dados 3D` con overlay a pantalla completa, tiradas fisicas de `d6` y toggle persistente dentro de `Modulos`
 - Ultima tirada persistente y controles compartidos de modificadores para ambas variantes del lanzador
 - Bandeja `Downcrawl` con tipo de tirada `Terminar Aventura`, que exige seleccionar una carta de aventura, solo se habilita cuando todos los hitos no finales ya estan resueltos y anade un modificador bloqueado de PODER segun el balance de hitos
 - Bandeja `Downcrawl` con tipo de tirada `Avanzar aventura`, que exige una aventura sin terminar, un heroe y una estadistica de ese heroe, y actualiza tanto el hito como la estadistica tras resolver la tirada
@@ -121,17 +123,17 @@ La app principal esta en `tracking-cards-dark-app.html`.
 
 ### Estructura del proyecto
 
-- `tracking-cards-dark-app.html`: aplicacion principal
+- `index.html`: aplicacion principal
+- `dice-3d-engine/`: runtime externo de dados `3D`, estilos y librerias vendorizadas
 - `APP.md`: notas de producto y funcionalidades actuales
 - `PLAN.md`: direccion del proyecto
 - `TODO.TXT`: backlog de trabajo
 - `HISTORIAL.MD`: registro de cambios recientes
-- `AGENTS.md`: contexto de colaboracion para agentes
 
 ### Como usarlo
 
 1. Clona o descarga este repositorio.
-2. Abre `tracking-cards-dark-app.html` en tu navegador.
+2. Abre `index.html` en tu navegador.
 3. Usa el menu superior izquierdo para tema, modulos e importacion/exportacion JSON.
 4. Usa el boton flotante `+` para crear tarjetas, barajas y etiquetas.
    La primera seccion es `Sistema`, que incluye `Imagen`; al elegirla se abre el selector del navegador y la tarjeta solo se crea si eliges un archivo de imagen valido.
