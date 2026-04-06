@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Legend in the Mist - Canvas Board Prototype</title>
+<link rel="stylesheet" href="./dice-3d-engine/dice-3d.css">
 <style>
 :root {
   color-scheme: dark;
@@ -3440,6 +3441,8 @@ button.downcrawl-remoteness-option {
     </button>
   </div>
 
+  <div class="dice-roll-overlay" id="diceRollOverlay" hidden aria-hidden="true"></div>
+
   <aside class="sidebar" id="sidebar">
     <button class="menu-button sidebar-close" id="closeSidebarButton" type="button" aria-label="Cerrar configuracion de la app">
       <span class="menu-lines"><span></span><span></span><span></span></span>
@@ -3485,6 +3488,13 @@ button.downcrawl-remoteness-option {
             <span>Activa o elimina del tablero las barajas y cartas Folk, junto con las cartas Volumen.</span>
           </span>
         </label>
+        <label class="module-option">
+          <input id="dice3dToggle" type="checkbox" aria-label="Activar tirada 3D de dados">
+          <span class="module-option-copy">
+            <strong>Dados 3D</strong>
+            <span>Activa la animacion 3D de las tiradas. Si lo desactivas, la resolucion es mas rapida.</span>
+          </span>
+        </label>
       </div>
     </section>
 
@@ -3511,6 +3521,9 @@ button.downcrawl-remoteness-option {
   </section>
 </div>
 
+<script src="./dice-3d-engine/vendor/three.global.js"></script>
+<script src="./dice-3d-engine/vendor/cannon.min.js"></script>
+<script src="./dice-3d-engine/dice-3d-engine.js"></script>
 <script>
 const BOARD_WIDTH = 5200;
 const BOARD_HEIGHT = 3600;
@@ -3996,7 +4009,8 @@ function createDefaultState() {
   const nodes = cloneNodes(initialNodes).map(sanitizeNode).filter(Boolean);
   const firstId = nodes[0]?.id ?? null;
   const modules = sanitizeModules({
-    downcrawlEnabled: true
+    downcrawlEnabled: true,
+    dice3dEnabled: true
   });
   return {
     nodes,
@@ -4286,6 +4300,9 @@ function sanitizeModules(modules) {
   return {
     downcrawlEnabled: typeof modules?.downcrawlEnabled === 'boolean'
       ? modules.downcrawlEnabled
+      : true,
+    dice3dEnabled: typeof modules?.dice3dEnabled === 'boolean'
+      ? modules.dice3dEnabled
       : true
   };
 }
@@ -4574,6 +4591,7 @@ const dicePowerValue = document.getElementById('dicePowerValue');
 const diceModifierListLabel = document.getElementById('diceModifierListLabel');
 const diceModifierList = document.getElementById('diceModifierList');
 const clearDiceModifiersButton = document.getElementById('clearDiceModifiersButton');
+const diceRollOverlay = document.getElementById('diceRollOverlay');
 const sidebar = document.getElementById('sidebar');
 const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 const createMenuButton = document.getElementById('createMenuButton');
@@ -4604,6 +4622,7 @@ const imageUploadInput = document.getElementById('imageUploadInput');
 const themeSelect = document.getElementById('themeSelect');
 const themeToggleState = document.getElementById('themeToggleState');
 const downcrawlModuleToggle = document.getElementById('downcrawlModuleToggle');
+const dice3dToggle = document.getElementById('dice3dToggle');
 const floatingSelectionTools = document.getElementById('floatingSelectionTools');
 const floatingDeleteButton = document.getElementById('floatingDeleteButton');
 const selectionMarquee = document.createElement('div');
@@ -4618,6 +4637,434 @@ let heroCardResizeState = null;
 let suppressBoardClick = false;
 let persistTimer = null;
 let inlineEditClickState = { id: null, at: 0 };
+let pendingDiceRoll = null;
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function lerp(start, end, amount) {
+  return start + (end - start) * amount;
+}
+
+function easeOutCubic(value) {
+  return 1 - ((1 - value) ** 3);
+}
+
+function lerpAngle(start, end, amount) {
+  const delta = ((end - start + 540) % 360) - 180;
+  return start + delta * amount;
+}
+
+function getVectorMagnitude(x, y, z = 0) {
+  return Math.sqrt((x ** 2) + (y ** 2) + (z ** 2));
+}
+
+function easeInOutCubic(value) {
+  return value < 0.5
+    ? 4 * value * value * value
+    : 1 - (((-2 * value) + 2) ** 3) / 2;
+}
+
+function prefersReducedDiceMotion() {
+  return typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function clearDiceRoll3d() {
+  if (window.Dice3DOverlay) {
+    window.Dice3DOverlay.cancel();
+  }
+  if (diceRollOverlay) {
+    diceRollOverlay.classList.remove('is-fading');
+    diceRollOverlay.hidden = true;
+  }
+}
+
+function createDiceFaceTexture(value) {
+  if (DICE_3D_TEXTURE_CACHE.has(value)) {
+    return DICE_3D_TEXTURE_CACHE.get(value);
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 256;
+  const context = canvas.getContext('2d');
+  const gradient = context.createLinearGradient(0, 0, 256, 256);
+  gradient.addColorStop(0, '#fefefe');
+  gradient.addColorStop(0.55, '#e7edf2');
+  gradient.addColorStop(1, '#c1ccd6');
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 256, 256);
+
+  context.strokeStyle = 'rgba(70, 84, 98, 0.22)';
+  context.lineWidth = 10;
+  context.strokeRect(12, 12, 232, 232);
+
+  context.strokeStyle = 'rgba(255, 255, 255, 0.62)';
+  context.lineWidth = 4;
+  context.strokeRect(20, 20, 216, 216);
+
+  const pipPositions = DICE_3D_PIP_LAYOUTS[value] || [];
+  pipPositions.forEach(([x, y]) => {
+    const px = x * 256;
+    const py = y * 256;
+    const pipGradient = context.createRadialGradient(px - 7, py - 7, 2, px, py, 22);
+    pipGradient.addColorStop(0, '#425463');
+    pipGradient.addColorStop(0.35, '#17212b');
+    pipGradient.addColorStop(1, '#05080d');
+    context.fillStyle = pipGradient;
+    context.beginPath();
+    context.arc(px, py, 20, 0, Math.PI * 2);
+    context.fill();
+  });
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.anisotropy = 4;
+  texture.needsUpdate = true;
+  DICE_3D_TEXTURE_CACHE.set(value, texture);
+  return texture;
+}
+
+function createDiceMaterials() {
+  return DICE_3D_FACE_VALUES.map((value) => new THREE.MeshStandardMaterial({
+    map: createDiceFaceTexture(value),
+    color: 0xffffff,
+    roughness: 0.38,
+    metalness: 0.04,
+    transparent: true
+  }));
+}
+
+function setDieDiscarded(dieState, discarded) {
+  dieState.materials.forEach((material) => {
+    material.opacity = discarded ? 0.42 : 1;
+    material.color.set(discarded ? '#dfe7ed' : '#ffffff');
+  });
+  if (dieState.edgeMaterial) {
+    dieState.edgeMaterial.opacity = discarded ? 0.2 : 0.36;
+  }
+}
+
+function getDiceTopQuaternion(value, yaw = 0) {
+  const base = new THREE.Quaternion();
+  const rotation = DICE_3D_TOP_ROTATIONS[value];
+  if (rotation) {
+    base.setFromAxisAngle(new THREE.Vector3(...rotation.axis), rotation.angle);
+  }
+  if (yaw) {
+    const yawQuaternion = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), yaw);
+    base.premultiply(yawQuaternion);
+  }
+  return base;
+}
+
+function initDiceRenderer(container, bounds) {
+  if (!window.THREE || !window.CANNON || !container || bounds.width < 80 || bounds.height < 80) {
+    return null;
+  }
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  } catch (error) {
+    return null;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(bounds.width, bounds.height, false);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  container.append(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(34, bounds.width / bounds.height, 0.1, 100);
+  const worldWidth = Math.max(7.8, bounds.width / 90);
+  const worldDepth = Math.max(5.2, bounds.height / 90);
+  const largestSide = Math.max(worldWidth, worldDepth);
+  camera.position.set(0, largestSide * 1.38, largestSide * 0.66);
+  camera.lookAt(0, 0, 0);
+
+  const ambient = new THREE.HemisphereLight(0xf7fbff, 0x0a1216, 1.34);
+  scene.add(ambient);
+
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.06);
+  keyLight.position.set(-largestSide * 0.4, largestSide * 1.8, largestSide * 0.6);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(1024, 1024);
+  keyLight.shadow.camera.left = -largestSide;
+  keyLight.shadow.camera.right = largestSide;
+  keyLight.shadow.camera.top = largestSide;
+  keyLight.shadow.camera.bottom = -largestSide;
+  keyLight.shadow.camera.near = 0.1;
+  keyLight.shadow.camera.far = largestSide * 4;
+  scene.add(keyLight);
+
+  const fillLight = new THREE.PointLight(0x99d7ff, 0.34, largestSide * 5);
+  fillLight.position.set(largestSide * 0.45, largestSide * 0.7, -largestSide * 0.15);
+  scene.add(fillLight);
+
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(worldWidth, worldDepth),
+    new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.24 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = 0.002;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  const world = new CANNON.World();
+  world.gravity.set(0, -18, 0);
+  world.broadphase = new CANNON.NaiveBroadphase();
+  world.solver.iterations = 14;
+  world.allowSleep = false;
+
+  const staticMaterial = new CANNON.Material('dice-roll-static');
+  const dieMaterial = new CANNON.Material('dice-roll-die');
+  world.addContactMaterial(new CANNON.ContactMaterial(dieMaterial, staticMaterial, {
+    friction: 0.28,
+    restitution: 0.34
+  }));
+
+  const addStaticBody = (body) => {
+    body.material = staticMaterial;
+    body.collisionFilterGroup = DICE_3D_STATIC_GROUP;
+    body.collisionFilterMask = DICE_3D_DIE_GROUP;
+    world.addBody(body);
+    return body;
+  };
+
+  const floorBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
+  floorBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+  floorBody.userData = { kind: 'floor' };
+  addStaticBody(floorBody);
+
+  const wallHeight = 1.45;
+  const wallThickness = 0.18;
+  const halfWidth = worldWidth / 2;
+  const halfDepth = worldDepth / 2;
+  const wallBodies = [
+    { kind: 'wall-left', position: new CANNON.Vec3(-halfWidth - wallThickness / 2, wallHeight / 2, 0), size: new CANNON.Vec3(wallThickness / 2, wallHeight / 2, halfDepth + wallThickness) },
+    { kind: 'wall-right', position: new CANNON.Vec3(halfWidth + wallThickness / 2, wallHeight / 2, 0), size: new CANNON.Vec3(wallThickness / 2, wallHeight / 2, halfDepth + wallThickness) },
+    { kind: 'wall-top', position: new CANNON.Vec3(0, wallHeight / 2, -halfDepth - wallThickness / 2), size: new CANNON.Vec3(halfWidth + wallThickness, wallHeight / 2, wallThickness / 2) },
+    { kind: 'wall-bottom', position: new CANNON.Vec3(0, wallHeight / 2, halfDepth + wallThickness / 2), size: new CANNON.Vec3(halfWidth + wallThickness, wallHeight / 2, wallThickness / 2) }
+  ];
+  wallBodies.forEach((wall) => {
+    const body = new CANNON.Body({ mass: 0, shape: new CANNON.Box(wall.size) });
+    body.position.copy(wall.position);
+    body.userData = { kind: wall.kind };
+    addStaticBody(body);
+  });
+
+  return {
+    renderer,
+    scene,
+    camera,
+    world,
+    bounds,
+    worldWidth,
+    worldDepth,
+    dieMaterial
+  };
+}
+
+function createDiceRollPlan(index, count, worldWidth, worldDepth, dieSize) {
+  const halfWidth = worldWidth / 2 - dieSize * 0.62;
+  const halfDepth = worldDepth / 2 - dieSize * 0.62;
+  const laneRatio = (index + 1) / (count + 1);
+  const laneX = lerp(-halfWidth * 0.54, halfWidth * 0.54, laneRatio);
+  const laneZ = lerp(-halfDepth * 0.58, halfDepth * 0.58, laneRatio);
+  const pattern = [
+    {
+      start: { x: halfWidth * 0.18, z: laneZ },
+      velocity: { x: -(4.9 + Math.random() * 0.8), z: (Math.random() - 0.5) * 1.2 },
+      final: { x: -halfWidth + dieSize * 0.46, z: laneZ }
+    },
+    {
+      start: { x: -halfWidth * 0.18, z: -laneZ },
+      velocity: { x: 4.9 + Math.random() * 0.8, z: (Math.random() - 0.5) * 1.2 },
+      final: { x: halfWidth - dieSize * 0.46, z: -laneZ }
+    },
+    {
+      start: { x: laneX, z: halfDepth * 0.16 },
+      velocity: { x: (Math.random() - 0.5) * 1.2, z: -(4.8 + Math.random() * 0.8) },
+      final: { x: laneX, z: -halfDepth + dieSize * 0.46 }
+    },
+    {
+      start: { x: -laneX, z: -halfDepth * 0.16 },
+      velocity: { x: (Math.random() - 0.5) * 1.2, z: 4.8 + Math.random() * 0.8 },
+      final: { x: -laneX, z: halfDepth - dieSize * 0.46 }
+    }
+  ];
+  return pattern[index % pattern.length];
+}
+
+function createDiceRollDie(rendererState, value, index, count, kept) {
+  const dieSize = clamp(Math.min(rendererState.worldWidth, rendererState.worldDepth) * 0.12, 0.76, 1.06);
+  const geometry = new THREE.BoxGeometry(dieSize, dieSize, dieSize);
+  const materials = createDiceMaterials();
+  const mesh = new THREE.Mesh(geometry, materials);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+
+  const edgeMaterial = new THREE.LineBasicMaterial({
+    color: 0x90a0ad,
+    transparent: true,
+    opacity: 0.36
+  });
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), edgeMaterial);
+  mesh.add(edges);
+  rendererState.scene.add(mesh);
+
+  const body = new CANNON.Body({
+    mass: 1,
+    material: rendererState.dieMaterial,
+    shape: new CANNON.Box(new CANNON.Vec3(dieSize / 2, dieSize / 2, dieSize / 2))
+  });
+  body.collisionFilterGroup = DICE_3D_DIE_GROUP;
+  body.collisionFilterMask = DICE_3D_STATIC_GROUP;
+  body.linearDamping = 0.24;
+  body.angularDamping = 0.18;
+
+  const plan = createDiceRollPlan(index, count, rendererState.worldWidth, rendererState.worldDepth, dieSize);
+  body.position.set(plan.start.x, dieSize * 0.58 + (Math.random() * 0.22), plan.start.z);
+  body.velocity.set(plan.velocity.x, 2.1 + Math.random() * 0.8, plan.velocity.z);
+  body.angularVelocity.set(
+    (Math.random() > 0.5 ? 1 : -1) * (5.2 + Math.random() * 1.6),
+    (Math.random() > 0.5 ? 1 : -1) * (5.8 + Math.random() * 1.8),
+    (Math.random() > 0.5 ? 1 : -1) * (4.6 + Math.random() * 1.4)
+  );
+  body.userData = { kind: 'die', index };
+  rendererState.world.addBody(body);
+
+  const dieState = {
+    value,
+    kept,
+    dieSize,
+    plan,
+    mesh,
+    body,
+    materials,
+    edgeMaterial,
+    phase: 'rolling',
+    wallHits: 0,
+    settleStartedAt: 0,
+    displayStartedAt: 0,
+    settleFromPosition: null,
+    settleToPosition: null,
+    settleFromQuaternion: null,
+    settleToQuaternion: null
+  };
+
+  setDieDiscarded(dieState, false);
+
+  body.addEventListener('collide', (event) => {
+    const kind = event.body?.userData?.kind;
+    if (typeof kind === 'string' && kind.startsWith('wall')) {
+      dieState.wallHits += 1;
+    }
+  });
+
+  syncDieMeshFromPhysics(dieState);
+  return dieState;
+}
+
+function syncDieMeshFromPhysics(dieState) {
+  dieState.mesh.position.set(dieState.body.position.x, dieState.body.position.y, dieState.body.position.z);
+  dieState.mesh.quaternion.set(
+    dieState.body.quaternion.x,
+    dieState.body.quaternion.y,
+    dieState.body.quaternion.z,
+    dieState.body.quaternion.w
+  );
+}
+
+function beginDieSettling(rendererState, dieState, now) {
+  if (dieState.phase !== 'rolling') return;
+  dieState.phase = 'settling';
+  dieState.settleStartedAt = now;
+  dieState.settleFromPosition = dieState.mesh.position.clone();
+  dieState.settleFromQuaternion = dieState.mesh.quaternion.clone();
+  dieState.settleToPosition = new THREE.Vector3(
+    dieState.plan.final.x,
+    dieState.dieSize / 2,
+    dieState.plan.final.z
+  );
+  dieState.settleToQuaternion = getDiceTopQuaternion(dieState.value, (dieState.plan.final.x + dieState.plan.final.z) * 0.16);
+  rendererState.world.removeBody(dieState.body);
+}
+
+function updateSettlingDie(dieState, now, reducedMotion) {
+  const settleDuration = reducedMotion ? 180 : 340;
+  const t = clamp((now - dieState.settleStartedAt) / settleDuration, 0, 1);
+  const eased = easeInOutCubic(t);
+  dieState.mesh.position.lerpVectors(dieState.settleFromPosition, dieState.settleToPosition, eased);
+  dieState.mesh.quaternion.copy(dieState.settleFromQuaternion).slerp(dieState.settleToQuaternion, eased);
+  if (t >= 1) {
+    dieState.phase = 'display';
+    dieState.displayStartedAt = now;
+    dieState.mesh.position.copy(dieState.settleToPosition);
+    dieState.mesh.quaternion.copy(dieState.settleToQuaternion);
+    if (!dieState.kept) {
+      setDieDiscarded(dieState, true);
+    }
+  }
+}
+
+function finalizePendingDiceRoll(finalRollValues = null) {
+  if (!pendingDiceRoll) return;
+  const pending = pendingDiceRoll;
+  pendingDiceRoll = null;
+  const nextDicePayload = Array.isArray(finalRollValues) && finalRollValues.length
+    ? {
+      ...pending.dicePayload,
+      rollValues: finalRollValues
+    }
+    : pending.dicePayload;
+  state.dice = sanitizeDiceState(nextDicePayload, state.nodes, state.modules, pending.selection);
+  if (pending.effectType === 'face-challenge') {
+    applyFaceChallengeRollUsage(pending.rollContext);
+  }
+  if (pending.effectType === 'advance-adventure') {
+    applyAdventureProgressRollResult(pending.rollContext, state.dice.total >= 8);
+  }
+  render();
+  schedulePersist();
+}
+
+function cancelPendingDiceRoll() {
+  pendingDiceRoll = null;
+  clearDiceRoll3d();
+}
+
+function launchDiceRoll3d(values, options = {}) {
+  const engine = window.Dice3DOverlay;
+  if (!diceRollOverlay || !engine || !Array.isArray(values) || !values.length) {
+    options.onSettle?.(values);
+    return;
+  }
+  if (!engine.init({ overlay: diceRollOverlay, viewportMode: 'window' })) {
+    options.onSettle?.(values);
+    return;
+  }
+  engine.roll(values, {
+    overlay: diceRollOverlay,
+    keepRule: options.keepRule || 'keep-all',
+    viewportMode: 'window',
+    onSettle: (finalRollValues) => {
+      options.onSettle?.(Array.isArray(finalRollValues) && finalRollValues.length ? finalRollValues : values);
+    }
+  });
+}
+
+function startDiceRoll3d(values, options = {}) {
+  if (!Array.isArray(values) || !values.length) {
+    options.onSettle?.(values);
+    return;
+  }
+  if (!sanitizeModules(state.modules).dice3dEnabled) {
+    options.onSettle?.(values);
+    return;
+  }
+  launchDiceRoll3d(values, options);
+}
 
 function getSelectedNode() {
   if (!state.selectedIds.includes(state.selectedId)) {
@@ -5722,6 +6169,7 @@ function toggleDiceModifierSign(modifierId) {
 }
 
 function clearDiceRoll() {
+  cancelPendingDiceRoll();
   const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
@@ -7556,6 +8004,7 @@ function renderSidebar() {
   themeSelect.value = normalizeTheme(state.theme);
   themeToggleState.textContent = state.theme === 'light' ? 'Claro' : state.theme === 'print' ? 'Impresion' : 'Oscuro';
   downcrawlModuleToggle.checked = state.modules.downcrawlEnabled;
+  dice3dToggle.checked = state.modules.dice3dEnabled;
 }
 
 function renderCreateMenu() {
@@ -7575,6 +8024,7 @@ function renderToolsMenu() {
 function renderDiceTray() {
   const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
   const dice = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
+  const pendingActive = Boolean(pendingDiceRoll);
   state.dice = dice;
   const diceMeta = getDiceSystemMeta(dice.system);
   const rollContext = getDiceRollContext(dice, state.nodes, selection);
@@ -7605,6 +8055,7 @@ function renderDiceTray() {
   const hasValidFaceChallengeDriver = Boolean(selectedFaceChallengeHero) && Boolean(rollContext.selectedHeroStat);
   const canResolveFaceChallenge = dice.system === 'downcrawl'
     && dice.rollType === 'face-challenge'
+    && !pendingActive
     && !dice.cleared
     && typeof dice.total === 'number'
     && dice.total < 8
@@ -7613,18 +8064,21 @@ function renderDiceTray() {
   diceSystemSelect.value = dice.system;
   const downcrawlOption = diceSystemSelect.querySelector('option[value="downcrawl"]');
   if (downcrawlOption) {
-    downcrawlOption.disabled = !state.modules.downcrawlEnabled;
+    downcrawlOption.disabled = !state.modules.downcrawlEnabled || pendingActive;
     downcrawlOption.hidden = !state.modules.downcrawlEnabled;
   }
   diceSystemSelect.setAttribute('aria-label', `Seleccionar lanzador de dados: ${diceMeta.title}`);
+  diceSystemSelect.disabled = pendingActive;
   diceChallengeBox.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
   diceChallengeLabel.textContent = 'Dificultad';
   diceChallengeSelect.value = dice.challengeDifficulty;
+  diceChallengeSelect.disabled = pendingActive;
   diceRollTypeBox.hidden = dice.system !== 'downcrawl';
   diceRollTypeLabel.textContent = diceMeta.rollTypeLabel;
   if (dice.system === 'downcrawl') {
     diceRollTypeSelect.value = dice.rollType;
     diceRollTypeSelect.setAttribute('aria-label', `Seleccionar tipo de tirada en ${diceMeta.title}`);
+    diceRollTypeSelect.disabled = pendingActive;
   }
   const showHeroStatSelectors = dice.system === 'downcrawl' && ['advance-adventure', 'face-challenge'].includes(dice.rollType);
   const heroOptions = getDowncrawlHeroSelectionOptions(state.nodes);
@@ -7648,7 +8102,7 @@ function renderDiceTray() {
       diceHeroSelect.append(optionEl);
     });
     diceHeroSelect.value = dice.heroSelection || '';
-    diceHeroSelect.disabled = !heroOptions.length;
+    diceHeroSelect.disabled = pendingActive || !heroOptions.length;
     const placeholder = document.createElement('option');
     placeholder.value = '';
     placeholder.textContent = heroStatOptions.length ? 'Elige una estadistica' : (dice.heroSelection ? 'Ese heroe no tiene estadisticas' : 'Elige antes un heroe');
@@ -7661,13 +8115,13 @@ function renderDiceTray() {
       diceHeroStatSelect.append(optionEl);
     });
     diceHeroStatSelect.value = dice.heroStatSelection || '';
-    diceHeroStatSelect.disabled = !heroStatOptions.length;
+    diceHeroStatSelect.disabled = pendingActive || !heroStatOptions.length;
   } else {
     diceHeroSelect.disabled = true;
     diceHeroStatSelect.disabled = true;
   }
 
-  const displayedRollValues = dice.cleared
+  const displayedRollValues = dice.cleared || pendingActive
     ? Array.from({ length: dice.system === 'downcrawl' && dice.rollType === 'face-challenge' ? challengeMeta.diceCount : 2 }, () => null)
     : dice.rollValues;
   const keptSet = new Set(dice.keptRollIndices);
@@ -7686,7 +8140,7 @@ function renderDiceTray() {
   });
   diceRollBreakdown.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
   if (dice.system === 'downcrawl' && dice.rollType === 'face-challenge') {
-    if (dice.cleared) {
+    if (pendingActive || dice.cleared) {
       diceRollBreakdown.textContent = `${challengeMeta.label}: ${challengeMeta.summary}. Tricky es la base; si la situacion aprieta, ajusta un nivel antes de tirar.`;
     } else {
       const keptText = dice.keptRollValues.join(' + ');
@@ -7702,7 +8156,9 @@ function renderDiceTray() {
   }
 
   diceRollHelp.hidden = dice.system !== 'downcrawl';
-  if (dice.system !== 'downcrawl') {
+  if (pendingActive) {
+    diceRollHelp.textContent = 'Los dados estan rodando. El resultado y sus efectos apareceran al asentarse.';
+  } else if (dice.system !== 'downcrawl') {
     diceRollHelp.textContent = '';
   } else if (dice.rollType === 'face-challenge') {
     diceRollHelp.textContent = !dice.heroSelection
@@ -7744,8 +8200,10 @@ function renderDiceTray() {
   diceResultLabel.textContent = diceMeta.resultLabel;
   dicePowerLabel.textContent = diceMeta.powerLabel;
   diceModifierListLabel.textContent = diceMeta.modifierLabel;
-  diceTotalValue.textContent = dice.cleared ? '' : String(dice.total);
-  diceTotalNote.textContent = dice.cleared
+  diceTotalValue.textContent = pendingActive || dice.cleared ? '' : String(dice.total);
+  diceTotalNote.textContent = pendingActive
+    ? ''
+    : dice.cleared
     ? ''
     : dice.system === 'downcrawl' && dice.rollType === 'face-challenge' && dice.faceChallengeResolved === 'conserve'
       ? 'Fallo asumido, gana DESTINO'
@@ -7754,9 +8212,9 @@ function renderDiceTray() {
         : resultState === 'success'
           ? resultMeta.success
           : resultMeta.mixed;
-  diceTotal.classList.toggle('is-consequence', !dice.cleared && resultState === 'consequence');
-  diceTotal.classList.toggle('is-mixed', !dice.cleared && resultState === 'mixed');
-  diceTotal.classList.toggle('is-success', !dice.cleared && resultState === 'success');
+  diceTotal.classList.toggle('is-consequence', !pendingActive && !dice.cleared && resultState === 'consequence');
+  diceTotal.classList.toggle('is-mixed', !pendingActive && !dice.cleared && resultState === 'mixed');
+  diceTotal.classList.toggle('is-success', !pendingActive && !dice.cleared && resultState === 'success');
   dicePushActions.hidden = !canResolveFaceChallenge;
   dicePushSummary.textContent = '';
   dicePushButtons.replaceChildren();
@@ -7791,8 +8249,11 @@ function renderDiceTray() {
 
     dicePushButtons.append(conserveButton, fatefulButton);
   }
-  rollDiceButton.disabled = !rollContext.canRoll;
-  rollDiceButton.setAttribute('aria-disabled', String(!rollContext.canRoll));
+  rollDiceButton.disabled = pendingActive || !rollContext.canRoll;
+  rollDiceButton.textContent = pendingActive ? 'Dados rodando...' : 'Hacer tirada';
+  rollDiceButton.setAttribute('aria-disabled', String(pendingActive || !rollContext.canRoll));
+  clearDiceButton.textContent = pendingActive ? 'Cancelar tirada' : 'Limpiar';
+  clearDiceModifiersButton.disabled = pendingActive;
   dicePowerValue.value = `${dice.power >= 0 ? '+' : ''}${dice.power}`;
   dicePowerValue.classList.toggle('is-negative', dice.power < 0);
   dicePowerValue.classList.toggle('is-positive', dice.power > 0);
@@ -7832,6 +8293,7 @@ function renderDiceTray() {
     toggle.type = 'checkbox';
     toggle.className = 'dice-modifier-toggle';
     toggle.checked = modifier.enabled;
+    toggle.disabled = pendingActive;
     toggle.setAttribute('aria-label', `${modifier.enabled ? 'Desactivar' : 'Activar'} ${modifier.label}`);
     toggle.addEventListener('click', (event) => {
       event.stopPropagation();
@@ -7843,6 +8305,7 @@ function renderDiceTray() {
     const signInput = document.createElement('input');
     signInput.type = 'checkbox';
     signInput.checked = modifier.inverted;
+    signInput.disabled = pendingActive;
     signInput.addEventListener('click', (event) => {
       event.stopPropagation();
       toggleDiceModifierSign(modifier.id);
@@ -7864,6 +8327,7 @@ function renderDiceTray() {
     remove.type = 'button';
     remove.className = 'dice-modifier-remove';
     remove.textContent = '×';
+    remove.disabled = pendingActive;
     remove.setAttribute('aria-label', `Quitar ${modifier.label} de la lista`);
     remove.addEventListener('click', (event) => {
       event.stopPropagation();
@@ -7928,6 +8392,7 @@ function applyFaceChallengeRollUsage(rollContext) {
 }
 
 function rollDice() {
+  cancelPendingDiceRoll();
   const selection = { selectedId: state.selectedId, selectedIds: state.selectedIds };
   const currentDice = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   const rollContext = getDiceRollContext(currentDice, state.nodes, selection);
@@ -7939,8 +8404,14 @@ function rollDice() {
   const rollCount = currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
     ? challengeMeta.diceCount
     : 2;
-  const rollValues = Array.from({ length: rollCount }, () => Math.floor(Math.random() * 6) + 1);
-  state.dice = sanitizeDiceState({
+  const useDice3d = sanitizeModules(state.modules).dice3dEnabled;
+  const rollValues = useDice3d
+    ? []
+    : Array.from({ length: rollCount }, () => Math.floor(Math.random() * 6) + 1);
+  const keepRule = currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
+    ? challengeMeta.keepRule
+    : 'keep-all';
+  const dicePayload = {
     system: currentDice.system,
     rollType: currentDice.rollType,
     challengeDifficulty: currentDice.challengeDifficulty,
@@ -7955,19 +8426,41 @@ function rollDice() {
     disabledModifiers: currentDice.disabledModifiers,
     invertedModifiers: currentDice.invertedModifiers,
     cleared: false
+  };
+  pendingDiceRoll = {
+    selection: {
+      selectedId: selection.selectedId,
+      selectedIds: [...selection.selectedIds]
+    },
+    rollContext,
+    dicePayload,
+    effectType: currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
+      ? 'face-challenge'
+      : currentDice.system === 'downcrawl' && currentDice.rollType === 'advance-adventure'
+        ? 'advance-adventure'
+        : 'none'
+  };
+  state.dice = sanitizeDiceState({
+    ...currentDice,
+    rollValues: [],
+    faceChallengeBonus: 0,
+    faceChallengeFatefulUses: 0,
+    faceChallengeBreakingUses: 0,
+    faceChallengeResolved: '',
+    dieOne: null,
+    dieTwo: null,
+    cleared: true
   }, state.nodes, state.modules, selection);
-  if (currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge') {
-    applyFaceChallengeRollUsage(rollContext);
-    render();
-    return;
-  }
-  if (currentDice.system === 'downcrawl' && currentDice.rollType === 'advance-adventure') {
-    applyAdventureProgressRollResult(rollContext, state.dice.total >= 8);
-    render();
-    return;
-  }
   renderDiceTray();
-  schedulePersist();
+  const dice3dSeedValues = useDice3d
+    ? Array.from({ length: rollCount }, () => 1)
+    : rollValues;
+  startDiceRoll3d(dice3dSeedValues, {
+    keepRule,
+    onSettle: (finalRollValues) => {
+      finalizePendingDiceRoll(finalRollValues);
+    }
+  });
 }
 
 function renderFloatingDeleteButton() {
@@ -8403,6 +8896,20 @@ downcrawlModuleToggle.addEventListener('change', () => {
   });
   applyModuleConstraints();
   render();
+  schedulePersist();
+});
+
+dice3dToggle.addEventListener('change', () => {
+  state.modules = sanitizeModules({
+    ...state.modules,
+    dice3dEnabled: dice3dToggle.checked
+  });
+  if (!state.modules.dice3dEnabled) {
+    clearDiceRoll3d();
+    finalizePendingDiceRoll();
+  }
+  render();
+  schedulePersist();
 });
 
 floatingDeleteButton.addEventListener('click', () => {

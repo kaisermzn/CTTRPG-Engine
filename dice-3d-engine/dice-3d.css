@@ -1,0 +1,59 @@
+.dice-roll-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 140;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.dice-roll-overlay[hidden] {
+  display: none;
+}
+
+.dice-roll-overlay.is-fading {
+  opacity: 0;
+}
+
+.dice-roll-scene {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(82, 203, 192, 0.09), rgba(82, 203, 192, 0) 44%),
+    linear-gradient(180deg, rgba(5, 9, 10, 0.12), rgba(5, 9, 10, 0.2));
+}
+
+.dice-roll-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.08) 12%, rgba(0, 0, 0, 0.08) 88%, rgba(0, 0, 0, 0.34)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08) 12%, rgba(0, 0, 0, 0.08) 88%, rgba(0, 0, 0, 0.28));
+  pointer-events: none;
+}
+
+.dice-roll-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dice-roll-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dice-roll-overlay {
+    transition-duration: 1ms;
+  }
+}
