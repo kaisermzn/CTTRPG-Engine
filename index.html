@@ -727,6 +727,14 @@ button, input, textarea, select { font: inherit; }
   display: none;
 }
 
+.dice-roll-help[hidden],
+.dice-power-box[hidden],
+.dice-modifier-list[hidden],
+.dice-secondary-button[hidden],
+.dice-total-note[hidden] {
+  display: none !important;
+}
+
 .dice-push-summary {
   margin: -2px 0 0;
   font-size: 0.72rem;
@@ -1463,6 +1471,138 @@ button, input, textarea, select { font: inherit; }
   color: var(--muted);
   line-height: 1.35;
   font-size: 0.82rem;
+}
+
+.modules-inline-action {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.modules-inline-action strong,
+.modules-inline-action span {
+  display: block;
+}
+
+.modules-inline-action strong {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dice-appearance-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid var(--line-soft);
+  background: var(--panel-button-bg);
+}
+
+.dice-appearance-card[hidden] {
+  display: none !important;
+}
+
+.dice-appearance-title {
+  display: block;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dice-appearance-note {
+  color: var(--muted);
+  line-height: 1.35;
+  font-size: 0.84rem;
+}
+
+.dice-appearance-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.dice-appearance-row {
+  display: grid;
+  gap: 6px;
+}
+
+.dice-appearance-row label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dice-appearance-select,
+.dice-appearance-color {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font: inherit;
+}
+
+.dice-appearance-select {
+  padding: 10px 40px 10px 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 14px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.dice-appearance-select option {
+  color: #f2f6f5;
+  background: #182022;
+}
+
+.dice-appearance-color {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.dice-appearance-preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dice-appearance-chip {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dice-appearance-chip strong {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dice-appearance-swatch {
+  width: 100%;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .sidebar-action-button {
@@ -2229,6 +2369,512 @@ button, input, textarea, select { font: inherit; }
 .tracking-card .line-item {
   background: var(--theme-note-bg);
   border-left-color: var(--theme-note-border);
+}
+.espadas-espectros-sheet {
+  padding: 8px 10px 10px;
+  background: var(--hero-sheet-surface);
+  border-color: var(--hero-sheet-border);
+}
+.espadas-espectros-sheet .node-header {
+  margin: 0 0 8px;
+  padding: 0 2px;
+}
+.espadas-espectros-sheet .node-title {
+  margin: 0;
+  color: rgba(215, 221, 228, 0.74);
+  font-size: 0.98rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.espadas-espectros-shell {
+  min-height: 100%;
+  min-width: 0;
+}
+.espadas-espectros-grid {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 8px;
+  align-items: start;
+  width: max-content;
+  max-width: 100%;
+}
+.espadas-espectros-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+.espadas-espectros-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  background: rgba(2, 5, 7, 0.96);
+  border: 1px solid rgba(213, 224, 230, 0.16);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(220, 229, 236, 0.04);
+  overflow: hidden;
+}
+.espadas-espectros-sheet.inline-editing .espadas-espectros-card {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(97, 194, 185, 0.42) transparent;
+}
+.espadas-espectros-sheet.inline-editing .espadas-espectros-card::-webkit-scrollbar {
+  width: 10px;
+}
+.espadas-espectros-sheet.inline-editing .espadas-espectros-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+.espadas-espectros-sheet.inline-editing .espadas-espectros-card::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(97, 194, 185, 0.34);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.espadas-espectros-sheet.inline-editing .espadas-espectros-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(97, 194, 185, 0.48);
+}
+.espadas-espectros-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(214, 226, 228, 0.1);
+}
+.espadas-espectros-card-title {
+  margin: 0;
+  color: var(--downcrawl-hero-accent, #bfeee5);
+  font-size: 1.28rem;
+  line-height: 0.98;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.espadas-espectros-card-note {
+  color: var(--hero-small-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: right;
+}
+.espadas-espectros-card .section {
+  display: grid;
+  gap: 6px;
+}
+.espadas-espectros-card .section-tag {
+  background: var(--hero-label-bg);
+  color: var(--hero-label-text);
+}
+.espadas-espectros-field {
+  min-height: 22px;
+  padding: 6px 8px;
+  background: var(--hero-field-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--hero-field-text);
+  border-radius: 4px;
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+.espadas-espectros-field.is-large {
+  min-height: 46px;
+}
+.espadas-espectros-inline {
+  width: 100%;
+  min-height: 22px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--hero-field-bg);
+  color: var(--hero-field-text);
+  font-size: 0.84rem;
+  box-sizing: border-box;
+}
+.espadas-espectros-inline-textarea {
+  resize: none;
+  min-height: 46px;
+  max-width: 100%;
+}
+.espadas-espectros-track-block {
+  display: grid;
+  gap: 8px;
+}
+.espadas-espectros-track-labels {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.espadas-espectros-track-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hero-small-label);
+  font-weight: 700;
+}
+.espadas-espectros-track-copy {
+  color: var(--hero-small-label);
+  font-size: 0.66rem;
+  min-width: 0;
+  text-align: right;
+}
+.espadas-espectros-track-count {
+  color: var(--hero-small-label);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: right;
+}
+.espadas-espectros-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.espadas-espectros-track.is-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 18px);
+  gap: 6px;
+}
+.espadas-espectros-track.is-hearts {
+  gap: 10px;
+}
+.espadas-espectros-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 0;
+  border: 1px solid var(--check-empty-border);
+  background: var(--check-empty-bg);
+  color: transparent;
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease, color 120ms ease;
+  font-size: 0;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.espadas-espectros-mark:hover {
+  transform: translateY(-1px);
+}
+.espadas-espectros-mark:focus {
+  outline: 2px solid rgba(140, 231, 194, 0.45);
+  outline-offset: 2px;
+}
+.espadas-espectros-mark.active {
+  background: var(--check-fill-bg);
+  border-color: var(--check-fill-border);
+}
+.espadas-espectros-mark.is-heart {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: rgba(214, 226, 228, 0.58);
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 400;
+}
+.espadas-espectros-mark.is-heart::before {
+  content: '♡';
+}
+.espadas-espectros-mark.is-heart.active {
+  background: transparent;
+  border: 0;
+  color: #d64040;
+}
+.espadas-espectros-mark.is-heart.active::before {
+  content: '♥';
+}
+.espadas-espectros-mark.is-shield,
+.espadas-espectros-mark.is-diamond {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background: transparent;
+  position: relative;
+  overflow: visible;
+}
+.espadas-espectros-mark.is-shield {
+  color: transparent !important;
+  font-size: 0 !important;
+  border-color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+.espadas-espectros-mark.is-shield:hover,
+.espadas-espectros-mark.is-diamond:hover {
+  transform: none;
+}
+.espadas-espectros-mark.is-shield::before,
+.espadas-espectros-mark.is-diamond::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+.espadas-espectros-mark.is-shield::before {
+  background: #e8eef1;
+  clip-path: polygon(18% 8%, 82% 8%, 82% 58%, 50% 95%, 18% 58%);
+}
+.espadas-espectros-mark.is-shield::after {
+  content: '';
+  position: absolute;
+  inset: 2px 2px 3px 2px;
+  background: rgba(2, 5, 7, 0.96);
+  clip-path: polygon(18% 8%, 82% 8%, 82% 58%, 50% 95%, 18% 58%);
+}
+.espadas-espectros-mark.is-shield.active {
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  box-shadow: none;
+}
+.espadas-espectros-mark.is-shield.active::before {
+  background: #99a0a8;
+  clip-path: polygon(18% 8%, 82% 8%, 82% 58%, 50% 95%, 18% 58%);
+}
+.espadas-espectros-mark.is-shield.active::after {
+  display: none;
+}
+.espadas-espectros-mark.is-diamond::before {
+  inset: 2px;
+  border: 2px solid rgba(224, 231, 234, 0.92);
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+.espadas-espectros-mark.is-diamond.active::before {
+  background: rgba(190, 152, 68, 0.96);
+  border-color: rgba(236, 218, 152, 0.98);
+}
+.espadas-espectros-slot-title {
+  margin: 0 0 6px;
+  color: var(--hero-small-label);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.espadas-espectros-equipment-list {
+  display: grid;
+  gap: 8px;
+}
+.espadas-espectros-slot {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.espadas-espectros-slot-number {
+  color: var(--hero-small-label);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.espadas-espectros-slot-text {
+  min-height: 22px;
+  background: var(--hero-field-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--hero-field-text);
+  border-radius: 0;
+  padding: 6px 8px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.espadas-espectros-slot.is-burned .espadas-espectros-slot-text,
+.espadas-espectros-slot.is-burned .espadas-espectros-inline {
+  color: #ff7474;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #ff7474;
+}
+.espadas-espectros-slot-marks {
+  display: flex;
+  gap: 6px;
+}
+.espadas-espectros-slot-empty {
+  padding: 6px 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: var(--hero-small-label);
+  font-size: 0.78rem;
+}
+.espadas-espectros-compact-list {
+  display: grid;
+  gap: 6px;
+}
+.espadas-espectros-attributes {
+  display: grid;
+  gap: 8px;
+}
+.espadas-espectros-attribute {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr) 54px;
+  gap: 8px;
+  align-items: stretch;
+}
+.espadas-espectros-attribute.is-burned .espadas-espectros-attribute-key,
+.espadas-espectros-attribute.is-burned .espadas-espectros-attribute-copy,
+.espadas-espectros-attribute.is-burned .espadas-espectros-attribute-value {
+  color: #ff7474;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #ff7474;
+}
+.espadas-espectros-attribute.is-burned .espadas-espectros-attribute-state {
+  color: #ff9b9b;
+}
+.espadas-espectros-attribute-key {
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--hero-inner-border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--hero-title-text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.espadas-espectros-attribute-copy {
+  display: grid;
+  gap: 6px;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--hero-inner-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+.espadas-espectros-attribute-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--hero-small-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+.espadas-espectros-attribute-value {
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--hero-inner-border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--hero-title-text);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  min-height: 100%;
+}
+.espadas-espectros-attribute-value-input {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0;
+}
+.espadas-espectros-state-toggle {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  border: 1px solid var(--check-empty-border);
+  background: var(--check-empty-bg);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.espadas-espectros-state-toggle.active {
+  background: var(--check-fill-bg);
+  border-color: var(--check-fill-border);
+}
+:root[data-theme="light"] .espadas-espectros-sheet {
+  background: var(--hero-sheet-surface);
+  border-color: var(--hero-sheet-border);
+}
+:root[data-theme="print"] .espadas-espectros-sheet {
+  background: var(--hero-sheet-surface);
+  border-color: var(--hero-sheet-border);
+}
+:root[data-theme="light"] .espadas-espectros-sheet .node-title {
+  color: rgba(236, 236, 231, 0.7);
+}
+:root[data-theme="print"] .espadas-espectros-sheet .node-title {
+  color: rgba(228, 228, 228, 0.74);
+}
+:root[data-theme="light"] .espadas-espectros-card {
+  background: var(--hero-panel-surface);
+  border-color: var(--hero-inner-border);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+:root[data-theme="print"] .espadas-espectros-card {
+  background: var(--hero-panel-surface);
+  border-color: var(--hero-inner-border);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+:root[data-theme="light"] .espadas-espectros-card-title,
+:root[data-theme="light"] .espadas-espectros-attribute-key,
+:root[data-theme="light"] .espadas-espectros-attribute-value {
+  color: var(--hero-title-text);
+}
+:root[data-theme="print"] .espadas-espectros-card-title,
+:root[data-theme="print"] .espadas-espectros-attribute-key,
+:root[data-theme="print"] .espadas-espectros-attribute-value {
+  color: var(--hero-title-text);
+}
+:root[data-theme="light"] .espadas-espectros-card-note,
+:root[data-theme="light"] .espadas-espectros-track-title,
+:root[data-theme="light"] .espadas-espectros-track-copy,
+:root[data-theme="light"] .espadas-espectros-track-count,
+:root[data-theme="light"] .espadas-espectros-slot-title,
+:root[data-theme="print"] .espadas-espectros-card-note,
+:root[data-theme="print"] .espadas-espectros-track-title,
+:root[data-theme="print"] .espadas-espectros-track-copy,
+:root[data-theme="print"] .espadas-espectros-track-count,
+:root[data-theme="print"] .espadas-espectros-slot-title {
+  color: var(--hero-small-label);
+}
+:root[data-theme="light"] .espadas-espectros-field,
+:root[data-theme="light"] .espadas-espectros-inline {
+  background: var(--hero-field-bg);
+  color: var(--hero-field-text);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+:root[data-theme="print"] .espadas-espectros-field,
+:root[data-theme="print"] .espadas-espectros-inline {
+  background: var(--hero-field-bg);
+  color: var(--hero-field-text);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+:root[data-theme="light"] .espadas-espectros-attribute-key,
+:root[data-theme="light"] .espadas-espectros-attribute-copy,
+:root[data-theme="light"] .espadas-espectros-slot-text,
+:root[data-theme="light"] .note-strip.espadas-espectros-trivial {
+  background: var(--theme-note-bg);
+  color: var(--theme-text);
+  border-color: var(--theme-note-border);
+}
+:root[data-theme="print"] .espadas-espectros-attribute-copy,
+:root[data-theme="print"] .espadas-espectros-slot-text,
+:root[data-theme="print"] .note-strip.espadas-espectros-trivial {
+  background: rgba(239, 239, 239, 0.99);
+  color: #202020;
+  border-color: rgba(84, 84, 84, 0.22);
+}
+:root[data-theme="print"] .espadas-espectros-mark.is-heart.active {
+  color: #5f5f5f;
+}
+:root[data-theme="print"] .espadas-espectros-mark.is-diamond.active::before {
+  background: rgba(146, 146, 146, 0.98);
+  border-color: rgba(92, 92, 92, 0.9);
+}
+:root[data-theme="print"] .espadas-espectros-sheet .espadas-espectros-card-title,
+:root[data-theme="print"] .espadas-espectros-sheet .espadas-espectros-attribute-key,
+:root[data-theme="print"] .espadas-espectros-sheet .espadas-espectros-attribute-value {
+  filter: grayscale(1);
 }
 .image-card {
   --node-width: 360px;
@@ -3336,6 +3982,10 @@ button.downcrawl-remoteness-option {
             <button class="create-menu-button" id="addPositiveTagButton" type="button">Etiqueta positiva</button>
             <button class="create-menu-button" id="addNegativeTagButton" type="button">Etiqueta negativa</button>
           </div>
+          <div class="create-menu-section" id="espadasEspectrosCreateSection">
+            <span class="create-menu-section-title">Espadas &amp; Espectros</span>
+            <button class="create-menu-button" id="addEspadasEspectrosHeroButton" type="button">Heroe de Espadas &amp; Espectros</button>
+          </div>
           <div class="create-menu-section" id="downcrawlCreateSection">
             <span class="create-menu-section-title">Downcrawl</span>
             <button class="create-menu-button" id="addDowncrawlHeroButton" type="button">Heroe de Downcrawl</button>
@@ -3377,6 +4027,7 @@ button.downcrawl-remoteness-option {
                 <span class="dice-total-label">Sistema</span>
                 <select class="dice-system-select" id="diceSystemSelect" aria-label="Seleccionar lanzador de dados">
                   <option value="legend">Legend in the Mist</option>
+                  <option value="espadas">Espadas &amp; Espectros</option>
                   <option value="downcrawl">Downcrawl</option>
                 </select>
               </div>
@@ -3482,6 +4133,13 @@ button.downcrawl-remoteness-option {
           </span>
         </label>
         <label class="module-option">
+          <input id="espadasEspectrosModuleToggle" type="checkbox" aria-label="Activar modulo Espadas y Espectros">
+          <span class="module-option-copy">
+            <strong>Espadas &amp; Espectros</strong>
+            <span>Activa la ficha modular de heroe con atributos, equipo, notas y experiencia persistentes.</span>
+          </span>
+        </label>
+        <label class="module-option">
           <input id="downcrawlModuleToggle" type="checkbox" aria-label="Activar modulo Downcrawl">
           <span class="module-option-copy">
             <strong>Downcrawl (Experimental)</strong>
@@ -3495,6 +4153,48 @@ button.downcrawl-remoteness-option {
             <span>Activa la animacion 3D de las tiradas. Si lo desactivas, la resolucion es mas rapida.</span>
           </span>
         </label>
+      </div>
+    </section>
+
+    <section class="stack">
+      <div class="dice-appearance-card" id="diceAppearanceCard">
+        <strong class="dice-appearance-title">Ajustes de Dados 3D</strong>
+        <span class="dice-appearance-note">Define si las caras usan puntos o cifras y ajusta los colores del dado, borde y tinta.</span>
+        <div class="dice-appearance-grid">
+          <div class="dice-appearance-row">
+            <label for="diceFaceModeSelect">Caras</label>
+            <select class="dice-appearance-select" id="diceFaceModeSelect" aria-label="Elegir si los dados 3D usan puntos o cifras">
+              <option value="pips">Puntos</option>
+              <option value="number">Cifras</option>
+            </select>
+          </div>
+          <div class="dice-appearance-row">
+            <label for="diceColorInput">Color del dado</label>
+            <input class="dice-appearance-color" id="diceColorInput" type="color" aria-label="Color base del dado 3D">
+          </div>
+          <div class="dice-appearance-row">
+            <label for="diceEdgeColorInput">Color del borde</label>
+            <input class="dice-appearance-color" id="diceEdgeColorInput" type="color" aria-label="Color del borde del dado 3D">
+          </div>
+          <div class="dice-appearance-row">
+            <label for="diceInkColorInput">Color de puntos o cifras</label>
+            <input class="dice-appearance-color" id="diceInkColorInput" type="color" aria-label="Color de puntos o cifras del dado 3D">
+          </div>
+        </div>
+        <div class="dice-appearance-preview" aria-hidden="true">
+          <div class="dice-appearance-chip">
+            <strong>Dado</strong>
+            <span class="dice-appearance-swatch" id="diceColorPreview"></span>
+          </div>
+          <div class="dice-appearance-chip">
+            <strong>Borde</strong>
+            <span class="dice-appearance-swatch" id="diceEdgeColorPreview"></span>
+          </div>
+          <div class="dice-appearance-chip">
+            <strong>Tinta</strong>
+            <span class="dice-appearance-swatch" id="diceInkColorPreview"></span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -3531,6 +4231,15 @@ const BOARD_OFFSET_X = 1800;
 const BOARD_OFFSET_Y = 1100;
 const STORAGE_KEY = 'legend-in-the-mist.board.v1';
 const DOWNCRAWL_NODE_TYPES = ['downcrawl-hero', 'folk-deck', 'volume-deck', 'discard-deck', 'history-deck', 'folk', 'volume', 'adventure', 'note'];
+const ESPADAS_ESPECTROS_DICE_ROLL_TYPES = [
+  { value: 'movement', label: 'Tirada de Movimiento' },
+  { value: 'attribute', label: 'Tirada de atributo' }
+];
+const ESPADAS_ESPECTROS_ATTRIBUTE_ROLL_MODES = [
+  { value: 'normal', label: 'Normal', diceCount: 1, keepRule: 'keep-all' },
+  { value: 'advantage', label: 'Ventaja', diceCount: 2, keepRule: 'drop-highest' },
+  { value: 'disadvantage', label: 'Desventaja', diceCount: 2, keepRule: 'drop-lowest' }
+];
 const DOWNCRAWL_DICE_ROLL_TYPES = [
   { value: 'finish-adventure', label: 'Terminar Aventura' },
   { value: 'advance-adventure', label: 'Avanzar aventura' },
@@ -3542,6 +4251,12 @@ const DOWNCRAWL_CHALLENGE_DIFFICULTIES = [
   { value: 'difficult', label: 'Dificil', diceCount: 3, keepRule: 'drop-highest', summary: '3d6, descarta el mayor' },
   { value: 'foolish', label: 'Temerario', diceCount: 4, keepRule: 'drop-two-highest', summary: '4d6, descarta los 2 mayores' }
 ];
+const DEFAULT_DICE_3D_APPEARANCE = {
+  diceColor: '#ffffff',
+  diceEdgeColor: '#8ea2af',
+  diceInkColor: '#05090d',
+  diceFaceMode: 'pips'
+};
 const NODE_MIN_DIMENSIONS = {
   hero: { width: 1410, height: 590 },
   theme: { width: 250, height: 500 },
@@ -3549,6 +4264,7 @@ const NODE_MIN_DIMENSIONS = {
   image: { width: 24, height: 24 },
   'positive-tag': { width: 224, height: 96 },
   'negative-tag': { width: 224, height: 96 },
+  'espadas-espectros-hero': { width: 1060, height: 560 },
   'downcrawl-hero': { width: 320, height: 560 },
   'folk-deck': { width: 1450, height: 780 },
   'volume-deck': { width: 1450, height: 780 },
@@ -3562,6 +4278,22 @@ const NODE_MIN_DIMENSIONS = {
 const HERO_CARD_MIN_DIMENSIONS = {
   width: 210,
   height: 540
+};
+const ESPADAS_ESPECTROS_ATTRIBUTE_DEFAULTS = [
+  { key: 'FUE', copy: 'Pelear, atletismo, resistir.', stateLabel: 'Agotado' },
+  { key: 'DES', copy: 'Sigilo, punteria, esquivar.', stateLabel: 'Aturdido' },
+  { key: 'VOL', copy: 'Magia, percibir, liderazgo.', stateLabel: 'Abrumado' }
+];
+const ESPADAS_ESPECTROS_EQUIPMENT_SLOT_COUNT = 6;
+const ESPADAS_ESPECTROS_EQUIPMENT_MARKS = 3;
+const ESPADAS_ESPECTROS_HEART_MARKS = 3;
+const ESPADAS_ESPECTROS_ARMOR_MARKS = 3;
+const ESPADAS_ESPECTROS_TREASURE_MARKS = 4;
+const ESPADAS_ESPECTROS_EXPERIENCE_MARKS = 30;
+const ESPADAS_ESPECTROS_PANEL_DEFAULTS = {
+  hero: { width: 250, height: 500 },
+  attributes: { width: 320, height: 500 },
+  equipment: { width: 250, height: 500 }
 };
 const THEME_POWER_OPTIONS = [
   { value: 'origen', label: 'Origen' },
@@ -3615,6 +4347,15 @@ function cloneNodes(nodes) {
       : node.sliverStats,
     heroAspects: Array.isArray(node.heroAspects) ? [...node.heroAspects] : node.heroAspects,
     heroAspectChecks: Array.isArray(node.heroAspectChecks) ? [...node.heroAspectChecks] : node.heroAspectChecks,
+    espadasHeartChecks: Array.isArray(node.espadasHeartChecks) ? [...node.espadasHeartChecks] : node.espadasHeartChecks,
+    espadasArmorChecks: Array.isArray(node.espadasArmorChecks) ? [...node.espadasArmorChecks] : node.espadasArmorChecks,
+    espadasTreasureChecks: Array.isArray(node.espadasTreasureChecks) ? [...node.espadasTreasureChecks] : node.espadasTreasureChecks,
+    espadasExperienceChecks: Array.isArray(node.espadasExperienceChecks) ? [...node.espadasExperienceChecks] : node.espadasExperienceChecks,
+    espadasAttributes: Array.isArray(node.espadasAttributes) ? node.espadasAttributes.map((entry) => ({ ...entry })) : node.espadasAttributes,
+    espadasEquipmentSlots: Array.isArray(node.espadasEquipmentSlots) ? node.espadasEquipmentSlots.map((entry) => ({ ...entry, marks: Array.isArray(entry?.marks) ? [...entry.marks] : entry?.marks })) : node.espadasEquipmentSlots,
+    espadasPanels: node.espadasPanels && typeof node.espadasPanels === 'object'
+      ? Object.fromEntries(Object.entries(node.espadasPanels).map(([key, value]) => [key, { ...value }]))
+      : node.espadasPanels,
     folkEntries: Array.isArray(node.folkEntries) ? [...node.folkEntries] : node.folkEntries,
     volumeEntries: Array.isArray(node.volumeEntries) ? [...node.volumeEntries] : node.volumeEntries,
     volumeResourceStates: Array.isArray(node.volumeResourceStates) ? [...node.volumeResourceStates] : node.volumeResourceStates,
@@ -3644,6 +4385,52 @@ function normalizeIndexedChecks(values, total) {
       .map((value) => Math.round(Number(value)))
       .filter((value) => Number.isInteger(value) && value >= 1 && value <= total)
   )].sort((left, right) => left - right);
+}
+
+function normalizeEspadasEspectrosAttributes(values) {
+  const source = Array.isArray(values) ? values : [];
+  return ESPADAS_ESPECTROS_ATTRIBUTE_DEFAULTS.map((fallback, index) => {
+    const entry = source[index];
+    return {
+      key: fallback.key,
+      copy: typeof entry?.copy === 'string' && entry.copy.trim() ? entry.copy : fallback.copy,
+      value: Math.max(1, Math.min(5, Math.round(Number(entry?.value) || 1))),
+      stateLabel: typeof entry?.stateLabel === 'string' && entry.stateLabel.trim() ? entry.stateLabel : fallback.stateLabel,
+      stateActive: Boolean(entry?.stateActive)
+    };
+  });
+}
+
+function normalizeEspadasEspectrosEquipmentSlots(values) {
+  const source = Array.isArray(values) ? values : [];
+  return Array.from({ length: ESPADAS_ESPECTROS_EQUIPMENT_SLOT_COUNT }, (_, index) => {
+    const entry = source[index];
+    return {
+      text: typeof entry?.text === 'string' ? entry.text : '',
+      marks: normalizeIndexedChecks(entry?.marks, ESPADAS_ESPECTROS_EQUIPMENT_MARKS)
+    };
+  });
+}
+
+function normalizeEspadasEspectrosPanels(panels) {
+  const source = panels && typeof panels === 'object' ? panels : {};
+  if ('support' in source) {
+    return Object.fromEntries(Object.entries(ESPADAS_ESPECTROS_PANEL_DEFAULTS).map(([key, value]) => [key, { ...value }]));
+  }
+  return {
+    hero: {
+      width: Math.max(250, Math.round(Number(source.hero?.width) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.hero.width)),
+      height: Math.max(500, Math.round(Number(source.hero?.height) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.hero.height))
+    },
+    attributes: {
+      width: Math.max(320, Math.round(Number(source.attributes?.width) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.attributes.width)),
+      height: Math.max(500, Math.round(Number(source.attributes?.height) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.attributes.height))
+    },
+    equipment: {
+      width: Math.max(250, Math.round(Number(source.equipment?.width) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.equipment.width)),
+      height: Math.max(500, Math.round(Number(source.equipment?.height) || ESPADAS_ESPECTROS_PANEL_DEFAULTS.equipment.height))
+    }
+  };
 }
 
 function normalizeSpecialImprovements(value) {
@@ -3691,6 +4478,31 @@ function normalizeDowncrawlChallengeDifficulty(value) {
     : 'tricky';
 }
 
+function normalizeEspadasAttributeRollMode(value) {
+  const rawValue = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  return ESPADAS_ESPECTROS_ATTRIBUTE_ROLL_MODES.some((option) => option.value === rawValue)
+    ? rawValue
+    : 'normal';
+}
+
+function normalizeHexColorValue(color, fallback) {
+  const value = typeof color === 'string' ? color.trim() : '';
+  return /^#[0-9a-fA-F]{6}$/.test(value) ? value.toLowerCase() : fallback;
+}
+
+function normalizeDice3dFaceMode(mode) {
+  return mode === 'number' ? 'number' : 'pips';
+}
+
+function normalizeDice3dAppearance(appearance) {
+  return {
+    diceColor: normalizeHexColorValue(appearance?.diceColor, DEFAULT_DICE_3D_APPEARANCE.diceColor),
+    diceEdgeColor: normalizeHexColorValue(appearance?.diceEdgeColor, DEFAULT_DICE_3D_APPEARANCE.diceEdgeColor),
+    diceInkColor: normalizeHexColorValue(appearance?.diceInkColor, DEFAULT_DICE_3D_APPEARANCE.diceInkColor),
+    diceFaceMode: normalizeDice3dFaceMode(appearance?.diceFaceMode)
+  };
+}
+
 function getDowncrawlChallengeDifficultyMeta(value) {
   return DOWNCRAWL_CHALLENGE_DIFFICULTIES.find((option) => option.value === normalizeDowncrawlChallengeDifficulty(value))
     ?? DOWNCRAWL_CHALLENGE_DIFFICULTIES[1];
@@ -3733,12 +4545,94 @@ function getKeptRollIndices(rollValues, keepRule = 'keep-all') {
 
 function normalizeDiceRollType(value, system = 'legend') {
   const rawValue = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  if (system === 'espadas') {
+    return ESPADAS_ESPECTROS_DICE_ROLL_TYPES.some((option) => option.value === rawValue)
+      ? rawValue
+      : 'movement';
+  }
   if (system === 'downcrawl') {
     return DOWNCRAWL_DICE_ROLL_TYPES.some((option) => option.value === rawValue)
       ? rawValue
       : 'finish-adventure';
   }
   return 'standard';
+}
+
+function getDiceRollTypeOptions(system) {
+  if (system === 'espadas') return ESPADAS_ESPECTROS_DICE_ROLL_TYPES;
+  if (system === 'downcrawl') return DOWNCRAWL_DICE_ROLL_TYPES;
+  return [{ value: 'standard', label: 'Tirada estandar' }];
+}
+
+function resolveEspadasHeroSelection(selectionId, nodes) {
+  const normalizedId = typeof selectionId === 'string' ? selectionId.trim() : '';
+  if (!normalizedId) return null;
+  return nodes.find((node) => node.id === normalizedId && node.type === 'espadas-espectros-hero') ?? null;
+}
+
+function getEspadasHeroSelectionOptions(nodes) {
+  return nodes
+    .filter((node) => node.type === 'espadas-espectros-hero')
+    .map((node) => ({
+      id: node.id,
+      label: node.heroName?.trim() || node.title?.trim() || 'Heroe'
+    }));
+}
+
+function normalizeEspadasAttributeSelection(value, nodes, heroSelection = '') {
+  const rawValue = typeof value === 'string' ? value.trim() : '';
+  if (!rawValue) return '';
+  const parts = rawValue.split(':');
+  if (parts.length !== 3 || parts[0] !== 'espadas-attribute') return '';
+  const [, nodeId, indexText] = parts;
+  const index = Math.round(Number(indexText));
+  const heroNode = resolveEspadasHeroSelection(nodeId, nodes);
+  if (!heroNode || !Number.isInteger(index) || index < 0 || index >= normalizeEspadasEspectrosAttributes(heroNode.espadasAttributes).length) {
+    return '';
+  }
+  if (heroSelection && heroSelection !== nodeId) return '';
+  return `espadas-attribute:${nodeId}:${index}`;
+}
+
+function getEspadasAttributeSelectionOptions(nodes) {
+  return nodes
+    .filter((node) => node.type === 'espadas-espectros-hero')
+    .flatMap((node) => normalizeEspadasEspectrosAttributes(node.espadasAttributes).map((attribute, index) => ({
+      id: `espadas-attribute:${node.id}:${index}`,
+      nodeId: node.id,
+      index,
+      key: attribute.key,
+      value: attribute.value,
+      label: `${node.heroName?.trim() || node.title?.trim() || 'Heroe'}: ${attribute.key} (${attribute.value})`,
+      shortLabel: `${attribute.key} (${attribute.value})`
+    })));
+}
+
+function resolveEspadasAttributeSelection(selectionId, nodes, heroSelection = '') {
+  const normalizedId = normalizeEspadasAttributeSelection(selectionId, nodes, heroSelection);
+  if (!normalizedId) return null;
+  return getEspadasAttributeSelectionOptions(nodes).find((entry) => entry.id === normalizedId) ?? null;
+}
+
+function getDiceRollProfile(dice) {
+  if (dice?.system === 'espadas') {
+    if (dice.rollType === 'attribute') {
+      const rollMode = normalizeEspadasAttributeRollMode(dice.challengeDifficulty);
+      return ESPADAS_ESPECTROS_ATTRIBUTE_ROLL_MODES.find((option) => option.value === rollMode)
+        ?? ESPADAS_ESPECTROS_ATTRIBUTE_ROLL_MODES[0];
+    }
+    return { value: 'movement', label: 'Tirada de Movimiento', diceCount: 2, keepRule: 'keep-all' };
+  }
+  if (dice?.system === 'downcrawl' && dice?.rollType === 'face-challenge') {
+    const challengeMeta = getDowncrawlChallengeDifficultyMeta(dice.challengeDifficulty);
+    return {
+      value: dice.rollType,
+      label: challengeMeta.label,
+      diceCount: challengeMeta.diceCount,
+      keepRule: challengeMeta.keepRule
+    };
+  }
+  return { value: dice?.rollType || 'standard', label: 'Tirada estandar', diceCount: 2, keepRule: 'keep-all' };
 }
 
 function getSelectedAdventureNode(selection, nodes) {
@@ -3907,6 +4801,34 @@ function getAutoDiceModifiers(dice, nodes, selection) {
 }
 
 function getDiceRollContext(dice, nodes, selection) {
+  if (dice?.system === 'espadas' && dice?.rollType === 'movement') {
+    return {
+      canRoll: true,
+      successMin: null,
+      failureMax: null,
+      selectedAdventure: null,
+      finishStatus: null,
+      selectedHeroStat: null,
+      selectedEspadasHero: null,
+      selectedEspadasAttribute: null,
+      availableMilestoneIndex: null
+    };
+  }
+  if (dice?.system === 'espadas' && dice?.rollType === 'attribute') {
+    const selectedEspadasHero = resolveEspadasHeroSelection(dice.espadasHeroSelection, nodes);
+    const selectedEspadasAttribute = resolveEspadasAttributeSelection(dice.espadasAttributeSelection, nodes, dice.espadasHeroSelection);
+    return {
+      canRoll: Boolean(selectedEspadasHero) && Boolean(selectedEspadasAttribute),
+      successMin: null,
+      failureMax: null,
+      selectedAdventure: null,
+      finishStatus: null,
+      selectedHeroStat: null,
+      selectedEspadasHero,
+      selectedEspadasAttribute,
+      availableMilestoneIndex: null
+    };
+  }
   if (dice?.system === 'downcrawl' && dice?.rollType === 'face-challenge') {
     const selectedHeroStat = resolveDowncrawlHeroStatSelection(dice.heroStatSelection, nodes);
     return {
@@ -3958,6 +4880,12 @@ function getDiceRollContext(dice, nodes, selection) {
 }
 
 function getDiceResultMeta(dice) {
+  if (dice?.system === 'espadas' && dice?.rollType === 'attribute') {
+    return {
+      success: 'Exito',
+      failure: 'Fracaso'
+    };
+  }
   if (dice?.system === 'downcrawl' && dice?.rollType === 'face-challenge') {
     return {
       success: '8+ Exito',
@@ -3979,6 +4907,12 @@ function getDiceResultMeta(dice) {
 
 function getDiceResultState(dice) {
   if (dice?.cleared || typeof dice?.total !== 'number') return null;
+  if (dice.system === 'espadas' && dice.rollType === 'movement') return null;
+  if (dice.system === 'espadas' && dice.rollType === 'attribute') {
+    const selectedAttribute = resolveEspadasAttributeSelection(dice.espadasAttributeSelection, state.nodes, dice.espadasHeroSelection);
+    if (!selectedAttribute) return null;
+    return dice.total <= selectedAttribute.value ? 'success' : 'consequence';
+  }
   if (dice.system === 'downcrawl' && ['finish-adventure', 'advance-adventure', 'face-challenge'].includes(dice.rollType)) {
     return dice.total >= 8 ? 'success' : 'consequence';
   }
@@ -4009,6 +4943,7 @@ function createDefaultState() {
   const nodes = cloneNodes(initialNodes).map(sanitizeNode).filter(Boolean);
   const firstId = nodes[0]?.id ?? null;
   const modules = sanitizeModules({
+    espadasEspectrosEnabled: true,
     downcrawlEnabled: true,
     dice3dEnabled: true
   });
@@ -4023,6 +4958,7 @@ function createDefaultState() {
     sidebarOpen: false,
     createMenuOpen: false,
     toolsMenuOpen: false,
+    diceAppearance: normalizeDice3dAppearance(DEFAULT_DICE_3D_APPEARANCE),
     dice: sanitizeDiceState({
       system: 'legend',
       challengeDifficulty: 'tricky',
@@ -4168,6 +5104,9 @@ function normalizeDiceModifierIds(modifiers, nodes) {
 
 function normalizeDiceSystem(system, modules = sanitizeModules()) {
   const rawSystem = typeof system === 'string' ? system.trim().toLowerCase() : '';
+  if (rawSystem === 'espadas' && modules.espadasEspectrosEnabled) {
+    return 'espadas';
+  }
   if (rawSystem === 'downcrawl' && modules.downcrawlEnabled) {
     return 'downcrawl';
   }
@@ -4175,6 +5114,16 @@ function normalizeDiceSystem(system, modules = sanitizeModules()) {
 }
 
 function getDiceSystemMeta(system) {
+  if (system === 'espadas') {
+    return {
+      title: 'Espadas & Espectros',
+      resultLabel: 'Resultado',
+      powerLabel: 'PODER',
+      modifierLabel: 'Modificadores activos',
+      emptyModifiersText: '',
+      rollTypeLabel: 'Tipo de tirada'
+    };
+  }
   return system === 'downcrawl'
     ? {
       title: 'Downcrawl',
@@ -4200,12 +5149,21 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const rollType = normalizeDiceRollType(dice?.rollType, system);
   const challengeDifficulty = system === 'downcrawl'
     ? normalizeDowncrawlChallengeDifficulty(dice?.challengeDifficulty)
-    : 'tricky';
+    : system === 'espadas'
+      ? normalizeEspadasAttributeRollMode(dice?.challengeDifficulty)
+      : 'tricky';
+  const rollProfile = getDiceRollProfile({ system, rollType, challengeDifficulty });
   const heroSelection = system === 'downcrawl'
     ? normalizeDiceHeroSelection(dice?.heroSelection, nodes)
     : '';
   const heroStatSelection = system === 'downcrawl'
     ? normalizeDiceHeroStatSelection(dice?.heroStatSelection, nodes)
+    : '';
+  const espadasHeroSelection = system === 'espadas'
+    ? (resolveEspadasHeroSelection(dice?.espadasHeroSelection, nodes)?.id || '')
+    : '';
+  const espadasAttributeSelection = system === 'espadas'
+    ? normalizeEspadasAttributeSelection(dice?.espadasAttributeSelection, nodes, espadasHeroSelection)
     : '';
   const resolvedHeroStat = heroStatSelection ? resolveDowncrawlHeroStatSelection(heroStatSelection, nodes) : null;
   const effectiveHeroSelection = heroSelection || resolvedHeroStat?.nodeId || '';
@@ -4224,10 +5182,7 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const faceChallengeResolved = system === 'downcrawl' && rollType === 'face-challenge' && dice?.faceChallengeResolved === 'conserve'
     ? 'conserve'
     : '';
-  const challengeMeta = getDowncrawlChallengeDifficultyMeta(challengeDifficulty);
-  const expectedDiceCount = system === 'downcrawl' && rollType === 'face-challenge'
-    ? challengeMeta.diceCount
-    : 2;
+  const expectedDiceCount = rollProfile.diceCount;
   const normalizedRollValues = normalizeDiceRollValues(dice?.rollValues, expectedDiceCount);
   const legacyRollValues = expectedDiceCount === 2 && Number.isFinite(Number(dice?.dieOne)) && Number.isFinite(Number(dice?.dieTwo))
     ? [
@@ -4240,7 +5195,7 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
   const cleared = Boolean(dice?.cleared) || !hasVisibleRoll;
   const keptRollIndices = cleared
     ? []
-    : getKeptRollIndices(rollValues, system === 'downcrawl' && rollType === 'face-challenge' ? challengeMeta.keepRule : 'keep-all');
+    : getKeptRollIndices(rollValues, rollProfile.keepRule);
   const keptRollValues = keptRollIndices.map((index) => rollValues[index]).filter((value) => Number.isInteger(value));
   const dieOne = keptRollValues[0] ?? null;
   const dieTwo = keptRollValues[1] ?? null;
@@ -4264,7 +5219,9 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
     heroSelection: effectiveHeroSelection,
     heroStatSelection: normalizedHeroStatSelection
   }, nodes, selection);
-  const power = [...modifierEntries, ...autoModifiers].reduce((sum, modifier) => sum + modifier.value, 0) + faceChallengeBonus;
+  const power = system === 'espadas'
+    ? 0
+    : [...modifierEntries, ...autoModifiers].reduce((sum, modifier) => sum + modifier.value, 0) + faceChallengeBonus;
   const baseTotal = cleared ? null : keptRollValues.reduce((sum, value) => sum + value, 0);
   return {
     system,
@@ -4272,6 +5229,8 @@ function sanitizeDiceState(dice, nodes = [], modules = null, selection = null) {
     challengeDifficulty,
     heroSelection: effectiveHeroSelection,
     heroStatSelection: normalizedHeroStatSelection,
+    espadasHeroSelection,
+    espadasAttributeSelection,
     rollValues: cleared ? [] : rollValues,
     keptRollIndices,
     keptRollValues,
@@ -4298,6 +5257,9 @@ function normalizeTheme(theme) {
 
 function sanitizeModules(modules) {
   return {
+    espadasEspectrosEnabled: typeof modules?.espadasEspectrosEnabled === 'boolean'
+      ? modules.espadasEspectrosEnabled
+      : true,
     downcrawlEnabled: typeof modules?.downcrawlEnabled === 'boolean'
       ? modules.downcrawlEnabled
       : true,
@@ -4330,9 +5292,11 @@ function getNodeMinimumSize(nodeOrType) {
 
 function sanitizeNodesForModules(nodes, modules) {
   const safeModules = sanitizeModules(modules);
-  return safeModules.downcrawlEnabled
-    ? nodes
-    : nodes.filter((node) => !isDowncrawlNode(node));
+  return nodes.filter((node) => {
+    if (!safeModules.espadasEspectrosEnabled && node?.type === 'espadas-espectros-hero') return false;
+    if (!safeModules.downcrawlEnabled && isDowncrawlNode(node)) return false;
+    return true;
+  });
 }
 
 function sanitizeNode(node) {
@@ -4396,6 +5360,29 @@ function sanitizeNode(node) {
     safeNode.specialImprovements = normalizeSpecialImprovements(node.specialImprovements);
     safeNode.width = Math.max(NODE_MIN_DIMENSIONS.theme.width, safeNode.width);
     safeNode.height = Math.max(NODE_MIN_DIMENSIONS.theme.height, safeNode.height);
+  }
+  if (node.type === 'espadas-espectros-hero') {
+    safeNode.title = safeNode.title || 'Heroe de Espadas & Espectros';
+    safeNode.heroName = typeof node.heroName === 'string' ? node.heroName : 'Nuevo heroe';
+    safeNode.heroBackground = typeof node.heroBackground === 'string' ? node.heroBackground : 'Trasfondo pendiente';
+    safeNode.specialAbility = typeof node.specialAbility === 'string' ? node.specialAbility : 'Habilidad especial pendiente';
+    safeNode.espadasHeartChecks = normalizeIndexedChecks(node.espadasHeartChecks, ESPADAS_ESPECTROS_HEART_MARKS);
+    safeNode.espadasArmorChecks = normalizeIndexedChecks(node.espadasArmorChecks, ESPADAS_ESPECTROS_ARMOR_MARKS);
+    safeNode.espadasTreasureChecks = normalizeIndexedChecks(node.espadasTreasureChecks, ESPADAS_ESPECTROS_TREASURE_MARKS);
+    safeNode.espadasExperienceChecks = normalizeIndexedChecks(node.espadasExperienceChecks, ESPADAS_ESPECTROS_EXPERIENCE_MARKS);
+    safeNode.espadasAttributes = normalizeEspadasEspectrosAttributes(node.espadasAttributes);
+    safeNode.espadasEquipmentSlots = normalizeEspadasEspectrosEquipmentSlots(node.espadasEquipmentSlots);
+    safeNode.espadasTrivialItems = typeof node.espadasTrivialItems === 'string' ? node.espadasTrivialItems : '';
+    safeNode.espadasNotes = typeof node.espadasNotes === 'string' ? node.espadasNotes : '';
+    safeNode.espadasPanels = normalizeEspadasEspectrosPanels(node.espadasPanels);
+    const panelWidths = Object.values(safeNode.espadasPanels).reduce((sum, panel) => sum + panel.width, 0);
+    const panelMaxHeight = Math.max(...Object.values(safeNode.espadasPanels).map((panel) => panel.height));
+    const minimumWidth = Math.max(NODE_MIN_DIMENSIONS['espadas-espectros-hero'].width, panelWidths + 48);
+    const minimumHeight = Math.max(NODE_MIN_DIMENSIONS['espadas-espectros-hero'].height, panelMaxHeight + 60);
+    safeNode.width = Math.max(minimumWidth, safeNode.width);
+    safeNode.height = Math.max(minimumHeight, safeNode.height);
+    safeNode.x = Math.max(0, Math.min(BOARD_WIDTH - safeNode.width, safeNode.x));
+    safeNode.y = Math.max(0, Math.min(BOARD_HEIGHT - safeNode.height, safeNode.y));
   }
   if (node.type === 'downcrawl-hero') {
     safeNode.heroName = typeof node.heroName === 'string' ? node.heroName : safeNode.title;
@@ -4538,6 +5525,7 @@ function parseBoardPayload(parsed) {
       sidebarOpen: false,
       createMenuOpen: false,
       toolsMenuOpen: false,
+      diceAppearance: normalizeDice3dAppearance(parsed.diceAppearance),
       dice: sanitizeDiceState(parsed.dice, nodes, modules, { selectedId: activeSelectedId, selectedIds })
     },
     viewport: {
@@ -4588,14 +5576,17 @@ const rollDiceButton = document.getElementById('rollDiceButton');
 const clearDiceButton = document.getElementById('clearDiceButton');
 const dicePowerLabel = document.getElementById('dicePowerLabel');
 const dicePowerValue = document.getElementById('dicePowerValue');
+const dicePowerBox = dicePowerValue.closest('.dice-power-box');
 const diceModifierListLabel = document.getElementById('diceModifierListLabel');
 const diceModifierList = document.getElementById('diceModifierList');
+const diceModifierBox = diceModifierList.closest('.dice-modifier-list');
 const clearDiceModifiersButton = document.getElementById('clearDiceModifiersButton');
 const diceRollOverlay = document.getElementById('diceRollOverlay');
 const sidebar = document.getElementById('sidebar');
 const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 const createMenuButton = document.getElementById('createMenuButton');
 const createMenu = document.getElementById('createMenu');
+const espadasEspectrosCreateSection = document.getElementById('espadasEspectrosCreateSection');
 const downcrawlCreateSection = document.getElementById('downcrawlCreateSection');
 const floatingToolsRow = document.querySelector('.floating-tools-row');
 const addHeroButton = document.getElementById('addHeroButton');
@@ -4603,6 +5594,7 @@ const addThemeButton = document.getElementById('addThemeButton');
 const addCommunityButton = document.getElementById('addCommunityButton');
 const addTrackingButton = document.getElementById('addTrackingButton');
 const addImageButton = document.getElementById('addImageButton');
+const addEspadasEspectrosHeroButton = document.getElementById('addEspadasEspectrosHeroButton');
 const addDowncrawlHeroButton = document.getElementById('addDowncrawlHeroButton');
 const addFolkDeckButton = document.getElementById('addFolkDeckButton');
 const addVolumeDeckButton = document.getElementById('addVolumeDeckButton');
@@ -4621,8 +5613,17 @@ const importBoardInput = document.getElementById('importBoardInput');
 const imageUploadInput = document.getElementById('imageUploadInput');
 const themeSelect = document.getElementById('themeSelect');
 const themeToggleState = document.getElementById('themeToggleState');
+const espadasEspectrosModuleToggle = document.getElementById('espadasEspectrosModuleToggle');
 const downcrawlModuleToggle = document.getElementById('downcrawlModuleToggle');
 const dice3dToggle = document.getElementById('dice3dToggle');
+const diceAppearanceCard = document.getElementById('diceAppearanceCard');
+const diceFaceModeSelect = document.getElementById('diceFaceModeSelect');
+const diceColorInput = document.getElementById('diceColorInput');
+const diceEdgeColorInput = document.getElementById('diceEdgeColorInput');
+const diceInkColorInput = document.getElementById('diceInkColorInput');
+const diceColorPreview = document.getElementById('diceColorPreview');
+const diceEdgeColorPreview = document.getElementById('diceEdgeColorPreview');
+const diceInkColorPreview = document.getElementById('diceInkColorPreview');
 const floatingSelectionTools = document.getElementById('floatingSelectionTools');
 const floatingDeleteButton = document.getElementById('floatingDeleteButton');
 const selectionMarquee = document.createElement('div');
@@ -4634,6 +5635,7 @@ let panState = null;
 let selectionBoxState = null;
 let resizeState = null;
 let heroCardResizeState = null;
+let espadasPanelResizeState = null;
 let suppressBoardClick = false;
 let persistTimer = null;
 let inlineEditClickState = { id: null, at: 0 };
@@ -4696,13 +5698,13 @@ function createDiceFaceTexture(value) {
   context.fillStyle = gradient;
   context.fillRect(0, 0, 256, 256);
 
-  context.strokeStyle = 'rgba(70, 84, 98, 0.22)';
-  context.lineWidth = 10;
-  context.strokeRect(12, 12, 232, 232);
+  context.strokeStyle = state.diceAppearance.diceEdgeColor;
+  context.lineWidth = 16;
+  context.strokeRect(10, 10, 236, 236);
 
-  context.strokeStyle = 'rgba(255, 255, 255, 0.62)';
+  context.strokeStyle = mixColor(state.diceAppearance.diceEdgeColor, '#ffffff', 0.4);
   context.lineWidth = 4;
-  context.strokeRect(20, 20, 216, 216);
+  context.strokeRect(22, 22, 212, 212);
 
   const pipPositions = DICE_3D_PIP_LAYOUTS[value] || [];
   pipPositions.forEach(([x, y]) => {
@@ -4741,7 +5743,7 @@ function setDieDiscarded(dieState, discarded) {
     material.color.set(discarded ? '#dfe7ed' : '#ffffff');
   });
   if (dieState.edgeMaterial) {
-    dieState.edgeMaterial.opacity = discarded ? 0.2 : 0.36;
+    dieState.edgeMaterial.opacity = discarded ? 0.03 : 0.05;
   }
 }
 
@@ -4905,9 +5907,9 @@ function createDiceRollDie(rendererState, value, index, count, kept) {
   mesh.receiveShadow = true;
 
   const edgeMaterial = new THREE.LineBasicMaterial({
-    color: 0x90a0ad,
+    color: state.diceAppearance.diceEdgeColor,
     transparent: true,
-    opacity: 0.36
+    opacity: 0.05
   });
   const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), edgeMaterial);
   mesh.add(edges);
@@ -5048,6 +6050,7 @@ function launchDiceRoll3d(values, options = {}) {
     overlay: diceRollOverlay,
     keepRule: options.keepRule || 'keep-all',
     viewportMode: 'window',
+    appearance: normalizeDice3dAppearance(state.diceAppearance),
     onSettle: (finalRollValues) => {
       options.onSettle?.(Array.isArray(finalRollValues) && finalRollValues.length ? finalRollValues : values);
     }
@@ -5475,6 +6478,7 @@ function createBoardSnapshot() {
     boardName: state.boardName,
     theme: normalizeTheme(state.theme),
     modules: sanitizeModules(state.modules),
+    diceAppearance: normalizeDice3dAppearance(state.diceAppearance),
     dice: sanitizeDiceState(state.dice, state.nodes, state.modules, { selectedId: state.selectedId, selectedIds: state.selectedIds }),
     zoom: state.zoom,
     viewportLeft: board.scrollLeft,
@@ -5670,6 +6674,433 @@ function createBoxes(total, filled, className = 'box') {
     wrap.append(el);
   });
   return wrap;
+}
+
+function createEspadasEspectrosField(text, extraClassName = '') {
+  const field = document.createElement('div');
+  field.className = `espadas-espectros-field${extraClassName ? ` ${extraClassName}` : ''}`;
+  field.textContent = text || 'Pendiente';
+  return field;
+}
+
+function createEspadasEspectrosTextarea(value, rows, onInput, placeholder = '') {
+  const textarea = createInlineTextarea(value, rows, onInput);
+  textarea.classList.add('espadas-espectros-inline', 'espadas-espectros-inline-textarea');
+  if (placeholder) textarea.placeholder = placeholder;
+  return textarea;
+}
+
+function createEspadasEspectrosInput(value, onInput, placeholder = '') {
+  const input = createInlineInput('espadas-espectros-inline', value, onInput);
+  if (placeholder) input.placeholder = placeholder;
+  return input;
+}
+
+function createEspadasEspectrosMarks(total, checkedValues, onToggle, options = {}) {
+  const wrap = document.createElement('div');
+  wrap.className = `espadas-espectros-track${options.grid ? ' is-grid' : ''}${options.hearts ? ' is-hearts' : ''}`;
+  const checkedSet = new Set(normalizeIndexedChecks(checkedValues, total));
+  Array.from({ length: total }, (_, index) => {
+    const value = index + 1;
+    const button = document.createElement('button');
+    button.type = 'button';
+    const shapeClass = options.shape === 'shield'
+      ? ' is-shield'
+      : options.shape === 'diamond'
+        ? ' is-diamond'
+        : options.hearts
+          ? ' is-heart'
+          : '';
+    button.className = `espadas-espectros-mark${shapeClass}${checkedSet.has(value) ? ' active' : ''}`;
+    button.textContent = '';
+    button.setAttribute('aria-label', `${options.label || 'Alternar marca'} ${value}`);
+    button.setAttribute('aria-pressed', checkedSet.has(value) ? 'true' : 'false');
+    button.addEventListener('mousedown', (event) => event.stopPropagation());
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!isNodeSelected(options.nodeId)) {
+        selectOnly(options.nodeId);
+      } else {
+        activateNode(options.nodeId);
+      }
+      const nextChecks = options.progressive
+        ? Array.from({ length: checkedSet.has(value) ? value - 1 : value }, (_, valueIndex) => valueIndex + 1)
+        : checkedSet.has(value)
+          ? [...checkedSet].filter((entry) => entry !== value)
+          : [...checkedSet, value].sort((left, right) => left - right);
+      onToggle(nextChecks);
+    });
+    wrap.append(button);
+  });
+  return wrap;
+}
+
+function patchEspadasEspectrosEquipmentSlot(nodeId, index, patch, renderImmediately = false) {
+  const current = state.nodes.find((item) => item.id === nodeId && item.type === 'espadas-espectros-hero');
+  if (!current) return;
+  const nextSlots = normalizeEspadasEspectrosEquipmentSlots(current.espadasEquipmentSlots);
+  nextSlots[index] = {
+    ...nextSlots[index],
+    ...patch,
+    marks: patch.marks === undefined ? nextSlots[index].marks : normalizeIndexedChecks(patch.marks, ESPADAS_ESPECTROS_EQUIPMENT_MARKS)
+  };
+  if (renderImmediately) {
+    updateNode(nodeId, { espadasEquipmentSlots: nextSlots });
+    return;
+  }
+  patchNodeState(nodeId, { espadasEquipmentSlots: nextSlots });
+}
+
+function patchEspadasEspectrosAttribute(nodeId, index, patch, renderImmediately = false) {
+  const current = state.nodes.find((item) => item.id === nodeId && item.type === 'espadas-espectros-hero');
+  if (!current) return;
+  const nextAttributes = normalizeEspadasEspectrosAttributes(current.espadasAttributes);
+  nextAttributes[index] = {
+    ...nextAttributes[index],
+    ...patch,
+    value: patch.value === undefined
+      ? nextAttributes[index].value
+      : Math.max(1, Math.min(5, Math.round(Number(patch.value) || 1)))
+  };
+  if (renderImmediately) {
+    updateNode(nodeId, { espadasAttributes: nextAttributes });
+    return;
+  }
+  patchNodeState(nodeId, { espadasAttributes: nextAttributes });
+}
+
+function createEspadasEspectrosTrackBlock(node, title, copy, total, checkedValues, onToggle, options = {}) {
+  const block = document.createElement('div');
+  block.className = 'espadas-espectros-track-block';
+  const labels = document.createElement('div');
+  labels.className = 'espadas-espectros-track-labels';
+  labels.innerHTML = copy
+    ? `<span class="espadas-espectros-track-title">${title}</span><span class="espadas-espectros-track-copy">${copy}</span>`
+    : `<span class="espadas-espectros-track-title">${title}</span>`;
+  const marks = createEspadasEspectrosMarks(total, checkedValues, onToggle, {
+    nodeId: node.id,
+    label: title,
+    grid: options.grid,
+    hearts: options.hearts,
+    shape: options.shape,
+    progressive: options.progressive
+  });
+  block.append(labels, marks);
+  if (options.showCount) {
+    const count = document.createElement('div');
+    count.className = 'espadas-espectros-track-count';
+    count.textContent = `${normalizeIndexedChecks(checkedValues, total).length}/${total}`;
+    block.append(count);
+  }
+  return block;
+}
+
+function appendEspadasPanelResizeHandle(node, panelKey, panelWrap) {
+  const resizeHandle = document.createElement('button');
+  resizeHandle.type = 'button';
+  resizeHandle.className = 'hero-card-resize-handle';
+  resizeHandle.setAttribute('aria-label', `Redimensionar panel ${panelKey}`);
+  resizeHandle.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!isNodeSelected(node.id)) {
+      selectOnly(node.id);
+    } else {
+      activateNode(node.id);
+    }
+    const rect = boardInner.getBoundingClientRect();
+    const panelState = normalizeEspadasEspectrosPanels(node.espadasPanels)[panelKey];
+    espadasPanelResizeState = {
+      id: node.id,
+      panelKey,
+      startBoardX: (event.clientX - rect.left) / state.zoom,
+      startBoardY: (event.clientY - rect.top) / state.zoom,
+      width: panelState.width,
+      height: panelState.height
+    };
+    render();
+  });
+  resizeHandle.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  });
+  panelWrap.append(resizeHandle);
+}
+
+function createEspadasPanelWrap(node, panelKey, content) {
+  const wrap = document.createElement('div');
+  wrap.className = `espadas-espectros-panel panel-${panelKey}`;
+  const panelState = normalizeEspadasEspectrosPanels(node.espadasPanels)[panelKey];
+  wrap.style.width = `${panelState.width}px`;
+  wrap.style.height = `${panelState.height}px`;
+  wrap.append(content);
+  appendEspadasPanelResizeHandle(node, panelKey, content);
+  return wrap;
+}
+
+function createEspadasEspectrosAttributeSection(node, inlineEditing) {
+  const section = document.createElement('div');
+  section.className = 'espadas-espectros-attributes';
+  node.espadasAttributes.forEach((attribute, index) => {
+    const row = document.createElement('div');
+    row.className = `espadas-espectros-attribute${attribute.stateActive ? ' is-burned' : ''}`;
+    const key = document.createElement('div');
+    key.className = 'espadas-espectros-attribute-key';
+    key.textContent = attribute.key;
+    const copy = document.createElement('div');
+    copy.className = 'espadas-espectros-attribute-copy';
+    if (inlineEditing) {
+      copy.append(createEspadasEspectrosTextarea(attribute.copy, 2, (value) => {
+        patchEspadasEspectrosAttribute(node.id, index, { copy: value });
+      }, 'Describe usos habituales'));
+      const stateRow = document.createElement('label');
+      stateRow.className = 'espadas-espectros-attribute-state';
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = `espadas-espectros-state-toggle${attribute.stateActive ? ' active' : ''}`;
+      toggle.setAttribute('aria-label', `Alternar estado de ${attribute.key}`);
+      toggle.addEventListener('mousedown', (event) => event.stopPropagation());
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        patchEspadasEspectrosAttribute(node.id, index, { stateActive: !attribute.stateActive }, true);
+      });
+      stateRow.append(toggle, createEspadasEspectrosInput(attribute.stateLabel, (value) => {
+        patchEspadasEspectrosAttribute(node.id, index, { stateLabel: value });
+      }, 'Estado'));
+      copy.append(stateRow);
+    } else {
+      const copyText = document.createElement('div');
+      copyText.textContent = attribute.copy || 'Sin enfoque todavia.';
+      const stateRow = document.createElement('div');
+      stateRow.className = 'espadas-espectros-attribute-state';
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = `espadas-espectros-state-toggle${attribute.stateActive ? ' active' : ''}`;
+      toggle.setAttribute('aria-label', `Alternar estado de ${attribute.key}`);
+      toggle.addEventListener('mousedown', (event) => event.stopPropagation());
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (!isNodeSelected(node.id)) {
+          selectOnly(node.id);
+        } else {
+          activateNode(node.id);
+        }
+        patchEspadasEspectrosAttribute(node.id, index, { stateActive: !attribute.stateActive }, true);
+      });
+      stateRow.append(toggle);
+      const label = document.createElement('span');
+      label.textContent = attribute.stateLabel;
+      stateRow.append(label);
+      copy.append(copyText, stateRow);
+    }
+    let valueCell;
+    if (inlineEditing) {
+      valueCell = createEspadasEspectrosInput(String(attribute.value ?? 1), (value) => {
+        patchEspadasEspectrosAttribute(node.id, index, { value });
+      }, '1');
+      valueCell.classList.add('espadas-espectros-attribute-value', 'espadas-espectros-attribute-value-input');
+      valueCell.setAttribute('inputmode', 'numeric');
+    } else {
+      valueCell = document.createElement('div');
+      valueCell.className = 'espadas-espectros-attribute-value';
+      valueCell.textContent = String(attribute.value ?? 1);
+    }
+    row.append(key, copy, valueCell);
+    section.append(row);
+  });
+  return section;
+}
+
+function createEspadasEspectrosEquipmentSection(node, inlineEditing) {
+  const filledSlots = node.espadasEquipmentSlots
+    .map((slot, index) => ({ ...slot, originalIndex: index }))
+    .filter((slot) => slot.text.trim());
+  const card = document.createElement('div');
+  card.className = 'espadas-espectros-card';
+  card.innerHTML = `<div class="espadas-espectros-card-header"><h4 class="espadas-espectros-card-title">Equipo</h4><span class="espadas-espectros-card-note">${filledSlots.length}/${ESPADAS_ESPECTROS_EQUIPMENT_SLOT_COUNT} elementos</span></div>`;
+
+  const list = document.createElement('div');
+  list.className = 'espadas-espectros-equipment-list';
+  const slotsToRender = inlineEditing
+    ? node.espadasEquipmentSlots.map((slot, index) => ({ ...slot, originalIndex: index }))
+    : filledSlots;
+  slotsToRender.forEach((slot, index) => {
+    const slotIsBurned = normalizeIndexedChecks(slot.marks, ESPADAS_ESPECTROS_EQUIPMENT_MARKS).length === ESPADAS_ESPECTROS_EQUIPMENT_MARKS;
+    const row = document.createElement('div');
+    row.className = `espadas-espectros-slot${slotIsBurned ? ' is-burned' : ''}`;
+    const number = document.createElement('div');
+    number.className = 'espadas-espectros-slot-number';
+    number.textContent = `${index + 1}.`;
+    row.append(number);
+    if (inlineEditing) {
+      row.append(createEspadasEspectrosInput(slot.text, (value) => {
+        patchEspadasEspectrosEquipmentSlot(node.id, slot.originalIndex, { text: value });
+      }, 'Objeto o recurso'));
+    } else {
+      const text = document.createElement('div');
+      text.className = 'espadas-espectros-slot-text';
+      text.textContent = slot.text;
+      row.append(text);
+    }
+    const marks = document.createElement('div');
+    marks.className = 'espadas-espectros-slot-marks';
+    marks.append(createEspadasEspectrosMarks(ESPADAS_ESPECTROS_EQUIPMENT_MARKS, slot.marks, (nextChecks) => {
+      patchEspadasEspectrosEquipmentSlot(node.id, slot.originalIndex, { marks: nextChecks }, true);
+    }, { nodeId: node.id, label: `Marcas de equipo ${index + 1}`, progressive: true }));
+    row.append(marks);
+    list.append(row);
+  });
+  if (!inlineEditing && !filledSlots.length) {
+    const empty = document.createElement('div');
+    empty.className = 'espadas-espectros-slot-empty';
+    empty.textContent = 'Sin equipo anotado todavia.';
+    list.append(empty);
+  }
+  card.append(list);
+
+  const trivialSection = document.createElement('div');
+  trivialSection.className = 'espadas-espectros-compact-list';
+  trivialSection.innerHTML = '<div><p class="espadas-espectros-slot-title">Objetos triviales o diminutos</p></div>';
+  if (inlineEditing) {
+    trivialSection.append(createEspadasEspectrosTextarea(node.espadasTrivialItems, 3, (value) => {
+      patchNodeState(node.id, { espadasTrivialItems: value });
+    }, 'Anota una linea por objeto'));
+  } else {
+    const items = lines(node.espadasTrivialItems);
+    if (items.length) {
+      items.forEach((line) => {
+        const item = document.createElement('div');
+        item.className = 'note-strip espadas-espectros-trivial';
+        item.textContent = line;
+        trivialSection.append(item);
+      });
+    } else {
+      const field = document.createElement('div');
+      field.className = 'note-strip espadas-espectros-trivial';
+      field.textContent = 'Sin objetos triviales todavia.';
+      trivialSection.append(field);
+    }
+  }
+  card.append(trivialSection);
+  return card;
+}
+
+function createEspadasEspectrosAttributeColumn(node, inlineEditing) {
+  const card = document.createElement('div');
+  card.className = 'espadas-espectros-card';
+  card.innerHTML = '<div class="espadas-espectros-card-header"><h4 class="espadas-espectros-card-title">Atributos</h4><span class="espadas-espectros-card-note">Valores base</span></div>';
+  card.append(createEspadasEspectrosAttributeSection(node, inlineEditing));
+
+  const notesSection = document.createElement('div');
+  notesSection.className = 'espadas-espectros-compact-list';
+  notesSection.innerHTML = '<div><p class="espadas-espectros-slot-title">Notas</p></div>';
+  if (inlineEditing) {
+    notesSection.append(createEspadasEspectrosTextarea(node.espadasNotes, 4, (value) => {
+      patchNodeState(node.id, { espadasNotes: value });
+    }, 'Anota nombres, deudas, rumores o ganchos'));
+  } else {
+    const noteLines = lines(node.espadasNotes).slice(0, 4);
+    if (noteLines.length) {
+      noteLines.forEach((line) => {
+        const item = document.createElement('div');
+        item.className = 'note-strip';
+        item.textContent = line;
+        notesSection.append(item);
+      });
+    } else {
+      const item = document.createElement('div');
+      item.className = 'note-strip';
+      item.textContent = 'Sin notas todavia.';
+      notesSection.append(item);
+    }
+  }
+  card.append(notesSection);
+
+  const experienceSection = document.createElement('div');
+  experienceSection.className = 'espadas-espectros-compact-list';
+  experienceSection.append(createEspadasEspectrosTrackBlock(node, 'Experiencia', '1 PX = 1 logro importante', ESPADAS_ESPECTROS_EXPERIENCE_MARKS, node.espadasExperienceChecks, (nextChecks) => {
+    updateNode(node.id, { espadasExperienceChecks: nextChecks });
+  }, { grid: true, progressive: true, showCount: true }));
+  card.append(experienceSection);
+  return card;
+}
+
+function renderEspadasEspectrosHero(node, article) {
+  article.classList.add('espadas-espectros-sheet', 'small-title');
+  const inlineEditing = isInlineEditingNode(node.id);
+  if (inlineEditing) article.classList.add('inline-editing');
+
+  const shell = document.createElement('div');
+  shell.className = 'espadas-espectros-shell';
+  const header = document.createElement('div');
+  header.className = 'node-header';
+  if (inlineEditing) {
+    const titleEditor = createInlineInput('inline-edit-title', node.title || 'Heroe de Espadas & Espectros', (value) => {
+      patchNodeState(node.id, { title: value });
+    });
+    titleEditor.placeholder = 'Titulo de la ficha';
+    header.append(titleEditor);
+  } else {
+    const title = document.createElement('h3');
+    title.className = 'node-title';
+    title.textContent = node.title || 'Heroe de Espadas & Espectros';
+    header.append(title);
+  }
+  shell.append(header);
+
+  const grid = document.createElement('div');
+  grid.className = 'espadas-espectros-grid';
+
+  const mainCard = document.createElement('div');
+  mainCard.className = 'espadas-espectros-card';
+  mainCard.innerHTML = '<div class="espadas-espectros-card-header"><h4 class="espadas-espectros-card-title">Heroe</h4><span class="espadas-espectros-card-note">Ficha principal</span></div>';
+
+  const nameSection = document.createElement('div');
+  nameSection.className = 'section';
+  nameSection.innerHTML = '<span class="section-tag">Nombre</span>';
+  if (inlineEditing) {
+    nameSection.append(createEspadasEspectrosInput(node.heroName, (value) => patchNodeState(node.id, { heroName: value }), 'Nombre del heroe'));
+  } else {
+    nameSection.append(createEspadasEspectrosField(node.heroName || 'Nuevo heroe'));
+  }
+  mainCard.append(nameSection);
+
+  const backgroundSection = document.createElement('div');
+  backgroundSection.className = 'section';
+  backgroundSection.innerHTML = '<span class="section-tag">Trasfondo</span>';
+  if (inlineEditing) {
+    backgroundSection.append(createEspadasEspectrosTextarea(node.heroBackground, 3, (value) => patchNodeState(node.id, { heroBackground: value }), 'Origen, oficio o pasado'));
+  } else {
+    backgroundSection.append(createEspadasEspectrosField(node.heroBackground || 'Trasfondo pendiente', 'is-large'));
+  }
+  mainCard.append(backgroundSection);
+
+  const abilitySection = document.createElement('div');
+  abilitySection.className = 'section';
+  abilitySection.innerHTML = '<span class="section-tag">Habilidad especial</span>';
+  if (inlineEditing) {
+    abilitySection.append(createEspadasEspectrosTextarea(node.specialAbility, 3, (value) => patchNodeState(node.id, { specialAbility: value }), 'Describe tu tecnica distintiva'));
+  } else {
+    abilitySection.append(createEspadasEspectrosField(node.specialAbility || 'Habilidad especial pendiente'));
+  }
+  mainCard.append(abilitySection);
+
+  mainCard.append(createEspadasEspectrosTrackBlock(node, 'Vida', '', ESPADAS_ESPECTROS_HEART_MARKS, node.espadasHeartChecks, (nextChecks) => {
+    updateNode(node.id, { espadasHeartChecks: nextChecks });
+  }, { hearts: true, progressive: true }));
+  mainCard.append(createEspadasEspectrosTrackBlock(node, 'Armadura', '', ESPADAS_ESPECTROS_ARMOR_MARKS, node.espadasArmorChecks, (nextChecks) => {
+    updateNode(node.id, { espadasArmorChecks: nextChecks });
+  }, { shape: 'shield', progressive: true }));
+  mainCard.append(createEspadasEspectrosTrackBlock(node, 'Tesoros', '', ESPADAS_ESPECTROS_TREASURE_MARKS, node.espadasTreasureChecks, (nextChecks) => {
+    updateNode(node.id, { espadasTreasureChecks: nextChecks });
+  }, { shape: 'diamond', progressive: true }));
+
+  grid.append(createEspadasPanelWrap(node, 'hero', mainCard));
+  grid.append(createEspadasPanelWrap(node, 'attributes', createEspadasEspectrosAttributeColumn(node, inlineEditing)));
+  grid.append(createEspadasPanelWrap(node, 'equipment', createEspadasEspectrosEquipmentSection(node, inlineEditing)));
+
+  shell.append(grid);
+  article.append(shell);
 }
 
 function createThemeCheckRow(node, label, patchKey) {
@@ -6204,7 +7635,9 @@ function setDiceSystem(system) {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
-    system
+    system,
+    rollType: system === 'espadas' ? 'movement' : current.rollType,
+    challengeDifficulty: system === 'espadas' ? 'normal' : current.challengeDifficulty
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
@@ -6223,6 +7656,11 @@ function setDiceRollType(rollType) {
     faceChallengeFatefulUses: current.rollType !== rollType ? 0 : current.faceChallengeFatefulUses,
     faceChallengeBreakingUses: current.rollType !== rollType ? 0 : current.faceChallengeBreakingUses,
     faceChallengeResolved: current.rollType !== rollType ? '' : current.faceChallengeResolved,
+    challengeDifficulty: current.system === 'espadas' && rollType === 'attribute'
+      ? normalizeEspadasAttributeRollMode(current.challengeDifficulty)
+      : current.system === 'espadas'
+        ? 'normal'
+        : current.challengeDifficulty,
     rollValues: current.rollType !== rollType
       ? []
       : current.rollValues
@@ -6253,14 +7691,16 @@ function setDiceHeroSelection(heroSelection) {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
-    heroSelection,
-    heroStatSelection: '',
+    heroSelection: current.system === 'downcrawl' ? heroSelection : current.heroSelection,
+    heroStatSelection: current.system === 'downcrawl' ? '' : current.heroStatSelection,
+    espadasHeroSelection: current.system === 'espadas' ? heroSelection : current.espadasHeroSelection,
+    espadasAttributeSelection: current.system === 'espadas' ? '' : current.espadasAttributeSelection,
     faceChallengeBonus: 0,
     faceChallengeFatefulUses: 0,
     faceChallengeBreakingUses: 0,
     faceChallengeResolved: '',
-    rollValues: current.rollType === 'face-challenge' ? [] : current.rollValues,
-    cleared: current.rollType === 'face-challenge' ? true : current.cleared
+    rollValues: (current.rollType === 'face-challenge' || current.system === 'espadas') ? [] : current.rollValues,
+    cleared: (current.rollType === 'face-challenge' || current.system === 'espadas') ? true : current.cleared
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
@@ -6271,13 +7711,14 @@ function setDiceHeroStatSelection(heroStatSelection) {
   const current = sanitizeDiceState(state.dice, state.nodes, state.modules, selection);
   state.dice = sanitizeDiceState({
     ...current,
-    heroStatSelection,
+    heroStatSelection: current.system === 'downcrawl' ? heroStatSelection : current.heroStatSelection,
+    espadasAttributeSelection: current.system === 'espadas' ? heroStatSelection : current.espadasAttributeSelection,
     faceChallengeBonus: 0,
     faceChallengeFatefulUses: 0,
     faceChallengeBreakingUses: 0,
     faceChallengeResolved: '',
-    rollValues: current.rollType === 'face-challenge' ? [] : current.rollValues,
-    cleared: current.rollType === 'face-challenge' ? true : current.cleared
+    rollValues: (current.rollType === 'face-challenge' || current.system === 'espadas') ? [] : current.rollValues,
+    cleared: (current.rollType === 'face-challenge' || current.system === 'espadas') ? true : current.cleared
   }, state.nodes, state.modules, selection);
   renderDiceTray();
   schedulePersist();
@@ -7893,6 +9334,7 @@ function renderBoard() {
   if (node.type === 'theme') renderTheme(node, article);
   if (node.type === 'tracking') renderTracking(node, article);
   if (node.type === 'image') renderImage(node, article);
+  if (node.type === 'espadas-espectros-hero') renderEspadasEspectrosHero(node, article);
   if (node.type === 'downcrawl-hero') renderDowncrawlHero(node, article);
   if (node.type === 'folk-deck') renderFolkDeck(node, article);
   if (node.type === 'volume-deck') renderVolumeDeck(node, article);
@@ -7999,19 +9441,31 @@ function deleteSelectedNodesWithConfirm() {
 
 function renderSidebar() {
   state.modules = sanitizeModules(state.modules);
+  state.diceAppearance = normalizeDice3dAppearance(state.diceAppearance);
   sidebar.classList.toggle('open', state.sidebarOpen);
   sidebarBackdrop.classList.toggle('open', state.sidebarOpen);
   themeSelect.value = normalizeTheme(state.theme);
   themeToggleState.textContent = state.theme === 'light' ? 'Claro' : state.theme === 'print' ? 'Impresion' : 'Oscuro';
+  espadasEspectrosModuleToggle.checked = state.modules.espadasEspectrosEnabled;
   downcrawlModuleToggle.checked = state.modules.downcrawlEnabled;
   dice3dToggle.checked = state.modules.dice3dEnabled;
+  diceAppearanceCard.hidden = !state.modules.dice3dEnabled;
+  diceFaceModeSelect.value = state.diceAppearance.diceFaceMode;
+  diceColorInput.value = state.diceAppearance.diceColor;
+  diceEdgeColorInput.value = state.diceAppearance.diceEdgeColor;
+  diceInkColorInput.value = state.diceAppearance.diceInkColor;
+  diceColorPreview.style.background = state.diceAppearance.diceColor;
+  diceEdgeColorPreview.style.background = state.diceAppearance.diceEdgeColor;
+  diceInkColorPreview.style.background = state.diceAppearance.diceInkColor;
 }
 
 function renderCreateMenu() {
   state.modules = sanitizeModules(state.modules);
+  const espadasEnabled = state.modules.espadasEspectrosEnabled && espadasEspectrosModuleToggle.checked;
   const downcrawlEnabled = state.modules.downcrawlEnabled && downcrawlModuleToggle.checked;
   createMenu.hidden = !state.createMenuOpen;
   createMenuButton.setAttribute('aria-expanded', String(state.createMenuOpen));
+  espadasEspectrosCreateSection.hidden = !espadasEnabled;
   downcrawlCreateSection.hidden = !downcrawlEnabled;
 }
 
@@ -8028,8 +9482,10 @@ function renderDiceTray() {
   state.dice = dice;
   const diceMeta = getDiceSystemMeta(dice.system);
   const rollContext = getDiceRollContext(dice, state.nodes, selection);
+  const rollProfile = getDiceRollProfile(dice);
   const challengeMeta = getDowncrawlChallengeDifficultyMeta(dice.challengeDifficulty);
   diceTray.classList.toggle('is-legend', dice.system === 'legend');
+  diceTray.classList.toggle('is-espadas', dice.system === 'espadas');
   diceTray.classList.toggle('is-downcrawl-basic', dice.system === 'downcrawl' && !['advance-adventure', 'face-challenge'].includes(dice.rollType));
   diceTray.classList.toggle('is-downcrawl-advance', dice.system === 'downcrawl' && dice.rollType === 'advance-adventure');
   diceTray.classList.toggle('is-downcrawl-challenge', dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
@@ -8067,26 +9523,68 @@ function renderDiceTray() {
     downcrawlOption.disabled = !state.modules.downcrawlEnabled || pendingActive;
     downcrawlOption.hidden = !state.modules.downcrawlEnabled;
   }
+  const espadasOption = diceSystemSelect.querySelector('option[value="espadas"]');
+  if (espadasOption) {
+    espadasOption.disabled = !state.modules.espadasEspectrosEnabled || pendingActive;
+    espadasOption.hidden = !state.modules.espadasEspectrosEnabled;
+  }
   diceSystemSelect.setAttribute('aria-label', `Seleccionar lanzador de dados: ${diceMeta.title}`);
   diceSystemSelect.disabled = pendingActive;
-  diceChallengeBox.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
-  diceChallengeLabel.textContent = 'Dificultad';
-  diceChallengeSelect.value = dice.challengeDifficulty;
+  const showEspadasMode = dice.system === 'espadas' && dice.rollType === 'attribute';
+  diceChallengeBox.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge') && !showEspadasMode;
+  diceChallengeLabel.textContent = showEspadasMode ? 'Modo' : 'Dificultad';
+  diceChallengeSelect.replaceChildren();
+  if (showEspadasMode) {
+    ESPADAS_ESPECTROS_ATTRIBUTE_ROLL_MODES.forEach((option) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = option.value;
+      optionEl.textContent = option.label;
+      diceChallengeSelect.append(optionEl);
+    });
+    diceChallengeSelect.value = normalizeEspadasAttributeRollMode(dice.challengeDifficulty);
+  } else {
+    DOWNCRAWL_CHALLENGE_DIFFICULTIES.forEach((option) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = option.value;
+      optionEl.textContent = option.label;
+      diceChallengeSelect.append(optionEl);
+    });
+    diceChallengeSelect.value = dice.challengeDifficulty;
+  }
   diceChallengeSelect.disabled = pendingActive;
-  diceRollTypeBox.hidden = dice.system !== 'downcrawl';
+  const rollTypeOptions = getDiceRollTypeOptions(dice.system);
+  diceRollTypeBox.hidden = dice.system === 'legend';
   diceRollTypeLabel.textContent = diceMeta.rollTypeLabel;
-  if (dice.system === 'downcrawl') {
+  if (dice.system !== 'legend') {
+    diceRollTypeSelect.replaceChildren();
+    rollTypeOptions.forEach((option) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = option.value;
+      optionEl.textContent = option.label;
+      diceRollTypeSelect.append(optionEl);
+    });
     diceRollTypeSelect.value = dice.rollType;
     diceRollTypeSelect.setAttribute('aria-label', `Seleccionar tipo de tirada en ${diceMeta.title}`);
     diceRollTypeSelect.disabled = pendingActive;
+  } else {
+    diceRollTypeSelect.replaceChildren();
+    const optionEl = document.createElement('option');
+    optionEl.value = 'standard';
+    optionEl.textContent = 'Tirada estandar';
+    optionEl.hidden = true;
+    diceRollTypeSelect.append(optionEl);
   }
-  const showHeroStatSelectors = dice.system === 'downcrawl' && ['advance-adventure', 'face-challenge'].includes(dice.rollType);
-  const heroOptions = getDowncrawlHeroSelectionOptions(state.nodes);
-  const heroStatOptions = getDowncrawlHeroStatSelectionOptions(state.nodes)
-    .filter((option) => !dice.heroSelection || option.nodeId === dice.heroSelection);
+  const showEspadasSelectors = dice.system === 'espadas' && dice.rollType === 'attribute';
+  const showHeroStatSelectors = (dice.system === 'downcrawl' && ['advance-adventure', 'face-challenge'].includes(dice.rollType)) || showEspadasSelectors;
+  const heroOptions = showEspadasSelectors
+    ? getEspadasHeroSelectionOptions(state.nodes)
+    : getDowncrawlHeroSelectionOptions(state.nodes);
+  const heroStatOptions = showEspadasSelectors
+    ? getEspadasAttributeSelectionOptions(state.nodes).filter((option) => !dice.espadasHeroSelection || option.nodeId === dice.espadasHeroSelection)
+    : getDowncrawlHeroStatSelectionOptions(state.nodes).filter((option) => !dice.heroSelection || option.nodeId === dice.heroSelection);
   diceHeroStatBox.hidden = !showHeroStatSelectors;
   diceHeroLabel.textContent = 'Heroe';
-  diceHeroStatLabel.textContent = 'Estadistica';
+  diceHeroStatLabel.textContent = showEspadasSelectors ? 'Atributo' : 'Estadistica';
   diceHeroSelect.replaceChildren();
   diceHeroStatSelect.replaceChildren();
   if (showHeroStatSelectors) {
@@ -8101,20 +9599,24 @@ function renderDiceTray() {
       optionEl.textContent = option.label;
       diceHeroSelect.append(optionEl);
     });
-    diceHeroSelect.value = dice.heroSelection || '';
+    diceHeroSelect.value = showEspadasSelectors ? (dice.espadasHeroSelection || '') : (dice.heroSelection || '');
     diceHeroSelect.disabled = pendingActive || !heroOptions.length;
     const placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = heroStatOptions.length ? 'Elige una estadistica' : (dice.heroSelection ? 'Ese heroe no tiene estadisticas' : 'Elige antes un heroe');
+    placeholder.textContent = heroStatOptions.length
+      ? (showEspadasSelectors ? 'Elige un atributo' : 'Elige una estadistica')
+      : ((showEspadasSelectors ? dice.espadasHeroSelection : dice.heroSelection) ? 'Ese heroe no tiene opciones disponibles' : 'Elige antes un heroe');
     placeholder.hidden = heroStatOptions.length > 0;
     diceHeroStatSelect.append(placeholder);
     heroStatOptions.forEach((option) => {
       const optionEl = document.createElement('option');
       optionEl.value = option.id;
-      optionEl.textContent = `${option.label} (${option.value >= 0 ? '+' : ''}${option.value})`;
+      optionEl.textContent = showEspadasSelectors
+        ? `${option.key} (${option.value})`
+        : `${option.label} (${option.value >= 0 ? '+' : ''}${option.value})`;
       diceHeroStatSelect.append(optionEl);
     });
-    diceHeroStatSelect.value = dice.heroStatSelection || '';
+    diceHeroStatSelect.value = showEspadasSelectors ? (dice.espadasAttributeSelection || '') : (dice.heroStatSelection || '');
     diceHeroStatSelect.disabled = pendingActive || !heroStatOptions.length;
   } else {
     diceHeroSelect.disabled = true;
@@ -8122,7 +9624,7 @@ function renderDiceTray() {
   }
 
   const displayedRollValues = dice.cleared || pendingActive
-    ? Array.from({ length: dice.system === 'downcrawl' && dice.rollType === 'face-challenge' ? challengeMeta.diceCount : 2 }, () => null)
+    ? Array.from({ length: rollProfile.diceCount }, () => null)
     : dice.rollValues;
   const keptSet = new Set(dice.keptRollIndices);
   diceRollFaces.replaceChildren();
@@ -8138,7 +9640,7 @@ function renderDiceTray() {
     face.append(valueEl, note);
     diceRollFaces.append(face);
   });
-  diceRollBreakdown.hidden = !(dice.system === 'downcrawl' && dice.rollType === 'face-challenge');
+  diceRollBreakdown.hidden = !((dice.system === 'downcrawl' && dice.rollType === 'face-challenge') || (dice.system === 'espadas' && dice.rollType === 'attribute' && rollProfile.diceCount > 1));
   if (dice.system === 'downcrawl' && dice.rollType === 'face-challenge') {
     if (pendingActive || dice.cleared) {
       diceRollBreakdown.textContent = `${challengeMeta.label}: ${challengeMeta.summary}. Tricky es la base; si la situacion aprieta, ajusta un nivel antes de tirar.`;
@@ -8150,6 +9652,18 @@ function renderDiceTray() {
       diceRollBreakdown.textContent = discardedText
         ? `Se conservan ${keptText} y se descartan ${discardedText}.`
         : `Se conservan ${keptText}.`;
+    }
+  } else if (dice.system === 'espadas' && dice.rollType === 'attribute' && rollProfile.diceCount > 1) {
+    if (pendingActive || dice.cleared) {
+      diceRollBreakdown.textContent = rollProfile.value === 'advantage'
+        ? 'Ventaja: tira 2d6 y descarta el mayor.'
+        : 'Desventaja: tira 2d6 y descarta el menor.';
+    } else {
+      const keptText = dice.keptRollValues.join(' + ');
+      const discardedText = dice.rollValues.filter((_, index) => !keptSet.has(index)).join(', ');
+      diceRollBreakdown.textContent = discardedText
+        ? `Se conserva ${keptText} y se descarta ${discardedText}.`
+        : `Se conserva ${keptText}.`;
     }
   } else {
     diceRollBreakdown.textContent = '';
@@ -8205,6 +9719,8 @@ function renderDiceTray() {
     ? ''
     : dice.cleared
     ? ''
+    : dice.system === 'espadas' && dice.rollType === 'movement'
+      ? ''
     : dice.system === 'downcrawl' && dice.rollType === 'face-challenge' && dice.faceChallengeResolved === 'conserve'
       ? 'Fallo asumido, gana DESTINO'
       : resultState === 'consequence'
@@ -8212,9 +9728,10 @@ function renderDiceTray() {
         : resultState === 'success'
           ? resultMeta.success
           : resultMeta.mixed;
-  diceTotal.classList.toggle('is-consequence', !pendingActive && !dice.cleared && resultState === 'consequence');
+  diceTotalNote.hidden = pendingActive || dice.cleared || (dice.system === 'espadas' && dice.rollType === 'movement');
+  diceTotal.classList.toggle('is-consequence', !pendingActive && !dice.cleared && resultState === 'consequence' && !(dice.system === 'espadas' && dice.rollType === 'movement'));
   diceTotal.classList.toggle('is-mixed', !pendingActive && !dice.cleared && resultState === 'mixed');
-  diceTotal.classList.toggle('is-success', !pendingActive && !dice.cleared && resultState === 'success');
+  diceTotal.classList.toggle('is-success', !pendingActive && !dice.cleared && resultState === 'success' && !(dice.system === 'espadas' && dice.rollType === 'movement'));
   dicePushActions.hidden = !canResolveFaceChallenge;
   dicePushSummary.textContent = '';
   dicePushButtons.replaceChildren();
@@ -8253,6 +9770,9 @@ function renderDiceTray() {
   rollDiceButton.textContent = pendingActive ? 'Dados rodando...' : 'Hacer tirada';
   rollDiceButton.setAttribute('aria-disabled', String(pendingActive || !rollContext.canRoll));
   clearDiceButton.textContent = pendingActive ? 'Cancelar tirada' : 'Limpiar';
+  dicePowerBox.hidden = dice.system === 'espadas';
+  diceModifierBox.hidden = dice.system === 'espadas';
+  clearDiceModifiersButton.hidden = dice.system === 'espadas';
   clearDiceModifiersButton.disabled = pendingActive;
   dicePowerValue.value = `${dice.power >= 0 ? '+' : ''}${dice.power}`;
   dicePowerValue.classList.toggle('is-negative', dice.power < 0);
@@ -8400,23 +9920,21 @@ function rollDice() {
     renderDiceTray();
     return;
   }
-  const challengeMeta = getDowncrawlChallengeDifficultyMeta(currentDice.challengeDifficulty);
-  const rollCount = currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
-    ? challengeMeta.diceCount
-    : 2;
+  const rollProfile = getDiceRollProfile(currentDice);
+  const rollCount = rollProfile.diceCount;
   const useDice3d = sanitizeModules(state.modules).dice3dEnabled;
   const rollValues = useDice3d
     ? []
     : Array.from({ length: rollCount }, () => Math.floor(Math.random() * 6) + 1);
-  const keepRule = currentDice.system === 'downcrawl' && currentDice.rollType === 'face-challenge'
-    ? challengeMeta.keepRule
-    : 'keep-all';
+  const keepRule = rollProfile.keepRule;
   const dicePayload = {
     system: currentDice.system,
     rollType: currentDice.rollType,
     challengeDifficulty: currentDice.challengeDifficulty,
     heroSelection: currentDice.heroSelection,
     heroStatSelection: currentDice.heroStatSelection,
+    espadasHeroSelection: currentDice.espadasHeroSelection,
+    espadasAttributeSelection: currentDice.espadasAttributeSelection,
     rollValues,
     faceChallengeBonus: 0,
     faceChallengeFatefulUses: 0,
@@ -8680,6 +10198,33 @@ addImageButton.addEventListener('click', () => {
   imageUploadInput.click();
 });
 
+addEspadasEspectrosHeroButton.addEventListener('click', () => {
+  if (!sanitizeModules(state.modules).espadasEspectrosEnabled) return;
+  const node = {
+    id: crypto.randomUUID(),
+    type: 'espadas-espectros-hero',
+    title: 'Heroe de Espadas & Espectros',
+    subtitle: 'Ficha de heroe',
+    x: BOARD_OFFSET_X + 220 + state.nodes.length * 18,
+    y: BOARD_OFFSET_Y + 120 + state.nodes.length * 14,
+    width: NODE_MIN_DIMENSIONS['espadas-espectros-hero'].width,
+    height: NODE_MIN_DIMENSIONS['espadas-espectros-hero'].height,
+    heroName: 'Nuevo heroe',
+    heroBackground: 'Trasfondo pendiente',
+    specialAbility: 'Habilidad especial pendiente',
+    espadasHeartChecks: [],
+    espadasArmorChecks: [],
+    espadasTreasureChecks: [],
+    espadasExperienceChecks: [],
+    espadasAttributes: normalizeEspadasEspectrosAttributes([]),
+    espadasEquipmentSlots: normalizeEspadasEspectrosEquipmentSlots([]),
+    espadasTrivialItems: '',
+    espadasNotes: '',
+    espadasPanels: normalizeEspadasEspectrosPanels({})
+  };
+  finishNodeCreation(node);
+});
+
 imageUploadInput.addEventListener('change', () => {
   const [file] = imageUploadInput.files || [];
   if (!file || !file.type.startsWith('image/')) {
@@ -8899,6 +10444,16 @@ downcrawlModuleToggle.addEventListener('change', () => {
   schedulePersist();
 });
 
+espadasEspectrosModuleToggle.addEventListener('change', () => {
+  state.modules = sanitizeModules({
+    ...state.modules,
+    espadasEspectrosEnabled: espadasEspectrosModuleToggle.checked
+  });
+  applyModuleConstraints();
+  render();
+  schedulePersist();
+});
+
 dice3dToggle.addEventListener('change', () => {
   state.modules = sanitizeModules({
     ...state.modules,
@@ -8909,6 +10464,42 @@ dice3dToggle.addEventListener('change', () => {
     finalizePendingDiceRoll();
   }
   render();
+  schedulePersist();
+});
+
+diceFaceModeSelect.addEventListener('change', () => {
+  state.diceAppearance = normalizeDice3dAppearance({
+    ...state.diceAppearance,
+    diceFaceMode: diceFaceModeSelect.value
+  });
+  renderSidebar();
+  schedulePersist();
+});
+
+diceColorInput.addEventListener('input', () => {
+  state.diceAppearance = normalizeDice3dAppearance({
+    ...state.diceAppearance,
+    diceColor: diceColorInput.value
+  });
+  renderSidebar();
+  schedulePersist();
+});
+
+diceEdgeColorInput.addEventListener('input', () => {
+  state.diceAppearance = normalizeDice3dAppearance({
+    ...state.diceAppearance,
+    diceEdgeColor: diceEdgeColorInput.value
+  });
+  renderSidebar();
+  schedulePersist();
+});
+
+diceInkColorInput.addEventListener('input', () => {
+  state.diceAppearance = normalizeDice3dAppearance({
+    ...state.diceAppearance,
+    diceInkColor: diceInkColorInput.value
+  });
+  renderSidebar();
   schedulePersist();
 });
 
@@ -9060,6 +10651,23 @@ window.addEventListener('mousemove', (event) => {
     });
     return;
   }
+  if (espadasPanelResizeState) {
+    const rect = boardInner.getBoundingClientRect();
+    const pointerBoardX = (event.clientX - rect.left) / state.zoom;
+    const pointerBoardY = (event.clientY - rect.top) / state.zoom;
+    const deltaX = Math.round(pointerBoardX - espadasPanelResizeState.startBoardX);
+    const deltaY = Math.round(pointerBoardY - espadasPanelResizeState.startBoardY);
+    const current = state.nodes.find((node) => node.id === espadasPanelResizeState.id && node.type === 'espadas-espectros-hero');
+    if (!current) return;
+    const panels = normalizeEspadasEspectrosPanels(current.espadasPanels);
+    const minimumWidth = espadasPanelResizeState.panelKey === 'attributes' ? 320 : 250;
+    panels[espadasPanelResizeState.panelKey] = {
+      width: Math.max(minimumWidth, espadasPanelResizeState.width + deltaX),
+      height: Math.max(500, espadasPanelResizeState.height + deltaY)
+    };
+    updateNode(espadasPanelResizeState.id, { espadasPanels: panels });
+    return;
+  }
   if (resizeState) {
     const rect = boardInner.getBoundingClientRect();
     const pointerBoardX = (event.clientX - rect.left) / state.zoom;
@@ -9091,6 +10699,9 @@ window.addEventListener('mouseup', () => {
   }
   if (heroCardResizeState) {
     heroCardResizeState = null;
+  }
+  if (espadasPanelResizeState) {
+    espadasPanelResizeState = null;
   }
   if (resizeState) {
     boardInner.querySelector(`[data-id="${resizeState.id}"]`)?.classList.remove('resizing');
