@@ -34,6 +34,12 @@
   const STATIC_GROUP = 1;
   const DIE_GROUP = 2;
   const BODY_SLEEPING = 2;
+  const DEFAULT_DICE_APPEARANCE = {
+    diceColor: '#ffffff',
+    diceEdgeColor: '#8ea2af',
+    diceInkColor: '#05090d',
+    diceFaceMode: 'pips'
+  };
 
   const state = {
     overlay: null,
@@ -60,6 +66,7 @@
     rollSourceEdge: 'left',
     rollBounceEdge: 'right',
     viewportMode: 'window',
+    appearance: { ...DEFAULT_DICE_APPEARANCE },
     staticMaterial: null,
     dieMaterial: null,
     textureCache: new Map(),
@@ -87,6 +94,41 @@
 
   function magnitude(x, y, z = 0) {
     return Math.sqrt((x ** 2) + (y ** 2) + (z ** 2));
+  }
+
+  function normalizeHexColor(color, fallback) {
+    const value = typeof color === 'string' ? color.trim() : '';
+    return /^#[0-9a-fA-F]{6}$/.test(value) ? value.toLowerCase() : fallback;
+  }
+
+  function normalizeFaceMode(mode) {
+    return mode === 'number' ? 'number' : 'pips';
+  }
+
+  function sanitizeAppearance(appearance) {
+    return {
+      diceColor: normalizeHexColor(appearance?.diceColor, DEFAULT_DICE_APPEARANCE.diceColor),
+      diceEdgeColor: normalizeHexColor(appearance?.diceEdgeColor, DEFAULT_DICE_APPEARANCE.diceEdgeColor),
+      diceInkColor: normalizeHexColor(appearance?.diceInkColor, DEFAULT_DICE_APPEARANCE.diceInkColor),
+      diceFaceMode: normalizeFaceMode(appearance?.diceFaceMode)
+    };
+  }
+
+  function hexToRgb(hex) {
+    const normalized = normalizeHexColor(hex, '#000000');
+    const value = normalized.slice(1);
+    return {
+      r: parseInt(value.slice(0, 2), 16),
+      g: parseInt(value.slice(2, 4), 16),
+      b: parseInt(value.slice(4, 6), 16)
+    };
+  }
+
+  function mixColor(hex, targetHex, amount) {
+    const source = hexToRgb(hex);
+    const target = hexToRgb(targetHex);
+    const mix = (start, end) => Math.round(start + ((end - start) * amount));
+    return `rgb(${mix(source.r, target.r)}, ${mix(source.g, target.g)}, ${mix(source.b, target.b)})`;
   }
 
   function prefersReducedMotion() {
@@ -132,10 +174,12 @@
     return true;
   }
 
-  function createFaceTexture(value) {
+  function createFaceTexture(value, appearance = state.appearance) {
     const THREE = window.THREE;
-    if (state.textureCache.has(value)) {
-      return state.textureCache.get(value);
+    const safeAppearance = sanitizeAppearance(appearance);
+    const cacheKey = `${value}:${safeAppearance.diceColor}:${safeAppearance.diceEdgeColor}:${safeAppearance.diceInkColor}:${safeAppearance.diceFaceMode}`;
+    if (state.textureCache.has(cacheKey)) {
+      return state.textureCache.get(cacheKey);
     }
 
     const canvas = document.createElement('canvas');
@@ -144,45 +188,53 @@
     const context = canvas.getContext('2d');
 
     const gradient = context.createLinearGradient(0, 0, 256, 256);
-    gradient.addColorStop(0, '#ffffff');
-    gradient.addColorStop(0.56, '#edf3f8');
-    gradient.addColorStop(1, '#c5d1db');
+    gradient.addColorStop(0, mixColor(safeAppearance.diceColor, '#ffffff', 0.24));
+    gradient.addColorStop(0.56, safeAppearance.diceColor);
+    gradient.addColorStop(1, mixColor(safeAppearance.diceColor, '#000000', 0.16));
     context.fillStyle = gradient;
     context.fillRect(0, 0, 256, 256);
 
-    context.strokeStyle = 'rgba(73, 88, 104, 0.22)';
-    context.lineWidth = 10;
-    context.strokeRect(12, 12, 232, 232);
+    context.strokeStyle = safeAppearance.diceEdgeColor;
+    context.lineWidth = 16;
+    context.strokeRect(10, 10, 236, 236);
 
-    context.strokeStyle = 'rgba(255, 255, 255, 0.58)';
-    context.lineWidth = 3;
+    context.strokeStyle = mixColor(safeAppearance.diceEdgeColor, '#ffffff', 0.4);
+    context.lineWidth = 4;
     context.strokeRect(22, 22, 212, 212);
 
-    const positions = FACE_PIPS[value] || [];
-    positions.forEach(([x, y]) => {
-      const px = x * 256;
-      const py = y * 256;
-      const pipGradient = context.createRadialGradient(px - 7, py - 7, 2, px, py, 22);
-      pipGradient.addColorStop(0, '#4a5b68');
-      pipGradient.addColorStop(0.34, '#1d2730');
-      pipGradient.addColorStop(1, '#05090d');
-      context.fillStyle = pipGradient;
-      context.beginPath();
-      context.arc(px, py, 20, 0, Math.PI * 2);
-      context.fill();
-    });
+    if (safeAppearance.diceFaceMode === 'number') {
+      context.fillStyle = safeAppearance.diceInkColor;
+      context.font = '700 134px Georgia, serif';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText(String(value), 128, 134);
+    } else {
+      const positions = FACE_PIPS[value] || [];
+      positions.forEach(([x, y]) => {
+        const px = x * 256;
+        const py = y * 256;
+        const pipGradient = context.createRadialGradient(px - 7, py - 7, 2, px, py, 22);
+        pipGradient.addColorStop(0, mixColor(safeAppearance.diceInkColor, '#ffffff', 0.18));
+        pipGradient.addColorStop(0.34, safeAppearance.diceInkColor);
+        pipGradient.addColorStop(1, mixColor(safeAppearance.diceInkColor, '#000000', 0.28));
+        context.fillStyle = pipGradient;
+        context.beginPath();
+        context.arc(px, py, 20, 0, Math.PI * 2);
+        context.fill();
+      });
+    }
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.anisotropy = 4;
     texture.needsUpdate = true;
-    state.textureCache.set(value, texture);
+    state.textureCache.set(cacheKey, texture);
     return texture;
   }
 
-  function createMaterials() {
+  function createMaterials(appearance = state.appearance) {
     const THREE = window.THREE;
     return FACE_VALUES.map((value) => new THREE.MeshPhongMaterial({
-      map: createFaceTexture(value),
+      map: createFaceTexture(value, appearance),
       color: 0xffffff,
       shininess: 52,
       specular: 0x334250,
@@ -209,7 +261,7 @@
       material.opacity = discarded ? 0.38 : 1;
       material.color.set(discarded ? '#d7e0e7' : '#ffffff');
     });
-    dieState.edgeMaterial.opacity = discarded ? 0.18 : 0.32;
+    dieState.edgeMaterial.opacity = discarded ? 0.03 : 0.05;
   }
 
   function createWorldIfNeeded() {
@@ -614,16 +666,16 @@
     const plan = buildTravelPlan(index, count, dieSize);
 
     const geometry = new THREE.BoxGeometry(dieSize, dieSize, dieSize);
-    const materials = createMaterials();
+    const materials = createMaterials(state.appearance);
     const mesh = new THREE.Mesh(geometry, materials);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     state.scene.add(mesh);
 
     const edgeMaterial = new THREE.LineBasicMaterial({
-      color: 0x8ea2af,
+      color: state.appearance.diceEdgeColor,
       transparent: true,
-      opacity: 0.32
+      opacity: 0.05
     });
     const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), edgeMaterial);
     mesh.add(edges);
@@ -870,6 +922,7 @@
     state.settleCallback = options.onSettle || null;
     state.keepRule = options.keepRule || 'keep-all';
     state.viewportMode = options.viewportMode || 'window';
+    state.appearance = sanitizeAppearance(options.appearance);
     state.rollSourceEdge = EDGE_NAMES[Math.floor(Math.random() * EDGE_NAMES.length)];
     state.rollBounceEdge = OPPOSITE_EDGE[state.rollSourceEdge];
     state.rollStartTime = performance.now();
