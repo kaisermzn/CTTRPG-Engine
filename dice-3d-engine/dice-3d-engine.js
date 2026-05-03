@@ -51,6 +51,8 @@
     world: null,
     worldWidth: 0,
     worldDepth: 0,
+    visibleWidth: 0,
+    visibleDepth: 0,
     floorMesh: null,
     frameId: 0,
     lastTime: 0,
@@ -308,8 +310,8 @@
     const width = Math.max(...xs) - Math.min(...xs);
     const depth = Math.max(...zs) - Math.min(...zs);
     return {
-      width: Math.max(12, width * 0.92),
-      depth: Math.max(8, depth * 0.92)
+      width: Math.max(10, width * 0.72),
+      depth: Math.max(7, depth * 0.7)
     };
   }
 
@@ -342,6 +344,8 @@
       state.camera.updateProjectionMatrix();
 
       const visibleArena = getVisibleArenaSize(state.camera);
+      state.visibleWidth = visibleArena.width;
+      state.visibleDepth = visibleArena.depth;
       state.worldWidth = visibleArena.width;
       state.worldDepth = visibleArena.depth;
     }
@@ -457,33 +461,58 @@
     }
   }
 
+  function getDisplayAreaLimits(dieSize) {
+    const halfWidth = state.visibleWidth / 2;
+    const halfDepth = state.visibleDepth / 2;
+    const insetX = Math.max(dieSize * 1.45, state.visibleWidth * 0.12);
+    const insetZ = Math.max(dieSize * 1.45, state.visibleDepth * 0.14);
+    return {
+      minX: -halfWidth + insetX,
+      maxX: halfWidth - insetX,
+      minZ: -halfDepth + insetZ,
+      maxZ: halfDepth - insetZ
+    };
+  }
+
   function buildTravelPlan(index, count, dieSize) {
     const sourceEdge = state.rollSourceEdge || 'left';
     const bounceEdge = state.rollBounceEdge || OPPOSITE_EDGE[sourceEdge] || 'right';
+    const displayLimits = getDisplayAreaLimits(dieSize);
     const laneRatio = (index + 1) / (count + 1);
-    const laneAcrossWidth = lerp(-(state.worldWidth / 2) + dieSize * 1.8, (state.worldWidth / 2) - dieSize * 1.8, laneRatio);
-    const laneAcrossDepth = lerp(-(state.worldDepth / 2) + dieSize * 1.8, (state.worldDepth / 2) - dieSize * 1.8, laneRatio);
+    const laneAcrossWidth = lerp(displayLimits.minX, displayLimits.maxX, laneRatio);
+    const laneAcrossDepth = lerp(displayLimits.minZ, displayLimits.maxZ, laneRatio);
     const startTrack = sourceEdge === 'left' || sourceEdge === 'right' ? laneAcrossDepth : laneAcrossWidth;
     const bounceTrack = bounceEdge === 'left' || bounceEdge === 'right'
       ? clamp(
-        startTrack + (Math.random() - 0.5) * dieSize * 0.65,
-        -(state.worldDepth / 2) + dieSize * 1.1,
-        (state.worldDepth / 2) - dieSize * 1.1
+        startTrack + (Math.random() - 0.5) * dieSize * 0.45,
+        displayLimits.minZ,
+        displayLimits.maxZ
       )
       : clamp(
-        startTrack + (Math.random() - 0.5) * dieSize * 0.65,
-        -(state.worldWidth / 2) + dieSize * 1.1,
-        (state.worldWidth / 2) - dieSize * 1.1
+        startTrack + (Math.random() - 0.5) * dieSize * 0.45,
+        displayLimits.minX,
+        displayLimits.maxX
       );
 
-    const start = pointOnEdge(sourceEdge, startTrack, dieSize * 0.35);
-    const bounce = pointOnEdge(bounceEdge, bounceTrack, dieSize * 0.42);
+    const start = pointOnEdge(sourceEdge, startTrack, dieSize * 0.9);
+    const bounce = pointOnEdge(bounceEdge, bounceTrack, dieSize * 0.84);
+    const finalX = clamp(
+      lerp(displayLimits.minX, displayLimits.maxX, laneRatio) + ((Math.random() - 0.5) * dieSize * 0.35),
+      displayLimits.minX,
+      displayLimits.maxX
+    );
+    const finalZ = clamp(
+      lerp(displayLimits.maxZ, displayLimits.minZ, laneRatio) + ((Math.random() - 0.5) * dieSize * 0.35),
+      displayLimits.minZ,
+      displayLimits.maxZ
+    );
     return {
       sourceEdge,
       bounceEdge,
       bounceWall: `wall-${bounceEdge}`,
       start,
-      bounce
+      bounce,
+      final: { x: finalX, z: finalZ }
     };
   }
 
@@ -592,10 +621,10 @@
   }
 
   function clampRestPosition(dieState) {
-    const limits = getArenaLimits(dieState.dieSize);
+    const limits = getDisplayAreaLimits(dieState.dieSize);
     dieState.restPosition.x = clamp(dieState.restPosition.x, limits.minX, limits.maxX);
     dieState.restPosition.z = clamp(dieState.restPosition.z, limits.minZ, limits.maxZ);
-    dieState.restPosition.y = Math.max(dieState.restPosition.y, limits.minY);
+    dieState.restPosition.y = Math.max(dieState.restPosition.y, dieState.dieSize / 2);
   }
 
   function markDieDisplayed(dieState, now) {
@@ -610,9 +639,9 @@
     const startToBounceX = plan.bounce.x - plan.start.x;
     const startToBounceZ = plan.bounce.z - plan.start.z;
     const travelDistance = Math.max(0.01, magnitude(startToBounceX, startToBounceZ));
-    const travelTime = reducedMotion ? 0.46 : 0.62;
+    const travelTime = reducedMotion ? 0.36 : 0.44;
     const speed = travelDistance / travelTime;
-    const verticalBoost = reducedMotion ? 1.45 : 2.15;
+    const verticalBoost = reducedMotion ? 1.8 : 2.6;
 
     body.position.set(
       plan.start.x,
@@ -625,12 +654,12 @@
       (startToBounceZ / travelDistance) * speed
     );
     body.angularVelocity.set(
-      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 2.5 : 4.2),
-      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 3.2 : 5.3),
-      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 2.6 : 4.4)
+      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 4.4 : 6.8),
+      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 5.2 : 8.1),
+      (Math.random() > 0.5 ? 1 : -1) * (reducedMotion ? 4.6 : 7.2)
     );
-    body.linearDamping = reducedMotion ? 0.24 : 0.16;
-    body.angularDamping = reducedMotion ? 0.28 : 0.2;
+    body.linearDamping = reducedMotion ? 0.22 : 0.14;
+    body.angularDamping = reducedMotion ? 0.24 : 0.16;
     body.force.set(0, 0, 0);
     body.torque.set(0, 0, 0);
     body.sleepState = 0;
@@ -649,14 +678,32 @@
     if (state.world && state.world.bodies.includes(dieState.body)) {
       state.world.removeBody(dieState.body);
     }
+    dieState.phase = 'correcting';
+    dieState.correctionStart = now;
+    dieState.correctionDuration = reducedMotion ? 180 : 280;
     dieState.restPosition = dieState.mesh.position.clone();
+    dieState.restPosition.x = dieState.plan.final.x;
+    dieState.restPosition.z = dieState.plan.final.z;
+    dieState.restPosition.y = dieState.dieSize / 2;
     clampRestPosition(dieState);
     dieState.correctionFromQuaternion = dieState.mesh.quaternion.clone();
+    dieState.correctionToQuaternion = getClosestTopQuaternion(dieState.correctionFromQuaternion, getTopFaceValue(dieState.correctionFromQuaternion));
+    dieState.correctionFromPosition = dieState.mesh.position.clone();
+    dieState.correctionToPosition = dieState.restPosition.clone();
     const topValue = getTopFaceValue(dieState.correctionFromQuaternion);
     dieState.finalValue = topValue;
-    dieState.mesh.position.copy(dieState.restPosition);
-    dieState.mesh.quaternion.copy(dieState.correctionFromQuaternion);
-    markDieDisplayed(dieState, now);
+  }
+
+  function updateCorrection(dieState, now) {
+    const t = clamp((now - dieState.correctionStart) / Math.max(1, dieState.correctionDuration), 0, 1);
+    const eased = easeInOutCubic(t);
+    dieState.mesh.position.lerpVectors(dieState.correctionFromPosition, dieState.correctionToPosition, eased);
+    dieState.mesh.quaternion.copy(dieState.correctionFromQuaternion).slerp(dieState.correctionToQuaternion, eased);
+    if (t >= 1) {
+      dieState.mesh.position.copy(dieState.correctionToPosition);
+      dieState.mesh.quaternion.copy(dieState.correctionToQuaternion);
+      markDieDisplayed(dieState, now);
+    }
   }
 
   function createDieState(index, count, reducedMotion) {
@@ -712,6 +759,8 @@
       displayStart: 0,
       correctionStart: 0,
       correctionDuration: 0,
+      correctionFromPosition: null,
+      correctionToPosition: null,
       correctionFromQuaternion: null,
       correctionToQuaternion: null,
       restPosition: null
@@ -831,6 +880,8 @@
             beginCorrection(dieState, now, reducedMotion);
           }
         }
+      } else if (dieState.phase === 'correcting') {
+        updateCorrection(dieState, now);
       }
     });
 
