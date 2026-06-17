@@ -1,16 +1,36 @@
-# Ignore everything by default
+# Strategy: ignore everything by default, then allowlist what ships.
+# This repo lives inside a larger OneDrive notes folder, so the default
+# is to keep personal notes and reference PDFs out of the open-source repo.
 *
 
 # Keep the gitignore itself versioned
 !.gitignore
 
-# Keep the main app HTML
+# Main app (everything lives here)
 !index.html
 
-# Keep the external dice engine folder
+# License
+!LICENSE
+
+# External 3D dice engine and vendored libraries
 !dice-3d-engine/
 !dice-3d-engine/**
 
-# Keep a future plain-text readme if added
-!readme.md
+# Public documentation that ships with the repo.
 !README.md
+!CONTRIBUTING.md
+
+# All other .md / .txt docs are agent/working docs by design. They stay local
+# (kept in OneDrive) and are intentionally NOT allowlisted, so they are never
+# published: AGENTS.md, APP.md, ARQUITECTURA.md, PLAN.md, TODO.TXT, HISTORIAL.MD.
+
+# Interface language modules
+!i18n/
+!i18n/**
+
+# Sample exported boards
+!saves/
+!saves/**
+
+# Local agent/editor config stays out of the repo
+.claude/
