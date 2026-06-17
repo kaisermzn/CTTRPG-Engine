@@ -169,6 +169,7 @@
   <!-- Modulos (sidebar) -->
   <label key="@Modules:Title">Modulos</label>
   <label key="@Modules:Note">Controla que familias de tarjetas estan disponibles en esta sesion.</label>
+  <label key="@Modules:WipBadge">En desarrollo</label>
   <label key="@Modules:LegendActiveAria">Activar modulo Legend in the Mist</label>
   <label key="@Modules:LegendDesc">Activa o desactiva del tablero las tarjetas Legend in the Mist.</label>
   <label key="@Modules:EspadasToggleAria">Activar modulo Espadas y Espectros</label>

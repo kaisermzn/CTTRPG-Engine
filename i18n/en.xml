@@ -168,6 +168,7 @@
   <!-- Modules (sidebar) -->
   <label key="@Modules:Title">Modules</label>
   <label key="@Modules:Note">Control which card families are available in this session.</label>
+  <label key="@Modules:WipBadge">In development</label>
   <label key="@Modules:LegendActiveAria">Enable Legend in the Mist module</label>
   <label key="@Modules:LegendDesc">Enables or removes Legend in the Mist cards from the board.</label>
   <label key="@Modules:EspadasToggleAria">Enable Espadas &amp; Espectros module</label>

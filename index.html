@@ -1832,6 +1832,25 @@ button, input, textarea, select { font: inherit; }
   text-transform: uppercase;
 }
 
+.module-option-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.module-wip-badge {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
 .module-option-copy span {
   color: var(--muted);
   line-height: 1.35;
@@ -5504,28 +5523,40 @@ button.downcrawl-remoteness-option {
             <label class="module-option is-fixed">
               <input id="legendInMistModuleToggle" type="checkbox" aria-label="Activar modulo Legend in the Mist" data-i18n-attr="aria-label:@Modules:LegendActiveAria">
               <span class="module-option-copy">
-                <strong>Legend in the Mist</strong>
+                <span class="module-option-head">
+                  <strong>Legend in the Mist</strong>
+                  <span class="module-wip-badge" data-i18n="@Modules:WipBadge">En desarrollo</span>
+                </span>
                 <span data-i18n="@Modules:LegendDesc">Activa o desactiva del tablero las tarjetas Legend in the Mist.</span>
               </span>
             </label>
             <label class="module-option">
               <input id="espadasEspectrosModuleToggle" type="checkbox" aria-label="Activar modulo Espadas y Espectros" data-i18n-attr="aria-label:@Modules:EspadasToggleAria">
               <span class="module-option-copy">
-                <strong>Espadas &amp; Espectros</strong>
+                <span class="module-option-head">
+                  <strong>Espadas &amp; Espectros</strong>
+                  <span class="module-wip-badge" data-i18n="@Modules:WipBadge">En desarrollo</span>
+                </span>
                 <span data-i18n="@Modules:EspadasDesc">Activa la ficha modular de heroe con atributos, equipo, notas y experiencia persistentes.</span>
               </span>
             </label>
             <label class="module-option">
               <input id="downcrawlModuleToggle" type="checkbox" aria-label="Activar modulo Downcrawl" data-i18n-attr="aria-label:@Modules:DowncrawlToggleAria">
               <span class="module-option-copy">
-                <strong data-i18n="@Modules:DowncrawlName">Downcrawl (Experimental)</strong>
+                <span class="module-option-head">
+                  <strong data-i18n="@Modules:DowncrawlName">Downcrawl (Experimental)</strong>
+                  <span class="module-wip-badge" data-i18n="@Modules:WipBadge">En desarrollo</span>
+                </span>
                 <span data-i18n="@Modules:DowncrawlDesc">Activa o elimina del tablero las barajas y cartas Folk, junto con las cartas Volumen.</span>
               </span>
             </label>
             <label class="module-option">
               <input id="dice3dToggle" type="checkbox" aria-label="Activar tirada 3D de dados" data-i18n-attr="aria-label:@Modules:Dice3dToggleAria">
               <span class="module-option-copy">
-                <strong data-i18n="@Modules:Dice3dName">Dados 3D</strong>
+                <span class="module-option-head">
+                  <strong data-i18n="@Modules:Dice3dName">Dados 3D</strong>
+                  <span class="module-wip-badge" data-i18n="@Modules:WipBadge">En desarrollo</span>
+                </span>
                 <span data-i18n="@Modules:Dice3dDesc">Activa la animacion 3D de las tiradas. Si lo desactivas, la resolucion es mas rapida.</span>
               </span>
             </label>
@@ -5847,6 +5878,7 @@ button.downcrawl-remoteness-option {
   <label key="@Background:ColorStateEmpty">Sin color personalizado</label>
   <label key="@Modules:Title">Modulos</label>
   <label key="@Modules:Note">Controla que familias de tarjetas estan disponibles en esta sesion.</label>
+  <label key="@Modules:WipBadge">En desarrollo</label>
   <label key="@Modules:LegendActiveAria">Activar modulo Legend in the Mist</label>
   <label key="@Modules:LegendDesc">Activa o desactiva del tablero las tarjetas Legend in the Mist.</label>
   <label key="@Modules:EspadasToggleAria">Activar modulo Espadas y Espectros</label>
@@ -6563,6 +6595,7 @@ promesa: pendiente</label>
   <label key="@Background:ColorStateEmpty">No custom color</label>
   <label key="@Modules:Title">Modules</label>
   <label key="@Modules:Note">Control which card families are available in this session.</label>
+  <label key="@Modules:WipBadge">In development</label>
   <label key="@Modules:LegendActiveAria">Enable Legend in the Mist module</label>
   <label key="@Modules:LegendDesc">Enables or removes Legend in the Mist cards from the board.</label>
   <label key="@Modules:EspadasToggleAria">Enable Espadas &amp; Espectros module</label>
@@ -7279,6 +7312,7 @@ promise: pending</label>
   <label key="@Background:ColorStateEmpty">Sin color personalizato</label>
   <label key="@Modules:Title">Módulos</label>
   <label key="@Modules:Note">Controla qué familias de tarchetas son disponibles en ista sesión.</label>
+  <label key="@Modules:WipBadge">En desembolique</label>
   <label key="@Modules:LegendActiveAria">Activar módulo Legend in the Mist</label>
   <label key="@Modules:LegendDesc">Activa u elimina d'o taulero as tarchetas Legend in the Mist.</label>
   <label key="@Modules:EspadasToggleAria">Activar módulo Espadas y Espectros</label>
