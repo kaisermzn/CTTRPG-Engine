@@ -153,6 +153,7 @@
 
   <label key="@Modules:Title">Módulos</label>
   <label key="@Modules:Note">Controla qué familias de tarchetas son disponibles en ista sesión.</label>
+  <label key="@Modules:WipBadge">En desembolique</label>
   <label key="@Modules:LegendActiveAria">Activar módulo Legend in the Mist</label>
   <label key="@Modules:LegendDesc">Activa u elimina d'o taulero as tarchetas Legend in the Mist.</label>
   <label key="@Modules:EspadasToggleAria">Activar módulo Espadas y Espectros</label>
