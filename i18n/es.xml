@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Archivo de etiquetas en espanol (idioma base).
+  Patron de claves: @Modulo:Identificador (inspirado en MS Dynamics 365 F&O).
+  Para anadir un idioma nuevo, copia este archivo a i18n/<codigo>.xml y traduce los textos.
+  Si una clave falta en otro idioma, el sistema usa la version en espanol como fallback.
+  MANTENER SINCRONIZADO con el bloque i18n-fallback-es de index.html.
+-->
+<labels lang="es">
+
+  <!-- Selector de idioma (cabecera del sidebar de configuracion) -->
+  <label key="@Sidebar:LanguageTitle">Idioma</label>
+  <label key="@Sidebar:LanguageNote">Cambia el idioma de la interfaz. Al cambiarlo se recargara la pagina conservando el tablero.</label>
+  <label key="@Sidebar:LanguageSelectAria">Seleccionar idioma de la interfaz</label>
+  <label key="@Sidebar:LangOption.es">Espanol</label>
+  <label key="@Sidebar:LangOption.en">English</label>
+  <label key="@Sidebar:LangOption.an">Aragones</label>
+
+  <!-- Confirmacion de cambio de idioma -->
+  <label key="@Lang:ConfirmTitle">Cambiar idioma</label>
+  <label key="@Lang:ConfirmBody">Se recargara la pagina para aplicar el nuevo idioma. El tablero actual se guardara automaticamente y se restaurara al volver a cargar.</label>
+  <label key="@Lang:ConfirmAccept">Cambiar y recargar</label>
+  <label key="@Lang:ConfirmCancel">Cancelar</label>
+
+  <!-- Cabecera del sidebar de configuracion -->
+  <label key="@Sidebar:Eyebrow">Configuracion</label>
+  <label key="@Sidebar:Title">Tablero</label>
+  <label key="@Sidebar:Intro">Gestiona desde aqui la copia y restauracion del tablero actual.</label>
+  <label key="@Sidebar:CloseAria">Cerrar configuracion de la app</label>
+  <label key="@Sidebar:OpenAria">Abrir configuracion de la app</label>
+  <label key="@SettingsNav:General">General</label>
+  <label key="@SettingsNav:Appearance">Apariencia</label>
+  <label key="@SettingsNav:Modules">Módulos</label>
+  <label key="@SettingsNav:Dice">Dados y Token</label>
+  <label key="@SettingsNav:Data">Datos</label>
+
+  <!-- Menu de creacion (+) -->
+  <label key="@Create:ToggleAria">Crear tarjeta</label>
+  <label key="@Create:RootToggleAria">Plegar o desplegar todos los menus</label>
+  <label key="@Create:RootTitle">Crear elementos</label>
+  <label key="@Create:SectionSystem">Sistema</label>
+  <label key="@Create:Image">Imagen</label>
+  <label key="@Create:Note">Carta Nota</label>
+  <label key="@Create:Hero">Tarjeta de heroe</label>
+  <label key="@Create:Theme">Tarjeta de tema</label>
+  <label key="@Create:Community">Tarjeta de comunidad</label>
+  <label key="@Create:Tracking">Tarjeta de estado</label>
+  <label key="@Create:PositiveTag">Etiqueta positiva</label>
+  <label key="@Create:NegativeTag">Etiqueta negativa</label>
+  <label key="@Create:EspadasHero">Heroe de Espadas &amp; Espectros</label>
+  <label key="@Create:Decks">Barajas</label>
+  <label key="@Create:FolkDeck">Baraja de Folk</label>
+  <label key="@Create:VolumeDeck">Baraja de Volumenes</label>
+  <label key="@Create:DiscardDeck">Baraja de Descartes</label>
+  <label key="@Create:StoryDeck">Baraja de Historia</label>
+  <label key="@Create:Cards">Cartas</label>
+  <label key="@Create:Folk">Carta Folk</label>
+  <label key="@Create:Volume">Carta Volumen</label>
+  <label key="@Create:Threat">Amenaza</label>
+  <label key="@Create:SectionAdventure">Aventura</label>
+  <label key="@Create:DowncrawlHero">Heroe de Downcrawl</label>
+  <label key="@Create:AdventureCard">Carta Aventura</label>
+  <label key="@Create:JourneyPlan">Planificar viaje</label>
+  <label key="@Create:Others">Otros</label>
+  <label key="@Create:ContextNew">Nuevo</label>
+
+  <!-- Controles del tablero -->
+  <label key="@Board:ZoomTitle">Zoom tablero</label>
+  <label key="@Board:ZoomAria">Zoom del tablero</label>
+  <label key="@Board:Center">Centrar tablero</label>
+  <label key="@Tools:OpenAria">Abrir menu de herramientas</label>
+  <label key="@Tools:CloseAria">Cerrar menu de herramientas</label>
+
+  <!-- Bandeja de dados -->
+  <label key="@Dice:SystemLabel">Sistema</label>
+  <label key="@Dice:SystemAria">Seleccionar lanzador de dados</label>
+  <label key="@Dice:FacesAria">Dados de seis caras</label>
+  <label key="@Dice:ResultLabel">Resultado</label>
+  <label key="@Dice:RollTypeLabel">Tipo de tirada</label>
+  <label key="@Dice:RollTypeAria">Seleccionar tipo de tirada de dados</label>
+  <label key="@Dice:RollStandard">Tirada estandar</label>
+  <label key="@Dice:RollFinishAdventure">Terminar Aventura</label>
+  <label key="@Dice:RollAdvanceAdventure">Avanzar aventura</label>
+  <label key="@Dice:RollFaceChallenge">Afrontar un desafio</label>
+  <label key="@Dice:RollJourneyOn">Seguir viaje</label>
+  <label key="@Dice:RollJourneyEnd">Fin del viaje</label>
+  <label key="@Dice:RollJourneyLost">Perdido</label>
+  <label key="@Dice:DifficultyLabel">Dificultad</label>
+  <label key="@Dice:DifficultyAria">Seleccionar dificultad del desafio</label>
+  <label key="@Dice:DifficultyEasy">Facil</label>
+  <label key="@Dice:DifficultyTricky">Tricky</label>
+  <label key="@Dice:DifficultyDifficult">Dificil</label>
+  <label key="@Dice:DifficultyFoolish">Temerario</label>
+  <label key="@Dice:HeroLabel">Heroe</label>
+  <label key="@Dice:HeroAria">Seleccionar heroe</label>
+  <label key="@Dice:HeroStatLabel">Estadistica</label>
+  <label key="@Dice:HeroStatAria">Seleccionar estadistica del heroe</label>
+  <label key="@Dice:JourneyModifiers">Modificadores del viaje</label>
+  <label key="@Dice:JourneyLedDay">Has liderado un dia de viaje</label>
+  <label key="@Dice:JourneyMultipleDangers">Hay varios peligros activos</label>
+  <label key="@Dice:JourneySequentialDay">Es el tercer dia o mas del viaje</label>
+  <label key="@Dice:TackSpent">Tack gastado</label>
+  <label key="@Dice:JourneyNote">El guia explica la ruta, pero el coste de Tack se aplica como modificador antes de tirar.</label>
+  <label key="@Dice:JourneyEndTitle">Fin del viaje</label>
+  <label key="@Dice:JourneyEndTackSpent">Tack gastado en la tirada</label>
+  <label key="@Dice:JourneyEndNote">El guia cierra el viaje. Si se queda sin Tack, la tirada sufre -2.</label>
+  <label key="@Dice:LostModifiers">Modificadores de perdida</label>
+  <label key="@Dice:LostMultipleDangers">Hay varios Peligros activos</label>
+  <label key="@Dice:LostNativeDown">Eres nativo de El Abajo</label>
+  <label key="@Dice:LostRelevantCheck">Has superado una prueba relevante de habilidad o atributo</label>
+  <label key="@Dice:RollButton">Hacer tirada</label>
+  <label key="@Dice:ClearButton">Limpiar</label>
+  <label key="@Dice:RollButtonPending">Dados rodando...</label>
+  <label key="@Dice:ClearButtonPending">Cancelar tirada</label>
+  <label key="@Dice:PickJourney">Elige un viaje</label>
+  <label key="@Dice:PickHero">Elige un heroe</label>
+  <label key="@Dice:NoJourneys">No hay viajes disponibles</label>
+  <label key="@Dice:NoHeroes">No hay heroes disponibles</label>
+  <label key="@Dice:PickGuide">Elige un guia</label>
+  <label key="@Dice:PickLeader">Elige un lider</label>
+  <label key="@Dice:PickAttribute">Elige un atributo</label>
+  <label key="@Dice:PickObject">Elige un objeto</label>
+  <label key="@Dice:PickStat">Elige una estadistica</label>
+  <label key="@Dice:HeroNoOptions">Ese heroe no tiene opciones disponibles</label>
+  <label key="@Dice:PickHeroFirst">Elige antes un heroe</label>
+  <label key="@Dice:SystemAriaWith">Seleccionar lanzador de dados: {system}</label>
+  <label key="@Dice:SystemDice">Dados</label>
+  <label key="@Dice:DiceTypeLabel">Tipo de dado</label>
+  <label key="@Dice:DiceTypeAria">Seleccionar tipo de dado</label>
+  <label key="@Dice:DiceCountLabel">Cantidad</label>
+  <label key="@Dice:DiceCountAria">Seleccionar cantidad de dados</label>
+  <label key="@Dice:RollTypeAriaWith">Seleccionar tipo de tirada en {system}</label>
+  <label key="@Dice:AriaSelectJourney">Seleccionar viaje</label>
+  <label key="@Dice:AriaSelectHero">Seleccionar heroe</label>
+  <label key="@Dice:AriaSelectDowncrawlHero">Seleccionar heroe de Downcrawl</label>
+  <label key="@Dice:AriaSelectGuide">Seleccionar guia</label>
+  <label key="@Dice:AriaSelectLeader">Seleccionar lider</label>
+  <label key="@Dice:AriaSelectAttribute">Seleccionar atributo del heroe</label>
+  <label key="@Dice:AriaSelectObject">Seleccionar objeto del heroe</label>
+  <label key="@Dice:AriaSelectStat">Seleccionar estadistica del heroe</label>
+  <label key="@Dice:JourneyEndNoteHero">El guia gasta Tack en la tirada. Si se queda a 0, aplica -2.</label>
+  <label key="@Dice:JourneyEndNoteNoTack">Este guia no tiene Tack rastreado; la tirada solo usa el balance del viaje.</label>
+  <label key="@Dice:PowerLabel">PODER</label>
+  <label key="@Dice:ModifiersActive">Modificadores activos</label>
+
+  <!-- Herramientas de seleccion -->
+  <label key="@Selection:Delete">Eliminar seleccion</label>
+  <label key="@Selection:DeleteNote">Pide confirmacion antes de borrar.</label>
+
+  <!-- Tarjeta de tema (sidebar) -->
+  <label key="@Theme:Title">Tema</label>
+  <label key="@Theme:Note">Elige entre mesa oscura, clara o una variante en grises para imprimir capturas.</label>
+  <label key="@Theme:SelectAria">Seleccionar tema del tablero</label>
+  <label key="@Theme:OptionDark">Oscuro</label>
+  <label key="@Theme:OptionLight">Claro</label>
+  <label key="@Theme:OptionPrint">Impresion</label>
+
+  <!-- Fondo personalizado (sidebar) -->
+  <label key="@Background:ImageTitle">Imagen de fondo</label>
+  <label key="@Background:ImageNote">Carga una imagen personalizada para el fondo del tablero. En el tema Impresion se mostrara en escala de grises.</label>
+  <label key="@Background:ImageButton">Elegir imagen</label>
+  <label key="@Background:ClearButton">Borrar</label>
+  <label key="@Background:ImageStateEmpty">Sin imagen personalizada</label>
+  <label key="@Background:ColorTitle">Color de fondo</label>
+  <label key="@Background:ColorNote">Define un color personalizado para el fondo. En el tema Impresion se forzara a escala de grises.</label>
+  <label key="@Background:ColorAria">Color de fondo personalizado</label>
+  <label key="@Background:ColorStateEmpty">Sin color personalizado</label>
+
+  <!-- Modulos (sidebar) -->
+  <label key="@Modules:Title">Modulos</label>
+  <label key="@Modules:Note">Controla que familias de tarjetas estan disponibles en esta sesion.</label>
+  <label key="@Modules:LegendActiveAria">Activar modulo Legend in the Mist</label>
+  <label key="@Modules:LegendDesc">Activa o desactiva del tablero las tarjetas Legend in the Mist.</label>
+  <label key="@Modules:EspadasToggleAria">Activar modulo Espadas y Espectros</label>
+  <label key="@Modules:EspadasDesc">Activa la ficha modular de heroe con atributos, equipo, notas y experiencia persistentes.</label>
+  <label key="@Modules:DowncrawlToggleAria">Activar modulo Downcrawl</label>
+  <label key="@Modules:DowncrawlName">Downcrawl (Experimental)</label>
+  <label key="@Modules:DowncrawlDesc">Activa o elimina del tablero las barajas y cartas Folk, junto con las cartas Volumen.</label>
+  <label key="@Modules:Dice3dToggleAria">Activar tirada 3D de dados</label>
+  <label key="@Modules:Dice3dName">Dados 3D</label>
+  <label key="@Modules:Dice3dDesc">Activa la animacion 3D de las tiradas. Si lo desactivas, la resolucion es mas rapida.</label>
+
+  <!-- Ajustes de Dados 3D (sidebar) -->
+  <label key="@Dice3d:Title">Ajustes de Dados 3D</label>
+  <label key="@Dice3d:Note">Define si las caras usan puntos o cifras y ajusta los colores del dado, borde y tinta.</label>
+  <label key="@Dice3d:FacesLabel">Caras</label>
+  <label key="@Dice3d:FacesAria">Elegir si los dados 3D usan puntos o cifras</label>
+  <label key="@Dice3d:FacePips">Puntos</label>
+  <label key="@Dice3d:FaceNumber">Cifras</label>
+  <label key="@Dice3d:DieColorLabel">Color del dado</label>
+  <label key="@Dice3d:DieColorAria">Color base del dado 3D</label>
+  <label key="@Dice3d:EdgeColorLabel">Color del borde</label>
+  <label key="@Dice3d:EdgeColorAria">Color del borde del dado 3D</label>
+  <label key="@Dice3d:InkColorLabel">Color de puntos o cifras</label>
+  <label key="@Dice3d:InkColorAria">Color de puntos o cifras del dado 3D</label>
+  <label key="@Dice3d:ChipDie">Dado</label>
+  <label key="@Dice3d:ChipEdge">Borde</label>
+  <label key="@Dice3d:ChipInk">Tinta</label>
+
+  <!-- Acciones de exportar/importar (sidebar) -->
+  <label key="@Actions:ExportTitle">Exportar JSON</label>
+  <label key="@Actions:ExportNote">Descarga una copia completa del tablero actual.</label>
+  <label key="@Actions:ImportTitle">Importar JSON</label>
+  <label key="@Actions:ImportNote">Restaura un tablero guardado desde un archivo.</label>
+  <label key="@Actions:ResetTitle">Nuevo tablero</label>
+  <label key="@Actions:ResetNote">Abre el menu de inicio para crear o cargar un tablero.</label>
+
+  <!-- Bandeja de dados: pistas de modificadores vacios -->
+  <label key="@Dice:EmptyModifiersLegend">Abre la bandeja y pulsa tags o debilidades para sumar PODER.</label>
+  <label key="@Dice:EmptyModifiersDowncrawl">Abre la bandeja y pulsa tags o debilidades para sumar PODER en Downcrawl.</label>
+
+  <!-- Bandeja de dados: etiquetas de resultado -->
+  <label key="@DiceRes:Success">Exito</label>
+  <label key="@DiceRes:Failure">Fracaso</label>
+  <label key="@DiceRes:Consequences">Consecuencias</label>
+  <label key="@DiceRes:Mixed">Exito y consecuencias</label>
+  <label key="@DiceRes:FaceSuccess">8+ Exito</label>
+  <label key="@DiceRes:FaceFailure">7- Conserva tu fuerza o empuja el exito</label>
+  <label key="@DiceRes:LostSuccess">6+ Hallazgo</label>
+  <label key="@DiceRes:LostMixed">4-5 Descubrimiento</label>
+  <label key="@DiceRes:LostFailure">1-3 Peligro</label>
+  <label key="@DiceRes:EndSuccess">10+ Llegada segura</label>
+  <label key="@DiceRes:EndMixed">7-9 Llegada con problemas</label>
+  <label key="@DiceRes:EndFailure">6- Llegada inesperada</label>
+  <label key="@DiceRes:OnSuccess">10+ Camino despejado</label>
+  <label key="@DiceRes:OnFailure">6- Te has perdido</label>
+  <label key="@DiceRes:OnMixed">7-9 Camino accidentado</label>
+
+  <!-- Bandeja de dados: notas de resultado -->
+  <label key="@DiceNote:FaceConserve">Fallo asumido, gana DESTINO</label>
+  <label key="@DiceNote:OnSteady">Progreso marcado con cautela</label>
+  <label key="@DiceNote:OnForce">Progreso marcado, pero has levantado peligros</label>
+  <label key="@DiceNote:OnLost">Fracaso: el viaje te ha confundido</label>
+  <label key="@DiceNote:OnDesperateSuccess">Exito tras gastar {tack} Tack</label>
+  <label key="@DiceNote:OnDesperateFailure">Fracaso tras agotar el Tack</label>
+  <label key="@DiceNote:OnDesperateNoTack">Fracaso: no hay Tack rastreado</label>
+  <label key="@DiceNote:OnMixed">Camino accidentado: elige como seguir</label>
+  <label key="@DiceNote:OnConsequence">Te has perdido: elige una salida</label>
+  <label key="@DiceNote:OnClear">Camino despejado</label>
+  <label key="@DiceNote:EndRecoverTack">Recuperas 1 Tack</label>
+  <label key="@DiceNote:EndRemoveDanger">Eliminas una Amenaza</label>
+  <label key="@DiceNote:EndAmbush">Llegas con una emboscada</label>
+  <label key="@DiceNote:EndRouteClosed">La ruta queda cerrada</label>
+  <label key="@DiceNote:EndAdjacentVolume">Llegas a un volumen adyacente</label>
+  <label key="@DiceNote:EndUnexpectedVolume">Aparece un volumen inesperado</label>
+  <label key="@DiceNote:EndSafe">Llegada segura</label>
+  <label key="@DiceNote:EndTrouble">Llegada con problemas</label>
+  <label key="@DiceNote:EndUnexpected">Llegada inesperada</label>
+  <label key="@DiceNote:LostLuckySuccess">Exito por suerte, pero sigues perdido</label>
+  <label key="@DiceNote:LostLuckyFailure">Fracaso: ganas Tack y sigues perdido</label>
+  <label key="@DiceNote:LostCamp">Descubrimiento: acampa por el dia</label>
+  <label key="@DiceNote:LostReturnSuccess">Destino cambiado al volumen de origen</label>
+  <label key="@DiceNote:LostReturnFailure">Fracaso: no tomas el camino de vuelta</label>
+  <label key="@DiceNote:LostVolumeSuccess">Destino cambiado a un volumen cercano</label>
+  <label key="@DiceNote:LostVolumeFailure">Fracaso: no tomas la nueva ruta</label>
+  <label key="@DiceNote:LostDanger">Fracaso: anade un Peligro</label>
+  <label key="@DiceNote:LostDiscovery1">Descubrimiento 1: acampa por el dia</label>
+  <label key="@DiceNote:LostDiscovery2">Descubrimiento 2: vuelve al volumen de origen</label>
+  <label key="@DiceNote:LostDiscovery3">Descubrimiento 3: busca un volumen cercano</label>
+  <label key="@DiceNote:LostPrompt6">6+: elige un resultado</label>
+  <label key="@DiceNote:LostPrompt45">4-5: haz un descubrimiento</label>
+  <label key="@DiceNote:LostPrompt13">1-3: fracaso y Peligro</label>
+
+  <!-- Bandeja de dados: controles y desplegables -->
+  <label key="@Dice:RollMovement">Tirada de Movimiento</label>
+  <label key="@Dice:RollAttribute">Tirada de atributo</label>
+  <label key="@Dice:RollQuickObject">Tirada de Objeto Rapida</label>
+  <label key="@Dice:ModeLabel">Modo</label>
+  <label key="@Dice:ModeNormal">Normal</label>
+  <label key="@Dice:ModeAdvantage">Ventaja</label>
+  <label key="@Dice:ModeDisadvantage">Desventaja</label>
+  <label key="@Dice:LabelJourney">Viaje</label>
+  <label key="@Dice:LabelGuide">Guia</label>
+  <label key="@Dice:LabelLeader">Lider</label>
+  <label key="@Dice:LabelAttribute">Atributo</label>
+  <label key="@Dice:LabelObject">Objeto</label>
+
+  <!-- Bandeja de dados: resumenes y botones de empuje -->
+  <label key="@DicePush:FatefulUses">Momentos fatidicos: {n}</label>
+  <label key="@DicePush:AccumulatedPush">Empuje acumulado: +{n}</label>
+  <label key="@DicePush:FaceCanPush">Puedes seguir empujando hasta 8+ o conservar tu fuerza.</label>
+  <label key="@DicePush:FaceOpen">La tirada sigue abierta: elige si conservas tu fuerza o empujas el exito con un coste.</label>
+  <label key="@DicePush:Conserve">Conservar tu fuerza (+1 DESTINO)</label>
+  <label key="@DicePush:Fateful">Momento fatidico (+2, gasta 1 DESTINO)</label>
+  <label key="@DicePush:FatefulWithLeft">Momento fatidico (+2, gasta 1 DESTINO, te quedan {left})</label>
+  <label key="@DicePush:GuideName">Guia: {name}</label>
+  <label key="@DicePush:JourneyName">Viaje: {name}</label>
+  <label key="@DicePush:LeaderName">Lider: {name}</label>
+  <label key="@DicePush:TackBase">Tack base: +{n}</label>
+  <label key="@DicePush:OnLedDay">-1 por haber liderado ya un dia</label>
+  <label key="@DicePush:OnDangers">-1 por varios peligros</label>
+  <label key="@DicePush:OnSequential">+1 por el tercer dia o mas</label>
+  <label key="@DicePush:OnEmpty">Elige como resolver la marcha despues de ver el resultado.</label>
+  <label key="@DicePush:Steady">Avanzar con cautela</label>
+  <label key="@DicePush:Force">Forzar la marcha</label>
+  <label key="@DicePush:Lost">Admitir la perdida</label>
+  <label key="@DicePush:Desperate">CAMINO DESESPERADO TACK 1D3</label>
+  <label key="@DicePush:DesperateWithCost">CAMINO DESESPERADO TACK {tack}</label>
+  <label key="@DicePush:DesperateTitle">Tira un d6 visual para calcular el coste como d3 de Tack</label>
+  <label key="@DicePush:Balance">Balance: {success} exito(s) / {failure} fracaso(s)</label>
+  <label key="@DicePush:TackSpentAmount">Tack gastado: +{n}</label>
+  <label key="@DicePush:NoTack">Sin Tack: -2</label>
+  <label key="@DicePush:EndEmpty">Elige como narrar la llegada despues de ver el resultado.</label>
+  <label key="@DicePush:RecoverTack">Recuperar 1 Tack</label>
+  <label key="@DicePush:RemoveThreat">Eliminar Amenaza seleccionada</label>
+  <label key="@DicePush:EndResolved">La llegada queda resuelta; narra el cierre del viaje.</label>
+  <label key="@DicePush:Ambush">Emboscada antes de llegar</label>
+  <label key="@DicePush:CloseRoute">Cerrar la ruta con todo el Tack restante</label>
+  <label key="@DicePush:UseVolume">Usar el volumen seleccionado</label>
+  <label key="@DicePush:AdjacentVolume">Volumen adyacente</label>
+  <label key="@DicePush:CreateVolume">Crear volumen inesperado</label>
+  <label key="@DicePush:LostDangers">-1 por varios Peligros</label>
+  <label key="@DicePush:LostNative">+1 por ser nativo de El Abajo</label>
+  <label key="@DicePush:LostRelevant">+1 por una prueba relevante</label>
+  <label key="@DicePush:D3">D3: {n}</label>
+  <label key="@DicePush:LostEmpty">Elige como resolver el viaje perdido despues de ver el resultado.</label>
+  <label key="@DicePush:LuckySuccess">Registrar exito por suerte</label>
+  <label key="@DicePush:LuckyFailure">Registrar fracaso y ganar d3 Tack</label>
+  <label key="@DicePush:RollDiscovery">Tirar d3 de descubrimiento</label>
+  <label key="@DicePush:Camp">Acampar</label>
+  <label key="@DicePush:ReturnSuccess">Tomar el camino de vuelta (+d3 Tack)</label>
+  <label key="@DicePush:DontTake">No tomarlo</label>
+  <label key="@DicePush:VolumeSuccess">Tomar la ruta al volumen cercano (+d3 Tack)</label>
+  <label key="@DicePush:AddDanger">Registrar fracaso y anadir un Peligro</label>
+
+  <!-- Bandeja de dados: resumenes de dificultad -->
+  <label key="@Dice:DifficultySummaryEasy">3d6, descarta el menor</label>
+  <label key="@Dice:DifficultySummaryTricky">2d6</label>
+  <label key="@Dice:DifficultySummaryDifficult">3d6, descarta el mayor</label>
+  <label key="@Dice:DifficultySummaryFoolish">4d6, descarta los 2 mayores</label>
+
+  <!-- Bandeja de dados: desglose de dados -->
+  <label key="@DiceBreak:ChallengeIntro">{label}: {summary}. Tricky es la base; si la situacion aprieta, ajusta un nivel antes de tirar.</label>
+  <label key="@DiceBreak:KeepDiscardPlural">Se conservan {kept} y se descartan {discarded}.</label>
+  <label key="@DiceBreak:KeepPlural">Se conservan {kept}.</label>
+  <label key="@DiceBreak:Advantage">Ventaja: tira 2d6 y descarta el mayor.</label>
+  <label key="@DiceBreak:Disadvantage">Desventaja: tira 2d6 y descarta el menor.</label>
+  <label key="@DiceBreak:KeepDiscardSingular">Se conserva {kept} y se descarta {discarded}.</label>
+  <label key="@DiceBreak:KeepSingular">Se conserva {kept}.</label>
+
+  <!-- Bandeja de dados: ayuda contextual -->
+  <label key="@DiceHelp:Pending">Los dados estan rodando. El resultado y sus efectos apareceran al asentarse.</label>
+  <label key="@DiceHelp:QuickPickHero">Elige un heroe para seleccionar uno de sus objetos de equipo.</label>
+  <label key="@DiceHelp:QuickPickObject">Elige un objeto del equipo principal del heroe.</label>
+  <label key="@DiceHelp:QuickRoll">Tira 1d6. Exito con {value} o menos usando {object}.</label>
+  <label key="@DiceHelp:FacePickHero">Elige un heroe para afrontar el desafio.</label>
+  <label key="@DiceHelp:FacePickStat">Elige una estadistica del heroe para sumar su PODER a la tirada.</label>
+  <label key="@DiceHelp:FaceConserved">Has conservado tu fuerza: fallas la tirada, explicas que aprendiste o por que te costo, y ganas 1 DESTINO.</label>
+  <label key="@DiceHelp:FaceConsequence">En 7-, puedes conservar tu fuerza para fallar y ganar DESTINO, o seguir empujando con Momento fatidico hasta llegar a 8+.</label>
+  <label key="@DiceHelp:FaceSuccessPushed">Has llegado a 8+ tras empujar la tirada. Di como superas el desafio usando {stat}.</label>
+  <label key="@DiceHelp:FaceSuccess">En 8+, di como superas el desafio usando {stat}.</label>
+  <label key="@DiceHelp:FaceRoll">{label}: {summary}. Tiraras usando {stat}.</label>
+  <label key="@DiceHelp:OnPickJourney">Selecciona un viaje para empezar.</label>
+  <label key="@DiceHelp:OnPickGuide">Elige un guia para narrar la marcha.</label>
+  <label key="@DiceHelp:OnNoSlots">Ese viaje ya no tiene huecos disponibles para anotar progreso.</label>
+  <label key="@DiceHelp:OnSteady">Has avanzado con cuidado y marcas progreso en el viaje.</label>
+  <label key="@DiceHelp:OnForce">Has forzado la marcha y marcas progreso, pero recuerda anotar el peligro que dejaste atras.</label>
+  <label key="@DiceHelp:OnLost">Te has perdido: marca fracaso y explica por que este territorio te confunde.</label>
+  <label key="@DiceHelp:OnDesperateRolling">Lanzando un d6 visual para calcular el coste de Tack como d3.</label>
+  <label key="@DiceHelp:OnDesperateSuccess">El camino desesperado ha funcionado. Restaste {tack} Tack y marcas progreso.</label>
+  <label key="@DiceHelp:OnDesperateFailure">El camino desesperado no ha bastado. Perdiste tu Tack restante y marcas fracaso.</label>
+  <label key="@DiceHelp:OnDesperateNoTack">No hay Tack rastreado para este guia. Marca fracaso y deja claro por que el atajo no funciono.</label>
+  <label key="@DiceHelp:OnDesperateRolled">Se ha lanzado un d6 visual que cuenta como d3 de Tack: {tack} Tack.</label>
+  <label key="@DiceHelp:OnSuccess">10+: encuentras una via clara. Marca exito en el primer hueco libre del viaje.</label>
+  <label key="@DiceHelp:OnMixed">7-9: encuentras camino, pero es accidentado. Elige si avanzas con cautela o fuerzas la marcha.</label>
+  <label key="@DiceHelp:OnConsequence">6-: te has perdido temporalmente. Elige si asumes la perdida o tomas un camino desesperado con un d6 visual que se resuelve como d3 de Tack.</label>
+  <label key="@DiceHelp:OnPrompt">Selecciona viaje, guia y modificadores antes de tirar.</label>
+  <label key="@DiceHelp:EndPickJourney">Selecciona un viaje para cerrar.</label>
+  <label key="@DiceHelp:EndPickGuide">Elige un guia para cerrar el tramo final.</label>
+  <label key="@DiceHelp:EndNoSlot">Ese viaje ya tiene cerrada su casilla final.</label>
+  <label key="@DiceHelp:EndRecoverTack">Recuperas 1 Tack porque ya habias gastado Tack en la tirada.</label>
+  <label key="@DiceHelp:EndRemoveDanger">La Amenaza seleccionada ha sido eliminada.</label>
+  <label key="@DiceHelp:EndAmbush">Una emboscada te recibe antes de llegar al destino.</label>
+  <label key="@DiceHelp:EndRouteClosed">Has gastado el Tack restante y la ruta queda cerrada.</label>
+  <label key="@DiceHelp:EndAdjacentVolume">Has llegado a un volumen adyacente al destino previsto.</label>
+  <label key="@DiceHelp:EndUnexpectedVolume">Has creado un volumen inesperado y lo has tomado como nueva llegada.</label>
+  <label key="@DiceHelp:EndSuccessTack">10+: llegas con soltura. Puedes recuperar 1 Tack o eliminar una Amenaza seleccionada.</label>
+  <label key="@DiceHelp:EndSuccessThreat">10+: llegas con soltura. Si hay una Amenaza seleccionada, puedes eliminarla.</label>
+  <label key="@DiceHelp:EndSuccessPlain">10+: llegas con soltura. Narra el cierre del viaje.</label>
+  <label key="@DiceHelp:EndMixed">7-9: llegas con problemas. Elige entre una emboscada o cerrar la ruta gastando tu Tack restante.</label>
+  <label key="@DiceHelp:EndConsequence">6-: llegas a un lugar inesperado. Elige un volumen adyacente o crea uno inesperado.</label>
+  <label key="@DiceHelp:EndPrompt">Selecciona viaje, guia y Tack antes de tirar.</label>
+  <label key="@DiceHelp:LostPickLeader">Elige un lider para buscar una salida.</label>
+  <label key="@DiceHelp:LostLuckySuccess">Has tenido suerte: registras exito, pero sigues perdido.</label>
+  <label key="@DiceHelp:LostLuckyFailure">Has encontrado una salida, pero sigues perdido: ganas Tack.</label>
+  <label key="@DiceHelp:LostCamp">Has encontrado un lugar para acampar. Pasa al movimiento de Acampar.</label>
+  <label key="@DiceHelp:LostReturnSuccess">Tomas el camino de vuelta, cambias el destino al volumen de origen y ganas Tack.</label>
+  <label key="@DiceHelp:LostReturnFailure">No tomas el camino de vuelta: registra fracaso.</label>
+  <label key="@DiceHelp:LostVolumeSuccess">Sigues la nueva ruta hacia otro volumen y ganas Tack.</label>
+  <label key="@DiceHelp:LostVolumeFailure">No tomas la nueva ruta: registra fracaso.</label>
+  <label key="@DiceHelp:LostDanger">Fracaso: anade un Peligro y sigue con el Encuentro de viaje.</label>
+  <label key="@DiceHelp:LostDiscovery1">1: encuentras un lugar para acampar.</label>
+  <label key="@DiceHelp:LostDiscovery2">2: descubres el camino de vuelta al origen.</label>
+  <label key="@DiceHelp:LostDiscovery3">3: descubres una ruta hacia un volumen cercano.</label>
+  <label key="@DiceHelp:LostPrompt6">6+: elige entre exito por suerte o fracaso con d3 Tack.</label>
+  <label key="@DiceHelp:LostPrompt45">4-5: haz un descubrimiento y tira d3.</label>
+  <label key="@DiceHelp:LostPrompt13">1-3: fracaso y anade un Peligro.</label>
+  <label key="@DiceHelp:FinishPickAdventure">Selecciona una carta de aventura para habilitar la tirada.</label>
+  <label key="@DiceHelp:FinishPendingMilestones">Resuelve antes todos los hitos previos al final para poder terminar la aventura.</label>
+  <label key="@DiceHelp:FinishAlreadyDone">La aventura seleccionada ya tiene el hito final resuelto.</label>
+  <label key="@DiceHelp:FinishUsing">Usando {adventure} para calcular el PODER automatico.</label>
+  <label key="@DiceHelp:AdvanceFinished">La aventura seleccionada ya esta terminada.</label>
+  <label key="@DiceHelp:AdvancePickHero">Elige un heroe para avanzar la aventura.</label>
+  <label key="@DiceHelp:AdvancePickStat">Elige una estadistica de heroe para avanzar el hito {n}.</label>
+  <label key="@DiceHelp:AdvanceResolve">Se resolvera el hito {n} de {adventure} usando {stat}.</label>
+  <label key="@DiceHelp:TheSelectedAdventure">la aventura seleccionada</label>
+  <label key="@DiceHelp:TheAdventure">la aventura</label>
+
+  <!-- Bandeja de dados: pistas cuando no hay modificadores -->
+  <label key="@DiceMod:FinishPickAdventure">Selecciona una carta de aventura para ver el PODER automatico de sus hitos.</label>
+  <label key="@DiceMod:FinishPending">Terminar Aventura solo se habilita cuando todos los hitos previos ya estan resueltos.</label>
+  <label key="@DiceMod:FinishUnavailable">La aventura seleccionada ya no puede usar esta tirada final.</label>
+  <label key="@DiceMod:PickHeroThenStat">Selecciona un heroe para elegir despues una estadistica.</label>
+  <label key="@DiceMod:PickStatRoll">Selecciona una estadistica de heroe para anadir su PODER a la tirada.</label>
+  <label key="@DiceMod:PickStatChallenge">Selecciona una estadistica de heroe para anadir su PODER al desafio.</label>
+  <label key="@DiceMod:AdjustJourneyEnd">Ajusta el balance del viaje y el Tack gastado antes de tirar.</label>
+  <label key="@DiceMod:AdjustJourneyOn">Ajusta las condiciones del viaje y el Tack gastado antes de tirar.</label>
+
+  <!-- Tarjetas: comun -->
+  <label key="@Card:InlineEditHint">Edicion directa activa. Pulsa Esc o haz clic fuera para cerrar.</label>
+  <label key="@Card:Notes">Notas</label>
+  <label key="@Card:NoTitle">Sin titulo</label>
+
+  <!-- Tarjeta de heroe (LitM) -->
+  <label key="@Card:HeroSmallLabel">Tarjeta de heroe</label>
+  <label key="@Card:HeroName">Nombre del heroe</label>
+  <label key="@Card:HeroNameEmpty">Sin nombre todavia</label>
+  <label key="@Card:HeroBackpack">Tags de mochila</label>
+  <label key="@Card:NoTagsYet">Sin tags todavia</label>
+  <label key="@Card:HeroCommunity">Relaciones de comunidad</label>
+  <label key="@Card:NoRelationYet">Sin relacion todavia</label>
+  <label key="@Card:HeroPromises">Promesas</label>
+  <label key="@Card:HeroFallback">heroe</label>
+  <label key="@Card:HeroResizeAria">Cambiar tamano de la tarjeta interna de {name}</label>
+  <label key="@Card:PromiseAria">Ajustar progreso de promesas a {n} de {total} en {title}</label>
+
+  <!-- Tarjeta de estado (LitM) -->
+  <label key="@Card:Status">Estado</label>
+  <label key="@Card:TrackingCheckAria">Alternar {n} de {total} checks en {title}</label>
+
+  <!-- Tarjeta de tema/comunidad (LitM) -->
+  <label key="@Card:ThemeLabel">Tarjeta de tema</label>
+  <label key="@Card:ThemeCardFallback">tarjeta de tema</label>
+  <label key="@Card:Power">Poder</label>
+  <label key="@Card:Type">Tipo</label>
+  <label key="@Card:Tags">Tags</label>
+  <label key="@Card:Weaknesses">Debilidades</label>
+  <label key="@Card:Mission">Mision</label>
+  <label key="@Card:NoMissionYet">Sin mision todavia.</label>
+  <label key="@Card:Abandon">Abandono</label>
+  <label key="@Card:Improve">Mejora</label>
+  <label key="@Card:Milestone">Hito</label>
+  <label key="@Card:ThemeCheckAria">{label}: ajustar progreso a {n} de 3 en {title}</label>
+  <label key="@Card:ThemePowerAria">Seleccionar poder de {title}</label>
+  <label key="@Card:PowerOrigin">Origen</label>
+  <label key="@Card:PowerAdventure">Aventura</label>
+  <label key="@Card:PowerGreatness">Grandeza</label>
+  <label key="@Card:SpecialImprovements">Mejoras especiales ({n})</label>
+  <label key="@Card:SpecialImprovementsAria">Mostrar {n} mejoras especiales de {title}</label>
+  <label key="@Card:TheCard">la tarjeta</label>
+  <label key="@Card:Improvement">Mejora {n}</label>
+  <label key="@Card:Delete">Eliminar</label>
+  <label key="@Card:DeleteImprovementAria">Eliminar mejora especial {n} de {title}</label>
+  <label key="@Card:ImprovementTitlePlaceholder">Titulo de la mejora</label>
+  <label key="@Card:ImprovementDescPlaceholder">Describe la mejora especial.</label>
+  <label key="@Card:FlipToFront">Volver al anverso</label>
+  <label key="@Card:FlipToFrontAria">Volver al anverso de {title}</label>
+  <label key="@Card:SpecialImprovementsTitle">Mejoras especiales</label>
+  <label key="@Card:NoImprovementsYet">Todavia no hay mejoras especiales. Anade la primera para usar este reverso.</label>
+  <label key="@Card:AddImprovement">Anadir mejora</label>
+
+  <!-- Tarjeta de imagen (Sistema) -->
+  <label key="@Card:ImageAlt">Imagen</label>
+
+  <!-- Ficha de heroe Espadas & Espectros -->
+  <label key="@EE:SheetTitlePlaceholder">Titulo de la ficha</label>
+  <label key="@EE:Hero">Heroe</label>
+  <label key="@EE:MainSheet">Ficha principal</label>
+  <label key="@EE:Name">Nombre</label>
+  <label key="@EE:NewHero">Nuevo heroe</label>
+  <label key="@EE:Background">Trasfondo</label>
+  <label key="@EE:BackgroundPlaceholder">Origen, oficio o pasado</label>
+  <label key="@EE:BackgroundPending">Trasfondo pendiente</label>
+  <label key="@EE:SpecialAbility">Habilidad especial</label>
+  <label key="@EE:SpecialAbilityPlaceholder">Describe tu tecnica distintiva</label>
+  <label key="@EE:SpecialAbilityPending">Habilidad especial pendiente</label>
+  <label key="@EE:Life">Vida</label>
+  <label key="@EE:Armor">Armadura</label>
+  <label key="@EE:Treasures">Tesoros</label>
+  <label key="@EE:Attributes">Atributos</label>
+  <label key="@EE:BaseValues">Valores base</label>
+  <label key="@EE:AttributeCopyPlaceholder">Describe usos habituales</label>
+  <label key="@EE:AttributeStateAria">Alternar estado de {key}</label>
+  <label key="@EE:NoFocusYet">Sin enfoque todavia.</label>
+  <label key="@EE:NoNotesYet">Sin notas todavia.</label>
+  <label key="@EE:NotesPlaceholder">Anota nombres, deudas, rumores o ganchos</label>
+  <label key="@EE:Experience">Experiencia</label>
+  <label key="@EE:ExperienceCopy">1 PX = 1 logro importante</label>
+  <label key="@EE:Equipment">Equipo</label>
+  <label key="@EE:EquipmentCount">{n}/{total} elementos</label>
+  <label key="@EE:SlotPlaceholder">Objeto o recurso</label>
+  <label key="@EE:EquipmentMarksAria">Marcas de equipo {n}</label>
+  <label key="@EE:NoEquipmentYet">Sin equipo anotado todavia.</label>
+  <label key="@EE:TrivialTitle">Objetos triviales o diminutos</label>
+  <label key="@EE:TrivialPlaceholder">Anota una linea por objeto</label>
+  <label key="@EE:NoTrivialYet">Sin objetos triviales todavia.</label>
+  <label key="@EE:ToggleMark">Alternar marca</label>
+  <label key="@EE:PanelResizeAria">Redimensionar panel {panel}</label>
+
+  <!-- Cartas Downcrawl: comun (frente/dorso) -->
+  <label key="@DC:ViewFront">Ver frente</label>
+  <label key="@DC:ViewBack">Ver dorso</label>
+  <label key="@DC:ShowFrontAria">Mostrar frente de {title}</label>
+  <label key="@DC:ShowBackAria">Mostrar dorso de {title}</label>
+  <label key="@DC:CardFallback">Tarjeta</label>
+  <label key="@DC:BackNotesPlaceholder">Escribe aqui las notas del dorso.</label>
+
+  <!-- Carta Amenaza -->
+  <label key="@DC:ThreatTitlePlaceholder">Titulo de la amenaza</label>
+  <label key="@DC:Index">Indice</label>
+  <label key="@DC:Description">Descripcion</label>
+  <label key="@DC:ThreatDescPlaceholder">Escribe aqui la descripcion de la amenaza.</label>
+  <label key="@DC:NoDescriptionYet">Sin descripcion todavia.</label>
+
+  <!-- Carta Heroe de Downcrawl -->
+  <label key="@DC:CardTitlePlaceholder">Titulo de la tarjeta</label>
+  <label key="@DC:Title">Titulo</label>
+  <label key="@DC:HeroTitlePlaceholder">Bardo de la escalera rota</label>
+  <label key="@DC:NoTitleYet">Sin titulo todavia</label>
+  <label key="@DC:Resources">Recursos</label>
+  <label key="@DC:Fate">Destino</label>
+  <label key="@DC:Tack">TACK / Inteligencia</label>
+  <label key="@DC:Stats">Estadisticas</label>
+  <label key="@DC:BonusReady">Bonus listo</label>
+  <label key="@DC:StatFallback">Estadistica</label>
+  <label key="@DC:Aspects">Aspectos</label>
+  <label key="@DC:AspectsPlaceholder">Viejos huesos
+Libro de los suenos
+Cantor de canciones</label>
+  <label key="@DC:NoAspectsYet">Sin aspectos todavia</label>
+  <label key="@DC:MarkDamageAria">Marcar dano en {stat}</label>
+  <label key="@DC:MarkUseAria">Marcar uso en {stat}</label>
+  <label key="@DC:ToneAria">Ajustar {stat} como {tone}</label>
+
+  <!-- Carta Folk -->
+  <label key="@DC:FolkDeckLabel">Mazo de folk</label>
+  <label key="@DC:FolkNamePlaceholder">Nombre del folk</label>
+  <label key="@DC:NewFolk">Nuevo folk</label>
+  <label key="@DC:NameSummary">Nombre y resumen</label>
+  <label key="@DC:SummaryPlaceholder">Resumen</label>
+  <label key="@DC:NoSummaryYet">Sin resumen todavia.</label>
+  <label key="@DC:Traits">Rasgos</label>
+  <label key="@DC:Aspect">Aspecto</label>
+  <label key="@DC:Concept">Concepto</label>
+  <label key="@DC:Reputation">Reputación</label>
+
+  <!-- Barajas -->
+  <label key="@DC:DeckNamePlaceholder">Nombre de la baraja</label>
+  <label key="@DC:NewFolkDeck">Nueva baraja de folk</label>
+  <label key="@DC:NewVolumeDeck">Nueva baraja de volumenes</label>
+  <label key="@DC:NewDiscardDeck">Nueva baraja de descartes</label>
+  <label key="@DC:NewHistoryDeck">Nueva baraja de historia</label>
+  <label key="@DC:InsideCount">{n} dentro</label>
+  <label key="@DC:Shuffle">Barajar</label>
+
+  <!-- Carta Volume -->
+  <label key="@DC:VolumeDeckLabel">Mazo de mapa</label>
+  <label key="@DC:VolumeNamePlaceholder">Nombre del volume</label>
+  <label key="@DC:NewVolume">Nuevo volume</label>
+  <label key="@DC:Remoteness">Lejanía</label>
+  <label key="@DC:Theme">Tema</label>
+  <label key="@DC:Terrain">Terreno</label>
+  <label key="@DC:Resource">Recurso</label>
+  <label key="@DC:Abundant">Abundante</label>
+  <label key="@DC:Scarce">Escaso</label>
+  <label key="@DC:RemotenessKnown">Conocido</label>
+  <label key="@DC:RemotenessSheltered">Resguardado</label>
+  <label key="@DC:RemotenessHidden">Oculto</label>
+
+  <!-- Cartas Aventura y Viaje -->
+  <label key="@DC:AdventureDeckLabel">Downcrawl Aventura</label>
+  <label key="@DC:JourneyDeckLabel">Viaje</label>
+  <label key="@DC:AdventureTitlePlaceholder">Titulo de la aventura</label>
+  <label key="@DC:JourneyTitlePlaceholder">Titulo del viaje</label>
+  <label key="@DC:NewAdventure">Nueva aventura</label>
+  <label key="@DC:NewJourney">Nuevo viaje</label>
+  <label key="@DC:Milestones">Hitos</label>
+  <label key="@DC:Stages">Etapas</label>
+  <label key="@DC:Number">Numero</label>
+  <label key="@DC:MilestoneRoute">Ruta de hitos</label>
+  <label key="@DC:JourneyRoute">Ruta de viaje</label>
+  <label key="@DC:AdventureDescPlaceholder">Descripcion de la aventura</label>
+  <label key="@DC:MilestoneN">Hito {n}</label>
+  <label key="@DC:ResolveMilestoneAria">Resolver hito {n} de {title}</label>
+  <label key="@DC:AdventureFallback">aventura</label>
+  <label key="@DC:StepperIncAria">Aumentar hitos en {title}</label>
+  <label key="@DC:StepperDecAria">Reducir hitos en {title}</label>
+  <label key="@DC:FinalResolved">Final resuelto</label>
+  <label key="@DC:FinalFailed">Final fallido</label>
+  <label key="@DC:Final">Final</label>
+  <label key="@DC:Positive">Positivo</label>
+  <label key="@DC:Negative">Negativo</label>
+  <label key="@DC:PendingState">Pendiente</label>
+
+  <!-- Planificacion de viaje -->
+  <label key="@DC:PlanDeckLabel">Planificacion de viaje</label>
+  <label key="@DC:Questionnaire">Cuestionario</label>
+  <label key="@DC:OriginVolume">Volumen de origen</label>
+  <label key="@DC:DestinationVolume">Volumen de destino</label>
+  <label key="@DC:HasRoute">Conecta mediante una serie de rutas</label>
+  <label key="@DC:RouteLength">Longitud de la ruta mas corta</label>
+  <label key="@DC:NoRoute">No se puede alcanzar mediante ninguna ruta</label>
+  <label key="@DC:KnowsDetails">Conoces 4+ detalles sobre el destino</label>
+  <label key="@DC:VisitedGuide">Has estado alli o viajas con alguien que ha estado</label>
+  <label key="@DC:SelectVolume">Selecciona un volumen</label>
+  <label key="@DC:JourneyName">Nombre del viaje</label>
+  <label key="@DC:JourneyNamePlaceholder">Ej: De Puerto Gris a Valle Hondo</label>
+  <label key="@DC:JourneySteps">Pasos de viaje</label>
+  <label key="@DC:CreateJourney">Crear viaje</label>
+  <label key="@DC:PlanReady">Listo para crear la carta de viaje.</label>
+  <label key="@DC:PlanPickOrigin">Selecciona un volumen de origen.</label>
+  <label key="@DC:PlanPickDestination">Selecciona un volumen de destino.</label>
+  <label key="@DC:PlanDistinct">Origen y destino deben ser volumenes distintos.</label>
+  <label key="@DC:ArrivalTo">Llegada a {dest}</label>
+  <label key="@DC:StepN">Paso {n}</label>
+  <label key="@DC:JourneyTo">Viaje a {dest}</label>
+  <label key="@DC:JourneyPlanDesc">Plan de viaje hacia {dest}.</label>
+
+  <!-- Carta Nota -->
+  <label key="@DC:NoteLabel">Nota</label>
+  <label key="@DC:NoteTitlePlaceholder">Titulo de la nota</label>
+  <label key="@DC:NewNote">Nueva nota</label>
+  <label key="@DC:FrontNotesPlaceholder">Escribe aqui las notas del frente.</label>
+  <label key="@DC:NoFrontNotesYet">Sin notas en el frente todavia.</label>
+  <label key="@DC:UnnamedVolume">Volumen sin nombre</label>
+
+  <!-- Modificadores automaticos de viaje (lista de la bandeja) -->
+  <label key="@DcMod:SequentialDay">Tercer dia o mas del viaje</label>
+  <label key="@DcMod:TackSpent">Tack gastado: {n}</label>
+  <label key="@DcMod:TackSpentRoll">Tack gastado en la tirada: +{n}</label>
+  <label key="@DcMod:BalancePos">Balance del viaje: {success} exitos y {failure} fracasos (+{n})</label>
+  <label key="@DcMod:BalanceNeg">Balance del viaje: {success} exitos y {failure} fracasos (-{n})</label>
+
+  <!-- Aria-labels varias -->
+  <label key="@Card:ToggleMarkAria">Alternar marca en {text}</label>
+  <label key="@Card:ResizeAria">Cambiar tamano de {title}</label>
+  <label key="@Dice:ModifierSignAria">Cambiar signo de {label}</label>
+  <label key="@Dice:ModifierRemoveAria">Quitar {label} de la lista</label>
+
+  <!-- Fase 5: textos generados por JS migrados a claves (fondo, mensajes, semillas de tarjetas) -->
+
+  <!-- @Card: fallbacks dinamicos en selectores y modificadores -->
+  <label key="@Card:Unnamed">Sin nombre</label>
+  <label key="@Card:HeroFallback">Heroe</label>
+  <label key="@Card:AdventureFallback">Aventura</label>
+  <label key="@Card:TrackingFallback">Tarjeta de estado</label>
+  <label key="@Card:StatFallback">Estadistica {n}</label>
+
+  <!-- @Msg: mensajes, confirmaciones y errores generados por JS -->
+  <label key="@Msg:BoardLoadFail">No se pudo recuperar el tablero guardado.</label>
+  <label key="@Msg:BgImageSaveFail">No se pudo guardar la imagen de fondo.</label>
+  <label key="@Msg:BgColorSaveFail">No se pudo guardar el color de fondo.</label>
+  <label key="@Msg:BoardSaveFail">No se pudo guardar el tablero en localStorage.</label>
+  <label key="@Msg:DefaultBoardName">tablero</label>
+  <label key="@Msg:ImportInvalidFile">El archivo no contiene un tablero valido.</label>
+  <label key="@Msg:DeleteMultiple">Eliminar {count} seleccionadas</label>
+  <label key="@Msg:DeleteMultipleConfirm">Vas a eliminar {count} tarjetas seleccionadas. Esta accion no se puede deshacer. Continuar?</label>
+  <label key="@Msg:DeleteSingleConfirm">Vas a eliminar la tarjeta seleccionada. Esta accion no se puede deshacer. Continuar?</label>
+  <label key="@Msg:DeleteGroupHint">Borra el grupo seleccionado con confirmacion.</label>
+  <label key="@Msg:DeleteCardHint">Borra la tarjeta activa con confirmacion.</label>
+  <label key="@Msg:ImageProcessFail">No se pudo procesar el tamano de la imagen seleccionada.</label>
+  <label key="@Msg:ImageReadFail">No se pudo leer la imagen seleccionada.</label>
+  <label key="@Msg:ImportBoardFail">No se pudo importar el tablero.</label>
+  <label key="@Msg:ImportJsonFail">No se pudo importar el archivo. Revisa que sea un JSON valido.</label>
+  <label key="@Msg:ResetConfirm">Vaciar el tablero? Esta accion no se puede deshacer.</label>
+
+  <!-- @Bg: estado de imagen y color de fondo personalizados -->
+  <label key="@Bg:ImageActive">Imagen personalizada activa</label>
+  <label key="@Bg:ImageNone">Sin imagen personalizada</label>
+  <label key="@Bg:ColorActive">Color personalizado: {hex}</label>
+  <label key="@Bg:ColorNone">Sin color personalizado</label>
+
+  <!-- @DC: claves de viaje pendientes -->
+  <label key="@DC:JourneyName">Viaje de {origin} a {destination}</label>
+  <label key="@DC:RouteHiddenHint">Un destino Oculto debe estar adyacente y conectado por una sola ruta, salvo que alguien ya haya estado alli.</label>
+  <label key="@DC:RouteShelteredHint">Un destino Resguardado debe conectar con el volumen actual mediante una serie de rutas.</label>
+  <label key="@DC:RouteKnownHint">Marca que conoces el destino, que ya has estado alli, o define como se alcanza.</label>
+
+  <!-- @Seed: datos semilla de tarjetas (valores iniciales al crearlas) -->
+  <label key="@Seed:VolumeSubtitle">Volumen</label>
+  <label key="@Seed:VolumeEntry1">Tema principal</label>
+  <label key="@Seed:VolumeEntry3">Terreno dominante</label>
+  <label key="@Seed:VolumeEntry5">Recurso abundante</label>
+  <label key="@Seed:VolumeEntry6">Recurso escaso</label>
+  <label key="@Seed:JourneyPlanSubtitle">Planificacion de viaje</label>
+  <label key="@Seed:EspadasHeroTitle">Heroe de Espadas &amp; Espectros</label>
+  <label key="@Seed:NewHeroTitle">Nuevo heroe</label>
+  <label key="@Seed:BackgroundPending">Trasfondo pendiente</label>
+  <label key="@Seed:SpecialAbilityPending">Habilidad especial pendiente</label>
+  <label key="@Seed:DCHeroTitle">Heroe de Downcrawl</label>
+  <label key="@Seed:NewPositiveTag">Nueva etiqueta positiva</label>
+  <label key="@Seed:NewNegativeTag">Nueva etiqueta negativa</label>
+  <label key="@Seed:NewThemeTitle">Nueva tarjeta</label>
+  <label key="@Seed:ThemeMission">Define aqui la mision de esta tarjeta.</label>
+  <label key="@Seed:NewCommunityTitle">Nueva comunidad</label>
+  <label key="@Seed:CommunityMission">Define aqui la mision de esta comunidad.</label>
+  <label key="@Seed:HeroSubtitle">Nombre del heroe</label>
+  <label key="@Seed:NewTrackingTitle">Nueva tarjeta de estado</label>
+  <label key="@Seed:TrackingSubtitle">Estado</label>
+  <label key="@Seed:EspadasHeroSubtitle">Ficha de heroe</label>
+  <label key="@Seed:DCHeroName">Nuevo heroe del Abajo</label>
+  <label key="@Seed:DCHeroJobTitle">Explorador de ecos y umbrales rotos</label>
+  <label key="@Seed:DCHeroAspect1">Viejos huesos</label>
+  <label key="@Seed:DCHeroAspect2">Libro de los suenos</label>
+  <label key="@Seed:DCHeroAspect3">Cantor de canciones</label>
+  <label key="@Seed:NewFolkDeckTitle">Nueva baraja de folk</label>
+  <label key="@Seed:FolkDeckBody">Usa esta zona para reunir folk que pertenezcan a una misma cultura, lugar o encuentro.</label>
+  <label key="@Seed:FolkDeckSummary">Contenedor visual para agrupar cartas Folk de forma libre.</label>
+  <label key="@Seed:FolkDeckSlot1">Presenta quienes son y como impactan primero.</label>
+  <label key="@Seed:FolkDeckSlot2">Agrupa relaciones, costumbres o tensiones internas.</label>
+  <label key="@Seed:FolkDeckSlot3">Reserva espacio para rumores, cambios o nuevas apariciones.</label>
+  <label key="@Seed:NewVolumeDeckTitle">Nueva baraja de volumenes</label>
+  <label key="@Seed:NewDiscardDeckTitle">Nueva baraja de descartes</label>
+  <label key="@Seed:NewStoryDeckTitle">Nueva baraja de historia</label>
+  <label key="@Seed:NewFolkTitle">Nuevo folk</label>
+  <label key="@Seed:FolkSummary">Resumen breve del pueblo o cultura.</label>
+  <label key="@Seed:FolkDetails">Anota un detalle nuevo cada vez que los encuentres.</label>
+  <label key="@Seed:FolkEntry1">Rasgo visible</label>
+  <label key="@Seed:FolkEntry3">Concepto clave</label>
+  <label key="@Seed:FolkEntry5">Reputacion local</label>
+  <label key="@Seed:NewVolumeTitle">Nuevo volume</label>
+  <label key="@Seed:VolumeDetails">Describe el area y lo que la hace distinta.</label>
+  <label key="@Seed:ThreatTitle">Amenaza</label>
+  <label key="@Seed:ThreatDescription">Describe aqui la amenaza.</label>
+  <label key="@Seed:UnexpectedVolumeTitle">Volumen inesperado</label>
+  <label key="@Seed:UnexpectedVolumeDetails">Describe el terreno mas reciente y anade aqui los detalles desconocidos.</label>
+  <label key="@Seed:EspadasAttrFUECopy">Pelear, atletismo, resistir.</label>
+  <label key="@Seed:EspadasAttrFUEState">Agotado</label>
+  <label key="@Seed:EspadasAttrDESCopy">Sigilo, punteria, esquivar.</label>
+  <label key="@Seed:EspadasAttrDESState">Aturdido</label>
+  <label key="@Seed:EspadasAttrVOLCopy">Magia, percibir, liderazgo.</label>
+  <label key="@Seed:EspadasAttrVOLState">Abrumado</label>
+  <label key="@DcMod:AdventureBalance">balance de hitos</label>
+  <label key="@Seed:ThemeKind">Tema</label>
+  <label key="@Seed:CommunityKind">Comunidad</label>
+  <label key="@Seed:ThemeBody">tag principal
+otro tag
+debilidad: pendiente</label>
+  <label key="@Seed:CommunityBody">rasgo principal
+otro rasgo
+debilidad: pendiente</label>
+  <label key="@Seed:HeroBody">objeto importante
+companero: pendiente
+promesa: pendiente</label>
+  <label key="@Seed:TrackingBody">nuevo estado</label>
+  <label key="@Seed:AdventureMilestone1">Inicio incierto</label>
+  <label key="@Seed:AdventureMilestone2">Complicacion mayor</label>
+  <label key="@Seed:AdventureMilestone3">Resolucion final</label>
+  <label key="@Seed:NewImageTitle">Nueva imagen</label>
+  <label key="@Seed:ImageSubtitle">Imagen</label>
+  <label key="@Seed:DCStatDefault1">Arrollador</label>
+  <label key="@Seed:DCStatDefault2">Preciso</label>
+  <label key="@Seed:DCStatDefault3">Llamativo</label>
+  <label key="@Seed:DCStatDefault4">Veloz</label>
+  <label key="@Board:DefaultName">Sesion actual</label>
+  <label key="@Dice:ModifierActivate">Activar</label>
+  <label key="@Dice:ModifierDeactivate">Desactivar</label>
+  <label key="@Seed:HeroTag">objeto importante</label>
+  <label key="@Seed:HeroRelation">pendiente</label>
+
+  <!-- @Start: pantalla de bienvenida al abrir una pestana nueva -->
+  <label key="@Start:Heading">CTTRPG-Engine</label>
+  <label key="@Start:Subtitle">Mesa visual para rol en solitario</label>
+  <label key="@Start:NewBoard">Nuevo tablero</label>
+  <label key="@Start:OpenJson">Abrir JSON...</label>
+  <label key="@Start:Recents">Tableros recientes</label>
+  <label key="@Start:NoRecents">Aun no hay tableros recientes</label>
+  <label key="@Start:NoBoards">La carpeta esta vacia. Crea un tablero nuevo.</label>
+  <label key="@Start:FolderGateHeading">Carpeta de tableros</label>
+  <label key="@Start:FolderGateText">Todos los tableros se guardan automaticamente como ficheros JSON en una carpeta de tu eleccion.</label>
+  <label key="@Start:FolderGateSelect">Seleccionar carpeta...</label>
+  <label key="@Start:FolderGateReconnect">Reconectar «{name}»</label>
+  <label key="@Start:NewBoardNamePrompt">Nombre del tablero:</label>
+  <label key="@Start:OpenInNewTab">Abrir en una pestaña nueva</label>
+  <label key="@Msg:FolderUnsupported">Esta funcion requiere Chrome o Edge. Usa Abrir JSON para importar tableros manualmente.</label>
+  <label key="@Msg:SaveFail">No se pudo guardar el tablero en los recientes. Se ha descargado a la carpeta de descargas.</label>
+  <label key="@Msg:RecentMissing">El archivo del tablero no esta disponible o se ha movido.</label>
+  <label key="@Msg:ConfirmDeleteRecent">¿Borrar este tablero de los recientes?</label>
+  <label key="@Msg:ConfirmDeleteBoard">¿Eliminar el fichero {name} de la carpeta? Esta accion no se puede deshacer.</label>
+  <label key="@Aria:DeleteRecent">Borrar de recientes</label>
+  <label key="@Aria:DeleteBoard">Eliminar fichero del tablero</label>
+
+  <!-- Duplicar nodos -->
+  <label key="@Msg:DuplicateSingle">Duplicar</label>
+  <label key="@Msg:DuplicateMultiple">Duplicar seleccion</label>
+  <label key="@Msg:DuplicateHint">Crea copias desplazadas 40 px.</label>
+  <label key="@Board:ContextDuplicate">Duplicar</label>
+
+  <!-- Token de jugador -->
+  <label key="@Create:PlayerToken">Token de jugador</label>
+  <label key="@Seed:NewPlayerToken">Token</label>
+  <label key="@Token:SelectedColorTitle">Colores del token</label>
+  <label key="@Token:HintNew">Colores para tokens nuevos</label>
+  <label key="@Token:HintSelected">Editando el token seleccionado</label>
+  <label key="@Token:FaceColor">Color de la cara</label>
+  <label key="@Token:FaceColorAria">Color de la cara</label>
+  <label key="@Token:GlyphColor">Color del símbolo</label>
+  <label key="@Token:GlyphColorAria">Color del símbolo</label>
+  <label key="@Token:CrossColor">Color de la cruz</label>
+  <label key="@Token:CrossColorAria">Color de la cruz</label>
+  <label key="@Token:ChipFace">Cara</label>
+  <label key="@Token:ChipGlyph">Símbolo</label>
+  <label key="@Token:ChipCross">Cruz</label>
+  <label key="@Token:FlipAria">Voltear token</label>
+
+</labels>
